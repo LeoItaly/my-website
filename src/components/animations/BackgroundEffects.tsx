@@ -10,8 +10,25 @@ const BackgroundEffects: React.FC<BackgroundEffectsProps> = ({
   starsCount = 100,
   meteorsCount = 5,
 }) => {
-  const [stars, setStars] = useState<any[]>([]);
-  const [meteors, setMeteors] = useState<any[]>([]);
+  interface Star {
+    id: number;
+    top: string;
+    left: string;
+    size: string;
+    delay: string;
+  }
+
+  interface Meteor {
+    id: number;
+    top: string;
+    left: string;
+    size: string;
+    duration: string;
+    delay: string;
+  }
+
+  const [stars, setStars] = useState<Star[]>([]);
+  const [meteors, setMeteors] = useState<Meteor[]>([]);
 
   useEffect(() => {
     setStars(generateStars(starsCount));
