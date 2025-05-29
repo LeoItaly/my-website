@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/layout/Navbar';
 import BackgroundEffects from './components/animations/BackgroundEffects';
