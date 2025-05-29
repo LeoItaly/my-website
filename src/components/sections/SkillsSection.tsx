@@ -63,180 +63,84 @@ const SkillsSection: React.FC = () => {
   ];
 
   const skills = [
-    // AI/ML Skills
+    // Core AI/ML Skills
     {
-      name: "Python",
-      level: 95,
+      name: "Computer Vision & Deep Learning",
+      level: 94,
       category: "ai-ml",
-      color: "from-yellow-400 to-yellow-600",
-      description: "Primary language for AI/ML development",
+      color: "from-purple-400 to-blue-500",
+      description:
+        "CNNs, object detection, segmentation, medical imaging, transfer learning, explainable AI, and adversarial attacks",
     },
     {
-      name: "TensorFlow",
-      level: 90,
-      category: "ai-ml",
-      color: "from-orange-400 to-red-500",
-      description: "Deep learning framework",
-    },
-    {
-      name: "PyTorch",
-      level: 85,
+      name: "Deep Learning & Generative AI",
+      level: 92,
       category: "ai-ml",
       color: "from-red-400 to-pink-500",
-      description: "Research-focused ML framework",
+      description:
+        "PyTorch, TensorFlow, DDPMs, GANs, Transformers, CNNs, and advanced neural architectures",
     },
     {
-      name: "Scikit-learn",
-      level: 88,
-      category: "ai-ml",
-      color: "from-blue-400 to-indigo-500",
-      description: "Machine learning library",
-    },
-    {
-      name: "OpenCV",
-      level: 80,
+      name: "Image Processing & Analysis",
+      level: 85,
       category: "ai-ml",
       color: "from-green-400 to-teal-500",
-      description: "Computer vision library",
-    },
-    {
-      name: "Hugging Face",
-      level: 75,
-      category: "ai-ml",
-      color: "from-purple-400 to-pink-500",
-      description: "NLP transformers library",
+      description:
+        "OpenCV, filtering, morphology, BLOB analysis, registration, and camera calibration",
     },
 
-    // Programming Skills
+    // Programming & Development
     {
-      name: "JavaScript",
-      level: 92,
+      name: "Multi-Language Scientific Computing",
+      level: 95,
       category: "programming",
       color: "from-yellow-400 to-orange-500",
-      description: "Web development language",
+      description:
+        "Python, JavaScript, WebGL/GLSL, NumPy, scientific algorithms, and cross-platform development",
     },
     {
-      name: "TypeScript",
-      level: 88,
-      category: "programming",
-      color: "from-blue-400 to-blue-600",
-      description: "Typed JavaScript",
-    },
-    {
-      name: "React",
-      level: 90,
+      name: "Web Development & Graphics Programming",
+      level: 92,
       category: "programming",
       color: "from-cyan-400 to-blue-500",
-      description: "Frontend framework",
-    },
-    {
-      name: "Node.js",
-      level: 85,
-      category: "programming",
-      color: "from-green-400 to-green-600",
-      description: "Backend JavaScript runtime",
-    },
-    {
-      name: "Java",
-      level: 80,
-      category: "programming",
-      color: "from-red-400 to-orange-500",
-      description: "Enterprise programming language",
-    },
-    {
-      name: "C++",
-      level: 75,
-      category: "programming",
-      color: "from-purple-400 to-blue-500",
-      description: "System programming language",
+      description:
+        "React, TypeScript, WebGL, GLSL shaders, real-time rendering, and interactive 3D applications",
     },
 
-    // Data Science Skills
+    // Data Science & Analysis
     {
-      name: "Pandas",
-      level: 93,
+      name: "Machine Learning & Statistical Methods",
+      level: 90,
       category: "data",
       color: "from-blue-400 to-purple-500",
-      description: "Data manipulation library",
+      description:
+        "Regression, classification, Bayesian inference, reinforcement learning, and statistical validation",
     },
     {
-      name: "NumPy",
-      level: 90,
+      name: "UX Design & Human-Computer Interaction",
+      level: 85,
+      category: "data",
+      color: "from-pink-400 to-purple-500",
+      description:
+        "User research, prototyping, usability testing, design thinking, lean UX methodology, and biometric interfaces",
+    },
+    {
+      name: "Data Processing & Visualization",
+      level: 92,
       category: "data",
       color: "from-indigo-400 to-blue-500",
-      description: "Numerical computing library",
-    },
-    {
-      name: "Matplotlib",
-      level: 85,
-      category: "data",
-      color: "from-green-400 to-blue-500",
-      description: "Data visualization library",
-    },
-    {
-      name: "Seaborn",
-      level: 82,
-      category: "data",
-      color: "from-teal-400 to-cyan-500",
-      description: "Statistical data visualization",
-    },
-    {
-      name: "SQL",
-      level: 88,
-      category: "data",
-      color: "from-orange-400 to-red-500",
-      description: "Database query language",
-    },
-    {
-      name: "R",
-      level: 70,
-      category: "data",
-      color: "from-blue-400 to-indigo-600",
-      description: "Statistical programming language",
+      description:
+        "Pandas, matplotlib, 3D visualization, geometric data analysis, and computer graphics rendering",
     },
 
-    // Tools & Frameworks
+    // Tools & Research
     {
-      name: "Docker",
-      level: 83,
-      category: "tools",
-      color: "from-blue-400 to-cyan-500",
-      description: "Containerization platform",
-    },
-    {
-      name: "Git",
-      level: 92,
-      category: "tools",
-      color: "from-orange-400 to-red-500",
-      description: "Version control system",
-    },
-    {
-      name: "AWS",
+      name: "Research & Academic Tools",
       level: 78,
       category: "tools",
-      color: "from-yellow-400 to-orange-500",
-      description: "Cloud computing platform",
-    },
-    {
-      name: "MongoDB",
-      level: 80,
-      category: "tools",
-      color: "from-green-400 to-teal-500",
-      description: "NoSQL database",
-    },
-    {
-      name: "PostgreSQL",
-      level: 85,
-      category: "tools",
-      color: "from-blue-400 to-indigo-500",
-      description: "Relational database",
-    },
-    {
-      name: "Jupyter",
-      level: 90,
-      category: "tools",
-      color: "from-orange-400 to-yellow-500",
-      description: "Interactive development environment",
+      color: "from-purple-400 to-pink-500",
+      description:
+        "Zotero, Elicit, Litmaps, Jenni AI for research acceleration and paper management",
     },
   ];
 
