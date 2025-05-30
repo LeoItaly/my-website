@@ -1,7 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { GraduationCap, Award, BookOpen, Target, Code, TrendingUp } from 'lucide-react';
+import { 
+  GraduationCap, 
+  BookOpen, 
+  Code, 
+  FileText, 
+  TrendingUp, 
+  Github, 
+  Linkedin, 
+  ExternalLink,
+  Brain,
+  Globe,
+  Palette
+} from 'lucide-react';
 
 const AboutSection: React.FC = () => {
   const [ref, inView] = useInView({
@@ -33,34 +45,58 @@ const AboutSection: React.FC = () => {
   };
 
   const stats = [
-    { icon: GraduationCap, label: 'Years in AI/ML', value: '3+', color: 'text-purple-400' },
-    { icon: Code, label: 'Projects Completed', value: '25+', color: 'text-blue-400' },
-    { icon: Award, label: 'Certifications', value: '8+', color: 'text-green-400' },
-    { icon: BookOpen, label: 'Research Papers', value: '5+', color: 'text-pink-400' },
+    { icon: GraduationCap, label: 'MSc Program', value: 'DTU', color: 'text-purple-400' },
+    { icon: Code, label: 'University Projects', value: '11+', color: 'text-blue-400' },
+    { icon: FileText, label: 'Research Papers', value: '8+', color: 'text-green-400' },
+    { icon: Github, label: 'Active Repos', value: '15+', color: 'text-pink-400' },
   ];
 
-  const journey = [
+  const researchAreas = [
     {
-      year: '2023-Present',
-      title: 'Master\'s in AI/ML',
-      description: 'Advanced studies in machine learning, deep learning, and artificial intelligence.',
-      icon: GraduationCap,
+      icon: Brain,
+      title: 'Computer Vision & Deep Learning',
+      description: 'Face recognition, medical imaging, object detection, and generative models',
       color: 'from-purple-500 to-blue-500'
     },
     {
-      year: '2022-2023',
-      title: 'AI Research Intern',
-      description: 'Contributed to cutting-edge research in neural networks and computer vision.',
-      icon: Target,
+      icon: Globe,
+      title: 'Web Development & Graphics',
+      description: 'Interactive visualizations, WebGL applications, and full-stack development',
       color: 'from-blue-500 to-green-500'
     },
     {
-      year: '2021-2022',
-      title: 'Full-Stack Developer',
-      description: 'Built scalable web applications with modern technologies and frameworks.',
-      icon: Code,
+      icon: Palette,
+      title: 'Human-Computer Interaction',
+      description: 'UX design, personal informatics, and mobile application development',
       color: 'from-green-500 to-purple-500'
     },
+  ];
+
+  const profileLinks = [
+    {
+      name: 'GitHub Profile',
+      icon: Github,
+      url: 'https://github.com/LeoItaly',
+      description: 'Explore my code repositories and open-source contributions',
+      color: 'from-gray-700 to-gray-900',
+      hoverColor: 'hover:from-gray-600 hover:to-gray-800'
+    },
+    {
+      name: 'Research Papers',
+      icon: FileText,
+      url: '/papers', // This will be your papers page
+      description: 'Read my published research papers and academic posters',
+      color: 'from-green-600 to-teal-600',
+      hoverColor: 'hover:from-teal-600 hover:to-green-600'
+    },
+    {
+      name: 'LinkedIn Profile',
+      icon: Linkedin,
+      url: 'https://www.linkedin.com/in/leonardo-rodovero/?originalSubdomain=dk',
+      description: 'Connect with me and follow my professional journey',
+      color: 'from-blue-600 to-indigo-600',
+      hoverColor: 'hover:from-indigo-600 hover:to-blue-600'
+    }
   ];
 
   return (
@@ -84,21 +120,24 @@ const AboutSection: React.FC = () => {
             variants={itemVariants}
             className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6"
           >
-            Shaping the Future with AI
+            Building Human-Centered AI
           </motion.h2>
           
           <motion.p
             variants={itemVariants}
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
           >
-            I'm passionate about leveraging artificial intelligence to solve real-world problems. 
-            Currently pursuing my Master's degree, I combine academic rigor with practical 
-            experience to push the boundaries of what's possible.
+            I'm a <strong className="text-white">DTU Master's student</strong> in{' '}
+            <strong className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              Human-Centered Artificial Intelligence
+            </strong>
+            , exploring the intersection of advanced AI techniques and human-centric design. 
+            My journey spans from computer vision and deep learning to web development and UX research.
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Personal story */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left side - Academic Journey & Stats */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -109,20 +148,32 @@ const AboutSection: React.FC = () => {
               variants={itemVariants}
               className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
             >
-              <h3 className="text-2xl font-bold text-white mb-4">My Journey</h3>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                  <GraduationCap className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Academic Journey</h3>
+                  <p className="text-purple-300">DTU - Technical University of Denmark</p>
+                </div>
+              </div>
+              
               <p className="text-gray-300 leading-relaxed mb-6">
-                My fascination with AI began during my undergraduate studies when I realized 
-                the transformative potential of machine learning. Since then, I've been on 
-                a mission to master this field and contribute to the AI revolution.
+                During my Master's program in <strong className="text-white">Human-Centered AI</strong>, 
+                I've explored diverse domains from computer vision and medical imaging to interactive 
+                web applications and user experience design. Each project represents university-level 
+                research and development, combining theoretical knowledge with practical implementation.
               </p>
+              
               <p className="text-gray-300 leading-relaxed">
-                From developing neural networks that can recognize patterns in complex datasets 
-                to building full-stack applications that integrate AI capabilities, I'm constantly 
-                exploring new frontiers in technology.
+                My work spans <strong className="text-blue-300">11+ comprehensive projects</strong> covering 
+                facial recognition systems, deep learning models, data visualization, mobile applications, 
+                and 3D graphics programming. You can explore the full range of my technical capabilities 
+                in the projects section below.
               </p>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats Grid */}
             <motion.div
               variants={itemVariants}
               className="grid grid-cols-2 gap-4"
@@ -146,7 +197,7 @@ const AboutSection: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Timeline */}
+          {/* Right side - Research Areas */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -157,48 +208,87 @@ const AboutSection: React.FC = () => {
               variants={itemVariants}
               className="text-2xl font-bold text-white mb-8 text-center lg:text-left"
             >
-              Professional Timeline
+              Research & Development Areas
             </motion.h3>
             
-            {journey.map((item, index) => (
+            {researchAreas.map((area, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
                 className="relative"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="relative">
+                <motion.div
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-300 group"
+                  whileHover={{ x: 10, scale: 1.02 }}
+                >
+                  <div className="flex items-start space-x-4">
                     <motion.div
-                      className={`w-12 h-12 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center border-2 border-white/20`}
-                      whileHover={{ scale: 1.1, rotate: 360 }}
-                      transition={{ duration: 0.3 }}
+                      className={`w-12 h-12 rounded-full bg-gradient-to-r ${area.color} flex items-center justify-center border-2 border-white/20 group-hover:scale-110 transition-transform duration-300`}
                     >
-                      <item.icon className="w-6 h-6 text-white" />
+                      <area.icon className="w-6 h-6 text-white" />
                     </motion.div>
-                    {index < journey.length - 1 && (
-                      <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-white/30 to-transparent" />
-                    )}
-                  </div>
-                  
-                  <motion.div
-                    className="flex-1 bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="text-sm text-purple-400 font-semibold mb-1">
-                      {item.year}
+                    
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                        {area.title}
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed">
+                        {area.description}
+                      </p>
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-300">
-                      {item.description}
-                    </p>
-                  </motion.div>
-                </div>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>
         </div>
+
+        {/* Profile Links Section */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="mt-16"
+        >
+          <motion.h3
+            variants={itemVariants}
+            className="text-2xl font-bold text-white text-center mb-8"
+          >
+            Connect & Explore
+          </motion.h3>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {profileLinks.map((link) => (
+              <motion.a
+                key={link.name}
+                href={link.url}
+                target={link.url.startsWith('http') ? '_blank' : '_self'}
+                rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                variants={itemVariants}
+                className={`group block bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300`}
+                whileHover={{ y: -5, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="text-center">
+                  <motion.div
+                    className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${link.color} ${link.hoverColor} flex items-center justify-center group-hover:scale-110 transition-all duration-300`}
+                  >
+                    <link.icon className="w-8 h-8 text-white" />
+                  </motion.div>
+                  
+                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300 flex items-center justify-center gap-2">
+                    {link.name}
+                    <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </h4>
+                  
+                  <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    {link.description}
+                  </p>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div
@@ -214,7 +304,7 @@ const AboutSection: React.FC = () => {
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <BookOpen className="w-5 h-5 mr-2" />
-            Explore My Work
+            Explore My University Projects
           </motion.button>
         </motion.div>
       </div>
@@ -229,6 +319,18 @@ const AboutSection: React.FC = () => {
           }}
           transition={{
             duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 left-0 w-80 h-80 bg-gradient-to-r from-blue-500/5 to-green-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut"
           }}
