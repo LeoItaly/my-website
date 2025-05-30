@@ -8,44 +8,54 @@ import {
   Brain,
   Zap,
   Atom,
+  Code,
+  Globe,
+  Layers,
 } from "lucide-react";
 
 const HeroSection: React.FC = () => {
   const [text, setText] = useState("");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [isConstellationInteractive, setIsConstellationInteractive] = useState(false);
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+
   const roles = [
     {
       title: "AI/ML Engineer",
       icon: Brain,
       color: "from-purple-400 to-blue-400",
-      description:
-        "Building intelligent systems and machine learning solutions",
+      description: "Building intelligent systems and machine learning solutions",
+      techs: ["python", "pytorch", "tensorflow", "opencv"],
     },
     {
       title: "Data Scientist",
       icon: Database,
       color: "from-blue-400 to-green-400",
       description: "Transforming data into actionable insights",
+      techs: ["python", "pytorch", "tensorflow", "javascript"],
     },
     {
       title: "Full-Stack Developer",
       icon: Cpu,
       color: "from-green-400 to-yellow-400",
       description: "Creating seamless web experiences",
+      techs: ["react", "typescript", "javascript", "nodejs"],
     },
     {
       title: "Research Enthusiast",
       icon: Atom,
       color: "from-yellow-400 to-pink-400",
       description: "Exploring cutting-edge technologies",
+      techs: ["python", "opencv", "pytorch", "react"],
     },
     {
       title: "Innovation Pioneer",
       icon: Zap,
       color: "from-pink-400 to-purple-400",
       description: "Pushing boundaries in tech",
+      techs: ["aws", "mongodb", "nodejs", "typescript"],
     },
   ];
+
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -56,10 +66,89 @@ const HeroSection: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  // Parallax effects
+  const techLogos = [
+    {
+      name: "python",
+      level: 95,
+      logo: "src/assets/tech-logos/python.svg",
+      fallbackIcon: Code,
+      color: "text-yellow-400",
+    },
+    {
+      name: "pytorch",
+      level: 88,
+      logo: "src/assets/tech-logos/pytorch.svg",
+      fallbackIcon: Brain,
+      color: "text-orange-400",
+    },
+    {
+      name: "react",
+      level: 90,
+      logo: "src/assets/tech-logos/react.svg",
+      fallbackIcon: Atom,
+      color: "text-cyan-400",
+    },
+    {
+      name: "typescript",
+      level: 88,
+      logo: "src/assets/tech-logos/typescript.svg",
+      fallbackIcon: Code,
+      color: "text-blue-400",
+    },
+    {
+      name: "javascript",
+      level: 92,
+      logo: "src/assets/tech-logos/javascript.svg",
+      fallbackIcon: Code,
+      color: "text-yellow-300",
+    },
+    {
+      name: "opencv",
+      level: 80,
+      logo: "src/assets/tech-logos/opencv.svg",
+      fallbackIcon: Database,
+      color: "text-green-400",
+    },
+    {
+      name: "tensorflow",
+      level: 85,
+      logo: "src/assets/tech-logos/tensorflow.svg",
+      fallbackIcon: Brain,
+      color: "text-orange-500",
+    },
+    {
+      name: "nodejs",
+      level: 85,
+      logo: "src/assets/tech-logos/nodejs.svg",
+      fallbackIcon: Layers,
+      color: "text-green-500",
+    },
+    {
+      name: "mongodb",
+      level: 80,
+      logo: "src/assets/tech-logos/mongodb.svg",
+      fallbackIcon: Database,
+      color: "text-green-600",
+    },
+    {
+      name: "aws",
+      level: 78,
+      logo: "src/assets/tech-logos/aws.svg",
+      fallbackIcon: Globe,
+      color: "text-orange-400",
+    },
+  ];
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsConstellationInteractive(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const typeSpeed = isDeleting ? 50 : 150;
@@ -105,55 +194,27 @@ const HeroSection: React.FC = () => {
   };
 
   const itemVariants = {
-    hidden: { y: 60, opacity: 0, rotateX: -15 },
+    hidden: { y: 60, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      rotateX: 0,
       transition: {
         duration: 1,
-        ease: [0.25, 0.25, 0.25, 0.75],
+        ease: "easeOut",
       },
     },
   };
 
-  const techIcons = [
-    {
-      icon: Brain,
-      color: "text-purple-400",
-      bg: "bg-purple-500/20",
-      delay: 0,
-      name: "AI/ML",
-    },
-    {
-      icon: Cpu,
-      color: "text-blue-400",
-      bg: "bg-blue-500/20",
-      delay: 0.2,
-      name: "Computing",
-    },
-    {
-      icon: Database,
-      color: "text-green-400",
-      bg: "bg-green-500/20",
-      delay: 0.4,
-      name: "Data",
-    },
-    {
-      icon: Zap,
-      color: "text-yellow-400",
-      bg: "bg-yellow-500/20",
-      delay: 0.6,
-      name: "Innovation",
-    },
-    {
-      icon: Atom,
-      color: "text-pink-400",
-      bg: "bg-pink-500/20",
-      delay: 0.8,
-      name: "Research",
-    },
-  ];
+  const calculateTechPosition = (index: number, time: number) => {
+    const baseRadius = 150; // Reduced radius for tighter orbit
+    const angle = (index / techLogos.length) * Math.PI * 2 + time * 0.1; // Slower speed for smoothness
+    return {
+      x: Math.cos(angle) * baseRadius,
+      y: Math.sin(angle) * baseRadius,
+    };
+  };
+
+  const currentRoleTechs = roles[roleIndex].techs;
 
   return (
     <section
@@ -171,56 +232,49 @@ const HeroSection: React.FC = () => {
           animate="visible"
           className="relative"
         >
-          {/* Enhanced Greeting with glassmorphism */}
+          {/* Greeting */}
           <motion.div variants={itemVariants} className="mb-8">
             <motion.span
-              className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-purple-500/50 text-purple-200 font-medium shadow-2xl"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
-              }}
+              className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-purple-500/50 text-purple-200 font-medium shadow-lg"
               animate={{
                 boxShadow: [
-                  "0 10px 30px -12px rgba(139, 92, 246, 0.3)",
-                  "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
-                  "0 10px 30px -12px rgba(139, 92, 246, 0.3)",
+                  "0 10px 20px -5px rgba(139, 92, 246, 0.3)",
+                  "0 15px 30px -5px rgba(139, 92, 246, 0.5)",
+                  "0 10px 20px -5px rgba(139, 92, 246, 0.3)",
                 ],
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              whileHover={{ scale: 1.05 }}
             >
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               >
-                <Sparkles className="w-5 h-5 mr-3" />
+                <Sparkles className="w-5 h-5 mr-3 text-purple-400" />
               </motion.div>
               Welcome to the AI Revolution
             </motion.span>
           </motion.div>
 
-          {/* Enhanced Main heading with 3D text effect */}
+          {/* Main heading */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
-            style={{
-              textShadow:
-                "0 0 80px rgba(139, 92, 246, 0.5), 0 0 160px rgba(59, 130, 246, 0.3)",
-            }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
           >
             <motion.span
               className="block text-white mb-4"
               animate={{
                 textShadow: [
-                  "0 0 80px rgba(139, 92, 246, 0.5)",
-                  "0 0 120px rgba(139, 92, 246, 0.8)",
-                  "0 0 80px rgba(139, 92, 246, 0.5)",
+                  "0 0 20px rgba(139, 92, 246, 0.5)",
+                  "0 0 30px rgba(139, 92, 246, 0.7)",
+                  "0 0 20px rgba(139, 92, 246, 0.5)",
                 ],
               }}
-              transition={{ duration: 4, repeat: Infinity }}
+              transition={{ duration: 3, repeat: Infinity }}
             >
               Hi, I'm{" "}
               <motion.span
-                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent relative"
+                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
                 animate={{
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
@@ -228,27 +282,11 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 Your Name
-                <motion.div
-                  className="absolute -inset-2 bg-gradient-to-r from-purple-400/20 to-blue-400/20 blur-xl rounded-lg"
-                  animate={{
-                    opacity: [0.3, 0.8, 0.3],
-                    scale: [0.8, 1.1, 0.8],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
               </motion.span>
             </motion.span>
 
             <motion.span
-              className="block text-3xl md:text-5xl lg:text-6xl text-gray-200"
-              animate={{
-                filter: [
-                  "drop-shadow(0 0 20px rgba(16, 185, 129, 0.5))",
-                  "drop-shadow(0 0 40px rgba(16, 185, 129, 0.8))",
-                  "drop-shadow(0 0 20px rgba(16, 185, 129, 0.5))",
-                ],
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
+              className="block text-2xl md:text-4xl lg:text-5xl text-gray-200"
             >
               I'm a{" "}
               <span className="relative inline-block">
@@ -264,16 +302,14 @@ const HeroSection: React.FC = () => {
                 </motion.span>
                 <motion.span
                   className="absolute -right-1 top-0 w-1 h-full bg-gradient-to-b from-purple-400 to-blue-400 rounded-full"
-                  animate={{
-                    opacity: [0, 1, 0],
-                    scaleY: [0.8, 1.2, 0.8],
-                  }}
+                  animate={{ opacity: [0, 1, 0] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 />
               </span>
             </motion.span>
+
             <motion.p
-              className="text-lg md:text-xl text-gray-300 mt-4"
+              className="text-base md:text-lg text-gray-300 mt-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -282,286 +318,240 @@ const HeroSection: React.FC = () => {
             </motion.p>
           </motion.h1>
 
-          {/* Enhanced Description with glassmorphism */}
-          <motion.div variants={itemVariants} className="relative mb-12">
-            <motion.p
-              className="text-xl md:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed font-light backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-white/10"
-              whileHover={{
-                scale: 1.02,
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              }}
-              style={{
-                boxShadow:
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 25px 50px rgba(0, 0, 0, 0.15)",
-              }}
-            >
-              Passionate about transforming data into intelligent solutions.
-              Currently pursuing my Master's in AI/ML, building the future one
-              algorithm at a time.
-              <motion.span
-                className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-xl rounded-2xl"
-                animate={{
-                  opacity: [0, 0.3, 0],
-                  scale: [0.95, 1.05, 0.95],
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-              />
-            </motion.p>
-          </motion.div>
-
-          {/* Enhanced 3D Tech icons with orbital animation */}
-          <motion.div
-            variants={itemVariants}
-            className="relative mb-16 h-64 flex items-center justify-center"
+          {/* 2D Tech Constellation with DTU Center */}
+          <div
+            className="relative h-[400px] mb-12"
+            onMouseEnter={() => setIsConstellationInteractive(true)}
           >
-            <div className="relative w-80 h-80">
-              {techIcons.map(
-                ({ icon: Icon, color, bg, delay, name }, index) => {
-                  const angle = (index / techIcons.length) * 2 * Math.PI;
-                  const radius = 120;
+            <div className="absolute inset-0 flex items-center justify-center">
+              {/* DTU Logo Centerpiece */}
+              <motion.div
+                className="absolute z-20"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1, delay: 1 }}
+                whileHover={{ scale: 1.1 }}
+              >
+                <div className="relative group">
+                  <motion.div
+                    className="w-20 h-20 rounded-full bg-gradient-to-br from-red-500/20 to-white/30 backdrop-blur-xl border-2 border-red-500/40 shadow-lg flex items-center justify-center"
+                    animate={{
+                      boxShadow: [
+                        "0 0 20px rgba(239, 68, 68, 0.3)",
+                        "0 0 30px rgba(239, 68, 68, 0.5)",
+                        "0 0 20px rgba(239, 68, 68, 0.3)",
+                      ],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <img
+                      src="src/assets/tech-logos/dtu-logo.svg"
+                      alt="DTU"
+                      className="w-12 h-12 object-contain"
+                    />
+                  </motion.div>
+                  <motion.div
+                    className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                  >
+                    DTU - Technical University of Denmark
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/80" />
+                  </motion.div>
+                </div>
+              </motion.div>
 
-                  return (
+              {/* Tech Logos Orbit */}
+              {techLogos.map((tech, index) => {
+                const time = Date.now() * 0.001;
+                const position = calculateTechPosition(index, time);
+                const isRelevant = currentRoleTechs.includes(tech.name);
+
+                return (
+                  <motion.div
+                    key={tech.name}
+                    className="absolute cursor-pointer group"
+                    initial={{ scale: 0, x: 0, y: 0 }}
+                    animate={{
+                      x: position.x,
+                      y: position.y,
+                      scale: isRelevant ? 1 : 0.8,
+                    }}
+                    transition={{
+                      scale: { duration: 0.8, delay: index * 0.1 },
+                      x: { duration: 20, repeat: Infinity, ease: "linear" },
+                      y: { duration: 20, repeat: Infinity, ease: "linear" },
+                    }}
+                    whileHover={{ scale: isRelevant ? 1.2 : 1 }}
+                    onMouseEnter={() => setHoveredTech(tech.name)}
+                    onMouseLeave={() => setHoveredTech(null)}
+                  >
                     <motion.div
-                      key={index}
-                      className="absolute"
-                      style={{
-                        left: "50%",
-                        top: "50%",
-                      }}
-                      animate={{
-                        x: Math.cos(angle) * radius,
-                        y: Math.sin(angle) * radius,
-                        rotate: [0, 360],
-                      }}
-                      transition={{
-                        rotate: {
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear",
-                        },
-                        x: {
-                          duration: 15,
-                          repeat: Infinity,
-                          ease: "linear",
-                        },
-                        y: {
-                          duration: 15,
-                          repeat: Infinity,
-                          ease: "linear",
-                        },
-                      }}
+                      className={`w-16 h-16 rounded-lg backdrop-blur-sm border transition-all duration-300 ${
+                        isRelevant
+                          ? "bg-white/20 border-white/40 shadow-md"
+                          : "bg-white/10 border-white/20"
+                      } ${hoveredTech === tech.name ? "bg-white/30 border-white/50" : ""}`}
                     >
-                      <motion.div
-                        className={`${color} ${bg} p-6 rounded-2xl backdrop-blur-xl border border-white/20 group cursor-pointer`}
-                        whileHover={{
-                          scale: 1.3,
-                          rotateY: 180,
-                          boxShadow:
-                            "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
-                        }}
-                        animate={{
-                          y: [0, -20, 0],
-                          boxShadow: [
-                            "0 10px 30px -12px rgba(139, 92, 246, 0.2)",
-                            "0 25px 50px -12px rgba(139, 92, 246, 0.4)",
-                            "0 10px 30px -12px rgba(139, 92, 246, 0.2)",
-                          ],
-                        }}
-                        transition={{
-                          y: {
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: delay,
-                            ease: "easeInOut",
-                          },
-                          boxShadow: {
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: delay,
-                          },
-                        }}
-                      >
-                        <Icon className="w-8 h-8" />
-                        <motion.div
-                          className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl"
-                          animate={{
-                            opacity: [0, 0.5, 0],
-                            scale: [0.8, 1.2, 0.8],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: delay,
+                      <div className="w-full h-full flex items-center justify-center p-3">
+                        <img
+                          src={tech.logo}
+                          alt={tech.name}
+                          className="w-full h-full object-contain"
+                          style={{
+                            filter: isRelevant
+                              ? "brightness(1.2) saturate(1.2)"
+                              : "brightness(0.8) saturate(0.8)",
                           }}
                         />
-                        {/* Tooltip */}
                         <motion.div
-                          className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-                          initial={{ opacity: 0, y: 10 }}
-                          whileHover={{ opacity: 1, y: 0 }}
+                          className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-semibold"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: isRelevant ? 1 : 0.8 }}
+                          transition={{ duration: 0.3 }}
                         >
-                          {name}
+                          {tech.level}
                         </motion.div>
-                      </motion.div>
+                      </div>
                     </motion.div>
-                  );
-                }
-              )}
+                    <motion.div
+                      className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                    >
+                      <div className="text-center">
+                        <div className="font-medium">{tech.name}</div>
+                        <div>Proficiency: {tech.level}%</div>
+                      </div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/80" />
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
             </div>
-          </motion.div>
 
-          {/* Enhanced CTA Buttons with 3D effects */}
+            {/* Simplified constellation connections */}
+            <svg className="absolute inset-0 pointer-events-none opacity-30">
+              {isConstellationInteractive &&
+                techLogos.map((tech, index) => {
+                  if (!currentRoleTechs.includes(tech.name)) return null;
+                  const time = Date.now() * 0.001;
+                  const pos1 = calculateTechPosition(index, time);
+
+                  return currentRoleTechs.map((relevantTech, idx) => {
+                    const techIndex = techLogos.findIndex((t) => t.name === relevantTech);
+                    if (techIndex <= index) return null;
+                    const pos2 = calculateTechPosition(techIndex, time);
+
+                    return (
+                      <motion.line
+                        key={`${index}-${techIndex}`}
+                        x1={pos1.x + 250}
+                        y1={pos1.y + 250}
+                        x2={pos2.x + 250}
+                        y2={pos2.y + 250}
+                        stroke="url(#constellation-gradient)"
+                        strokeWidth="1"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.5 }}
+                        transition={{ duration: 1, delay: index * 0.1 }}
+                      />
+                    );
+                  }).filter(Boolean);
+                })}
+              <defs>
+                <linearGradient id="constellation-gradient">
+                  <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            {!isConstellationInteractive && (
+              <motion.div
+                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-gray-400 text-xs"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                Hover to interact with technologies
+              </motion.div>
+            )}
+          </div>
+
+          {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row justify-center gap-6 mb-20"
+            className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
           >
             <motion.button
-              className="group relative px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-bold rounded-2xl overflow-hidden backdrop-blur-xl border border-white/20"
-              whileHover={{
-                scale: 1.05,
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.8)",
-              }}
+              className="relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg border border-white/20"
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px -5px rgba(139, 92, 246, 0.5)" }}
               whileTap={{ scale: 0.95 }}
               onClick={() =>
-                document
-                  .getElementById("projects")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
               }
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              style={{ backgroundSize: "200% auto" }}
-              transition={{ duration: 3, repeat: Infinity }}
             >
-              <span className="relative z-10 text-lg">View My Projects</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.5 }}
-              />
-              <motion.div
-                className="absolute inset-0 bg-white/20"
-                animate={{
-                  x: ["-100%", "100%"],
-                  opacity: [0, 0.5, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              View My Projects
             </motion.button>
 
             <motion.button
-              className="group relative px-10 py-5 border-2 border-purple-400 text-purple-300 font-bold rounded-2xl backdrop-blur-xl bg-white/5 overflow-hidden"
+              className="relative px-8 py-4 border border-purple-400 text-purple-300 font-semibold rounded-lg bg-white/5"
               whileHover={{
                 scale: 1.05,
-                backgroundColor: "rgba(139, 92, 246, 0.2)",
-                borderColor: "rgba(139, 92, 246, 0.8)",
+                backgroundColor: "rgba(139, 92, 246, 0.1)",
+                borderColor: "rgba(139, 92, 246, 0.7)",
                 color: "#ffffff",
-                rotateY: -5,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
               }}
               whileTap={{ scale: 0.95 }}
               onClick={() =>
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              <span className="relative z-10 text-lg">Get In Touch</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20"
-                initial={{ scale: 0, opacity: 0 }}
-                whileHover={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
+              Get In Touch
             </motion.button>
           </motion.div>
 
-          {/* Enhanced Scroll indicator with 3D effect */}
-          <motion.div
-            variants={itemVariants}
-            className="relative flex flex-col items-center"
-          >
+          {/* Scroll indicator */}
+          <motion.div variants={itemVariants} className="relative flex flex-col items-center">
             <motion.span
-              className="text-gray-300 text-sm mb-4 font-medium"
-              animate={{
-                opacity: [0.5, 1, 0.5],
-              }}
+              className="text-gray-300 text-sm mb-3 font-medium"
+              animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               Scroll to explore
             </motion.span>
             <motion.button
               onClick={scrollToNext}
-              className="relative p-4 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all duration-300 group"
-              animate={{
-                y: [0, 15, 0],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              whileHover={{
-                scale: 1.2,
-                rotateX: 15,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
-              }}
+              className="relative p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-300"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              whileHover={{ scale: 1.1 }}
             >
-              <ChevronDown className="w-6 h-6 text-purple-400 group-hover:text-white transition-colors" />
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-b from-purple-500/20 to-blue-500/20"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              <ChevronDown className="w-5 h-5 text-purple-400 hover:text-white" />
             </motion.button>
           </motion.div>
         </motion.div>
 
         {/* Simplified decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Reduced floating geometric shapes */}
-          {Array.from({ length: 6 }, (_, i) => (
+          {Array.from({ length: 8 }, (_, i) => (
             <motion.div
               key={i}
               className="absolute"
               style={{
-                left: `${20 + i * 12}%`,
-                top: `${30 + ((i * 15) % 40)}%`,
+                left: `${10 + i * 10}%`,
+                top: `${15 + (i * 15) % 50}%`,
               }}
               animate={{
-                scale: [0.8, 1.1, 0.8],
-                opacity: [0.1, 0.3, 0.1],
-                rotate: [0, 180, 360],
+                scale: [0.8, 1, 0.8],
+                opacity: [0.2, 0.5, 0.2],
               }}
               transition={{
-                duration: 15 + i * 3,
+                duration: 5 + i,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
               <div
                 className={`w-12 h-12 bg-gradient-to-br ${
-                  i % 3 === 0
-                    ? "from-purple-500/10 to-blue-500/10"
-                    : i % 3 === 1
-                    ? "from-blue-500/10 to-green-500/10"
-                    : "from-green-500/10 to-purple-500/10"
-                } backdrop-blur-sm ${
-                  i % 2 === 0 ? "rounded-full" : "rounded-lg"
-                } border border-white/5`}
+                  i % 2 === 0 ? "from-purple-500/20 to-blue-500/20" : "from-blue-500/20 to-pink-500/20"
+                } backdrop-blur-sm rounded-full border border-white/10`}
               />
             </motion.div>
           ))}
@@ -570,4 +560,5 @@ const HeroSection: React.FC = () => {
     </section>
   );
 };
+
 export default HeroSection;
