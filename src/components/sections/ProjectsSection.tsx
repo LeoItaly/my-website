@@ -15,7 +15,7 @@ import ProjectDetail from "./ProjectDetail";
 interface Project {
   id: string;
   title: string;
-  category: string;
+  categories: string[];
   description: string;
   image: string;
   tags: string[];
@@ -38,7 +38,9 @@ interface Project {
   posterUrl?: string;
   posterUrls?: string[];
   projectGithub?: string;
+  projectWebsite?: string;
   additionalGithub?: string[];
+  prototypeVideo?: string;
   subProjects?: {
     id: string;
     title: string;
@@ -48,6 +50,14 @@ interface Project {
     outcome: string;
     paperUrl: string;
   }[];
+  secondaryProjects?: {
+    title: string;
+    description: string;
+    website: string;
+    github: string;
+    keyInsights: string[];
+  }[];
+  courseExercises?: string;
 }
 
 const ProjectsSection: React.FC = () => {
@@ -69,26 +79,26 @@ const ProjectsSection: React.FC = () => {
       color: "from-purple-500 to-blue-500",
     },
     {
-      id: "ai-ml",
-      label: "AI/ML",
+      id: "computer-vision",
+      label: "Computer Vision",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
     },
     {
       id: "data-science",
-      label: "Data Science",
+      label: "Data Science & ML",
       icon: Database,
       color: "from-green-500 to-teal-500",
     },
     {
-      id: "fullstack",
-      label: "Full Stack",
+      id: "web-development",
+      label: "Web & Mobile Dev",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
     },
     {
       id: "research",
-      label: "Research",
+      label: "Research & Papers",
       icon: FileText,
       color: "from-yellow-500 to-orange-500",
     },
@@ -99,7 +109,7 @@ const ProjectsSection: React.FC = () => {
       id: "fiqa-biometric-systems",
       title:
         "Facial Image Quality Assessment for Improved Face Recognition Systems",
-      category: "research",
+      categories: ["computer-vision", "research"],
       description:
         "Surveyed modern FIQA techniques and proposed research directions to boost robustness, interpretability and bias mitigation in face-recognition pipelines.",
       image: "./src/assets/images/fiqa.jpg",
@@ -144,7 +154,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "image-analysis-dtu",
       title: "Image Analysis: From Medical Imaging to Computer Vision",
-      category: "ai-ml",
+      categories: ["computer-vision"],
       description:
         "Comprehensive exploration of digital image analysis including medical imaging, statistical methods, and performance evaluation across multiple practical exercises.",
       image: "./src/assets/images/image-analysis.jpg",
@@ -192,7 +202,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "computer-vision-dtu",
       title: "Computer Vision: 3D Geometry and Surface Reconstruction",
-      category: "ai-ml",
+      categories: ["computer-vision"],
       description:
         "Comprehensive exploration of computer vision fundamentals including 3D geometry, camera calibration, feature matching, and RANSAC algorithm implementation.",
       image: "./src/assets/images/computer.vision.jpg",
@@ -241,7 +251,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "machine-learning-life-expectancy",
       title: "Life-Expectancy Prediction & Development Classification",
-      category: "data-science",
+      categories: ["data-science", "research"],
       description:
         "Cleaned and modelled 2,860 health & economy observations to explain life-span disparities and classify developed vs developing states using rigorous ML pipeline.",
       image: "./src/assets/images/machine-learning.jpg",
@@ -292,7 +302,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "geometric-data-analysis-dtu",
       title: "Geometric Data Analysis and Processing",
-      category: "ai-ml",
+      categories: ["computer-vision"],
       description:
         "Comprehensive exploration of geometric data processing including point clouds, triangle meshes, surface representations, and differential geometry algorithms.",
       image: "./src/assets/images/geometric-data.jpg",
@@ -413,7 +423,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "user-experience-engineering-dtu",
       title: "User Experience Engineering: Next-Generation Interface Design",
-      category: "data-science",
+      categories: ["research"],
       description:
         "Comprehensive UX design course developing four innovative interface prototypes using lean methodology, biometric integration, and cognitive computing principles.",
       image: "./src/assets/images/ux.engineering.jpg",
@@ -531,7 +541,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "computer-graphics-webgl",
       title: "Real-Time Planar Reflections in WebGL",
-      category: "ai-ml",
+      categories: ["research"],
       description:
         "Built a four-stage rasterisation pipeline that mirrors geometry, blends translucency, clips correctly and runs at 60 fps in the browser using WebGL and custom GLSL shaders.",
       image: "./src/assets/images/computer.graphics.jpg",
@@ -581,7 +591,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "deep-learning-ddpm",
       title: "Denoising Diffusion Probabilistic Models on MNIST",
-      category: "ai-ml",
+      categories: ["data-science", "research"],
       description:
         "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST through comprehensive DDPM implementation from scratch.",
       image: "./src/assets/images/deep.learning.jpg",
@@ -634,7 +644,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: "deep-learning-computer-vision",
       title: "Deep Learning in Computer Vision: Multi-Domain Applications",
-      category: "ai-ml",
+      categories: ["computer-vision", "research"],
       description:
         "Comprehensive exploration of CNN architectures across classification, segmentation, and object detection with three distinct projects showcasing modern deep learning techniques.",
       image: "./src/assets/images/deep.learning.cv.jpg",
@@ -690,178 +700,128 @@ const ProjectsSection: React.FC = () => {
       ],
     },
     {
-      id: "sentiment-analysis-research",
-      title: "Sentiment Analysis Research",
-      category: "research",
+      id: "social-data-analysis-nyc",
+      title: "NYC Noise Story: The Sounds of the City That Never Sleeps",
+      categories: ["data-science", "web-development"],
       description:
-        "Published research on multilingual sentiment analysis using transformer models. Achieved 94% accuracy across 5 languages.",
-      image: "/src/assets/images/sentiment.jpg",
-      tags: ["BERT", "NLP", "PyTorch", "Research", "Transformers"],
-      github: "https://github.com/yourusername/multilingual-sentiment",
-      paper: "https://arxiv.org/paper/yourpaper",
+        "Interactive narrative visualization analyzing 1M+ NYC noise complaints during COVID-19, revealing dramatic urban acoustic changes through pandemic phases.",
+      image: "./src/assets/images/social.data.jpg",
+      tags: [
+        "Data Visualization",
+        "D3.js",
+        "Interactive Dashboards",
+        "Social Data",
+        "Svelte Kit",
+        "NYC Open Data",
+      ],
+      projectWebsite: "https://leoitaly.github.io/nycity-noise-story/",
+      projectGithub: "https://github.com/LeoItaly/nycity-noise-story",
       featured: true,
-      type: "research",
-      course: "Natural Language Processing (MSc)",
-      role: "Research Team Lead",
-      paperAvailable: true,
+      type: "project",
+      course: "Social Data Analysis and Visualization (MSc)",
+      role: "Data Analyst & Visualization Developer",
+      paperAvailable: false,
       snippet:
-        "Published research on multilingual sentiment analysis using transformer models. Achieved 94% accuracy across 5 languages.",
+        "Mining 1,037,904 NYC 311 noise complaints (2019-2020) to reveal a dramatic three-act pandemic story through interactive visualization.",
       motivation:
-        "To improve sentiment analysis across multiple languages while maintaining high accuracy and reducing computational costs.",
+        "COVID-19 fundamentally changed urban soundscapes worldwide. New York City's comprehensive 311 complaint data provides a unique window into how pandemic policies and social changes affected urban acoustics and community noise experiences.",
       scope:
-        "Developed and evaluated transformer-based models for sentiment analysis across 5 major languages.",
+        "Comprehensive analysis and visualization of over 1 million NYC noise complaints, creating an interactive narrative website that reveals pandemic-era urban acoustic changes through advanced data storytelling techniques.",
       keyContributions: [
-        "Implemented a novel attention mechanism for cross-lingual transfer learning",
-        "Achieved 94% accuracy across all target languages",
-        "Reduced model size by 40% while maintaining performance",
+        "Processed and analyzed 1,037,904 NYC 311 noise complaints spanning 2019-2020 with automated data pipeline using NYC Open Data API.",
+        "Identified three distinct pandemic phases: Pre-Pandemic Normal (~663 daily), Great Quieting (~540, -18.6%), and Noise Awakening (~1,135, +71.2%).",
+        "Created interactive animated timeline map with month-by-month playback of complaint hotspots using D3.js and TopoJSON.",
+        "Developed phase slider interface for instant navigation between pandemic periods with hover tooltips showing exact counts and category shares.",
+        "Implemented borough-level filtering revealing inequities: Manhattan -35% lockdown dip vs Bronx -5%, and Bronx +187% reopening surge vs Staten Island +54%.",
+        "Discovered significant noise mix changes: residential complaints grew from 35% to 62% during lockdown peak.",
+        "Built automated CI/CD pipeline with GitHub Actions for continuous data updates and deployment.",
       ],
       technologies:
-        "PyTorch, Hugging Face Transformers, BERT, XLM-RoBERTa, Python, AWS",
-      outcome: "Published in top-tier NLP conference with 50+ citations",
+        "D3.js v7, TopoJSON, Svelte Kit, JavaScript, NYC Open Data API, GitHub Actions, automated data processing, responsive web design, interactive visualization frameworks.",
+      outcome:
+        "Successfully deployed interactive website revealing unprecedented insights into pandemic urban acoustics. June 20, 2020 set all-time record with 2,434 complaints (152% above 2019). Demonstrated mastery of narrative data visualization and large-scale data processing.",
       futureWork:
-        "Extend to more languages and explore few-shot learning approaches",
+        "Extend analysis to post-pandemic recovery patterns, integrate additional cities for comparative analysis, develop predictive models for noise complaint patterns, and create real-time monitoring dashboard.",
       whatILearned: [
-        "Advanced transformer architectures and attention mechanisms",
-        "Cross-lingual transfer learning techniques",
-        "Model optimization and deployment strategies",
+        "Advanced D3.js techniques for creating animated, interactive geographic visualizations.",
+        "Large-scale data processing and API integration for continuous data updates.",
+        "Narrative visualization principles for effective data storytelling to diverse audiences.",
+        "Geographic data processing with TopoJSON and efficient rendering techniques.",
+        "CI/CD pipeline development for automated data visualization updates.",
+        "Statistical analysis techniques for identifying temporal patterns and inequities in urban data.",
       ],
+      secondaryProjects: [
+        {
+          title: "SF Drug-Crime Dashboard: A Decade of Narcotics Incidents",
+          description:
+            "Interactive dashboard analyzing SFPD Incident Reports (2003-2024) tracing how policy shifts and fentanyl wave reshaped drug-related crime patterns in San Francisco.",
+          website: "https://leoitaly.github.io/social-data-website/",
+          github: "https://github.com/LeoItaly/social-data-website",
+          keyInsights: [
+            "Prop 47 (2014) felony→misdemeanor downgrade led to declining proportion of narcotic incidents",
+            "Fentanyl arrival (2017) caused sharp spike in incidents and overdose deaths outpacing enforcement",
+            "Tenderloin accounts for >50% of all drug calls by 2020, highlighting spatial inequity",
+            "Drug enforcement drop ≠ addiction drop, revealed through overdose data overlays",
+            "Post-2022 enforcement raises local incident counts but doesn't shift city-wide totals",
+          ],
+        },
+      ],
+      courseExercises:
+        "https://github.com/LeoItaly/social-data-visualization-2025",
     },
     {
-      id: "ecommerce-analytics",
-      title: "E-Commerce Analytics Platform",
-      category: "fullstack",
+      id: "personal-data-moodwise",
+      title: "MoodWise: Tracking Mood, Weather & Activity",
+      categories: ["web-development", "research"],
       description:
-        "Full-stack web application with real-time analytics dashboard, user authentication, and AI-powered product recommendations.",
-      image: "/src/assets/images/ecommerce.jpg",
-      tags: ["React", "Node.js", "MongoDB", "TypeScript", "D3.js"],
-      github: "https://github.com/yourusername/ecommerce-analytics",
-      featured: false,
-      type: "project",
-      course: "Web Development (BSc)",
-      role: "Full Stack Developer",
-      paperAvailable: false,
-      snippet:
-        "Full-stack web application with real-time analytics dashboard, user authentication, and AI-powered product recommendations.",
-      motivation:
-        "To create a comprehensive analytics platform for e-commerce businesses to track and optimize their performance.",
-      scope:
-        "Developed a full-stack application with real-time analytics, user authentication, and AI-powered recommendations.",
-      keyContributions: [
-        "Implemented real-time data visualization using D3.js",
-        "Built secure user authentication system",
-        "Developed AI-powered product recommendation engine",
+        "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood through personal informatics.",
+      image: "./src/assets/images/personal.data.jpg",
+      tags: [
+        "React Native",
+        "Personal Informatics",
+        "Mobile App",
+        "Data Visualization",
+        "UX Research",
+        "HCI",
       ],
-      technologies: "React, Node.js, MongoDB, TypeScript, D3.js, AWS, Redis",
-      outcome: "Successfully deployed and serving 5+ e-commerce clients",
-      futureWork:
-        "Add more advanced analytics features and machine learning capabilities",
-      whatILearned: [
-        "Real-time data processing and visualization",
-        "Secure authentication and authorization",
-        "Scalable architecture design",
-      ],
-    },
-    {
-      id: "stock-prediction",
-      title: "Stock Price Prediction Model",
-      category: "data-science",
-      description:
-        "LSTM-based model for predicting stock prices with 87% accuracy. Includes data preprocessing pipeline and interactive visualization.",
-      image: "/src/assets/images/stock.jpg",
-      tags: ["LSTM", "Pandas", "Scikit-learn", "Plotly", "Python"],
-      github: "https://github.com/yourusername/stock-prediction",
-      featured: false,
-      type: "project",
-      course: "Machine Learning (MSc)",
-      role: "Data Scientist",
-      paperAvailable: false,
-      snippet:
-        "LSTM-based model for predicting stock prices with 87% accuracy. Includes data preprocessing pipeline and interactive visualization.",
-      motivation:
-        "To develop an accurate and interpretable model for stock price prediction using deep learning techniques.",
-      scope:
-        "Built and evaluated an LSTM-based model for stock price prediction with comprehensive data preprocessing.",
-      keyContributions: [
-        "Implemented custom LSTM architecture for time series prediction",
-        "Developed robust data preprocessing pipeline",
-        "Created interactive visualization dashboard",
-      ],
-      technologies: "Python, PyTorch, Pandas, Scikit-learn, Plotly, AWS",
-      outcome: "Achieved 87% prediction accuracy on test data",
-      futureWork: "Incorporate sentiment analysis from news and social media",
-      whatILearned: [
-        "Time series analysis and prediction",
-        "Deep learning for financial data",
-        "Data visualization and interpretation",
-      ],
-    },
-    {
-      id: "medical-cv",
-      title: "Computer Vision for Medical Imaging",
-      category: "ai-ml",
-      description:
-        "CNN model for detecting pneumonia in chest X-rays with 96% accuracy. Deployed as a web service for healthcare professionals.",
-      image: "/src/assets/images/medical.jpg",
-      tags: ["PyTorch", "OpenCV", "Medical AI", "Flask", "Docker"],
-      github: "https://github.com/yourusername/medical-cv",
+      github: "https://github.com/LeoItaly/moodwise",
+      projectGithub: "https://github.com/LeoItaly/moodwise",
+      paper: "./src/assets/papers/moodwise-personal-data.pdf",
+      paperUrl: "./src/assets/papers/moodwise-personal-data.pdf",
+      prototypeVideo: "https://youtube.com/shorts/tXqZixevwns?feature=share",
       featured: true,
-      type: "project",
-      course: "Computer Vision (MSc)",
-      role: "AI Engineer",
-      paperAvailable: false,
+      type: "research",
+      course: "Personal Data Interaction for Mobile and Wearables (MSc)",
+      role: "UX Researcher & Mobile Developer",
+      paperAvailable: true,
       snippet:
-        "CNN model for detecting pneumonia in chest X-rays with 96% accuracy. Deployed as a web service for healthcare professionals.",
+        "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood.",
       motivation:
-        "To assist healthcare professionals in early detection of pneumonia using deep learning.",
+        "People living in northern climates often feel their mood dip when daylight hours shrink. MoodWise gives them a simple way to record how weather and physical activity interact with mood, then surfaces patterns they can act on.",
       scope:
-        "Developed and deployed a CNN-based model for pneumonia detection in chest X-rays.",
+        "Complete personal informatics system development including React Native mobile prototype, comprehensive UX evaluation with multiple user studies, and HCI experiment comparing visualization approaches for personal data interaction.",
       keyContributions: [
-        "Implemented custom CNN architecture for medical imaging",
-        "Achieved 96% accuracy in pneumonia detection",
-        "Deployed model as a web service using Flask and Docker",
+        "Designed and developed React Native mobile app with one-tap emoji mood logging, activity tracking, and weather integration.",
+        "Created comprehensive data visualization suite: 14-day mini-calendar with color-coded mood history, monthly calendar view with filtering, and statistical dashboard.",
+        "Implemented personal informatics lifecycle following Li et al. model: Collect → Reflect → Act with recognition-over-recall design principles.",
+        "Conducted systematic UX evaluation: internal heuristics, two usability studies (8 users total), and controlled HCI experiment (8 users) comparing 4 visualization types.",
+        "Discovered stacked-bar charts fastest (38s) and easiest to read for personal data insights, leading to final Stats page design.",
+        "Built privacy-aware architecture with local data storage and planned CSV export functionality.",
+        "Achieved <10s mood retrieval time after calendar filter revamp, with insight cards helping users articulate patterns twice as effectively.",
       ],
-      technologies: "PyTorch, OpenCV, Flask, Docker, AWS, DICOM",
-      outcome: "Successfully deployed in 3 hospitals for pilot testing",
+      technologies:
+        "React Native, JavaScript, mobile prototyping, data visualization, SQLite local storage, emoji interface design, calendar heat-maps, statistical charting, user testing frameworks.",
+      outcome:
+        "Successfully delivered high-fidelity mobile prototype with comprehensive paper documentation and video demonstration. Validated design through multiple user studies showing effective personal data interaction and pattern recognition.",
       futureWork:
-        "Extend to other respiratory conditions and improve explainability",
+        "Auto-fetch weather & step-count integration, reminder scheduler with user-customizable times, side-by-side comparison views, and lapse-friendly motivation features with optional streak hiding.",
       whatILearned: [
-        "Medical image processing and analysis",
-        "Model deployment in healthcare settings",
-        "Ethical considerations in medical AI",
-      ],
-    },
-    {
-      id: "realtime-chat",
-      title: "Real-time Chat Application",
-      category: "fullstack",
-      description:
-        "Scalable real-time chat application with WebSockets, user authentication, and message encryption.",
-      image: "/src/assets/images/chat.jpg",
-      tags: ["Socket.io", "React", "Express", "Redis", "JWT"],
-      github: "https://github.com/yourusername/realtime-chat",
-      featured: false,
-      type: "project",
-      course: "Web Development (BSc)",
-      role: "Full Stack Developer",
-      paperAvailable: false,
-      snippet:
-        "Scalable real-time chat application with WebSockets, user authentication, and message encryption.",
-      motivation:
-        "To create a secure and scalable real-time chat application with modern web technologies.",
-      scope:
-        "Developed a full-stack chat application with real-time messaging capabilities.",
-      keyContributions: [
-        "Implemented WebSocket-based real-time messaging",
-        "Built secure user authentication with JWT",
-        "Added end-to-end message encryption",
-      ],
-      technologies: "React, Node.js, Socket.io, Redis, JWT, AWS",
-      outcome: "Successfully deployed and serving 10,000+ users",
-      futureWork: "Add video chat and file sharing capabilities",
-      whatILearned: [
-        "Real-time communication protocols",
-        "WebSocket implementation",
-        "Secure message encryption",
+        "Personal informatics system design principles and lifecycle implementation from data collection to actionable insights.",
+        "Mobile UX design for sensitive personal data with privacy-first architecture and low-friction interaction patterns.",
+        "Systematic user testing methodologies including think-aloud protocols, scenario tasks, and controlled HCI experiments.",
+        "Data visualization effectiveness evaluation through comparative user studies and task completion metrics.",
+        "React Native development for cross-platform mobile applications with local data persistence.",
+        "Recognition-over-recall design principles for creating intuitive personal data interfaces that reduce cognitive load.",
       ],
     },
   ];
@@ -869,7 +829,7 @@ const ProjectsSection: React.FC = () => {
   const filteredProjects =
     activeFilter === "all"
       ? projects
-      : projects.filter((project) => project.category === activeFilter);
+      : projects.filter((project) => project.categories.includes(activeFilter));
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -970,7 +930,7 @@ const ProjectsSection: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer ${
+                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer flex flex-col ${
                   project.featured ? "md:col-span-2 lg:col-span-1" : ""
                 }`}
                 whileHover={{ y: -10, scale: 1.02 }}
@@ -987,7 +947,7 @@ const ProjectsSection: React.FC = () => {
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold text-white mb-2">
                     {project.title}
                   </h3>
@@ -1006,13 +966,13 @@ const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* Project Links */}
-                  <div className="flex gap-4">
+                  <div className="flex justify-between gap-4 mt-auto">
                     {project.github && (
                       <motion.a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm"
+                        className="flex-1 flex items-center justify-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={(e) => e.stopPropagation()}
@@ -1027,7 +987,7 @@ const ProjectsSection: React.FC = () => {
                         href={project.paper}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300"
+                        className="flex-1 flex items-center justify-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={(e) => e.stopPropagation()}
@@ -1038,7 +998,7 @@ const ProjectsSection: React.FC = () => {
                     )}
 
                     <motion.button
-                      className="flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-600 hover:to-purple-600 text-white rounded-lg transition-all duration-300"
+                      className="flex-1 flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-600 hover:to-purple-600 text-white rounded-lg transition-all duration-300"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -1072,7 +1032,7 @@ const ProjectsSection: React.FC = () => {
               development.
             </p>
             <motion.a
-              href="https://github.com/yourusername"
+              href="https://github.com/LeoItaly"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300"

@@ -42,10 +42,19 @@ interface ProjectDetailProps {
     futureWork: string;
     whatILearned: string[];
     paperUrl?: string;
-    posterUrl?: string;
     posterUrls?: string[];
     projectGithub?: string;
     additionalGithub?: string[];
+    projectWebsite?: string;
+    prototypeVideo?: string;
+    secondaryProjects?: {
+      title: string;
+      description: string;
+      website: string;
+      github: string;
+      keyInsights: string[];
+    }[];
+    courseExercises?: string;
     subProjects?: SubProject[];
   };
 }
@@ -127,7 +136,45 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 />
               </motion.div>
 
-              {/* Enhanced Download Section with Multiple Posters and Repos */}
+              {/* Prototype Video Demo */}
+              {project.prototypeVideo && (
+                <motion.div
+                  className="relative mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <ExternalLink className="w-5 h-5 text-blue-400" />
+                    Interactive Prototype Demo
+                  </h3>
+                  <div className="relative bg-white/5 rounded-2xl p-6 border border-white/10">
+                    <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden relative group">
+                      <iframe
+                        src={
+                          project.prototypeVideo
+                            .replace(
+                              "youtube.com/shorts/",
+                              "youtube.com/embed/"
+                            )
+                            .split("?")[0]
+                        }
+                        title="Prototype Demo Video"
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                      <motion.div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    </div>
+                    <p className="text-gray-400 text-sm mt-3 text-center">
+                      Interactive React Native prototype demonstrating core
+                      features and user flow
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Enhanced Download Section with Video Demo */}
               <motion.div
                 className="flex flex-wrap justify-center gap-4"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -147,6 +194,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                   </motion.a>
                 )}
 
+                {project.projectGithub && (
+                  <motion.a
+                    href={project.projectGithub}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-900 text-white font-semibold rounded-full hover:from-gray-600 hover:to-gray-800 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink className="w-5 h-5 mr-2" />
+                    Prototype Code
+                  </motion.a>
+                )}
+
+                {project.prototypeVideo && (
+                  <motion.a
+                    href={project.prototypeVideo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-full hover:from-pink-600 hover:to-red-600 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink className="w-5 h-5 mr-2" />
+                    Watch Demo Video
+                  </motion.a>
+                )}
+
                 {project.posterUrls && project.posterUrls.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {project.posterUrls.map((posterUrl, index) => (
@@ -163,20 +238,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       </motion.a>
                     ))}
                   </div>
-                )}
-
-                {project.projectGithub && (
-                  <motion.a
-                    href={project.projectGithub}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-900 text-white font-semibold rounded-full hover:from-gray-600 hover:to-gray-800 transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ExternalLink className="w-5 h-5 mr-2" />
-                    Primary Code
-                  </motion.a>
                 )}
 
                 {project.additionalGithub &&
@@ -265,98 +326,112 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 </div>
               </motion.section>
 
-              {/* Sub-Projects Section */}
-              {project.subProjects && project.subProjects.length > 0 && (
-                <motion.section
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    <Rocket className="w-6 h-6 text-blue-400" />
-                    Course Projects & Papers
-                  </h2>
-                  <div className="grid gap-6">
-                    {project.subProjects.map((subProject, index) => (
-                      <motion.div
-                        key={subProject.id}
-                        className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6 + index * 0.1 }}
-                        whileHover={{ scale: 1.01, y: -2 }}
-                      >
-                        <div className="flex flex-col lg:flex-row lg:items-start gap-6">
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-4">
-                              <h3 className="text-xl font-bold text-white">
-                                {subProject.title}
+              {/* Secondary Projects Section */}
+              {project.secondaryProjects &&
+                project.secondaryProjects.length > 0 && (
+                  <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                      <Rocket className="w-6 h-6 text-green-400" />
+                      Additional Course Projects
+                    </h2>
+                    <div className="space-y-6">
+                      {project.secondaryProjects.map((secProject, index) => (
+                        <motion.div
+                          key={index}
+                          className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-green-500/30 transition-all duration-300"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.6 + index * 0.1 }}
+                          whileHover={{ scale: 1.01, y: -2 }}
+                        >
+                          <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+                            <div className="flex-1">
+                              <h3 className="text-xl font-bold text-white mb-3">
+                                {secProject.title}
                               </h3>
-                              <span className="px-3 py-1 text-xs font-semibold bg-purple-500/20 text-purple-300 rounded-full">
-                                Project {index + 1}
-                              </span>
-                            </div>
-
-                            <p className="text-gray-300 mb-4 leading-relaxed">
-                              {subProject.description}
-                            </p>
-
-                            <div className="mb-4">
-                              <h4 className="text-sm font-semibold text-purple-300 mb-2">
-                                Motivation & Context
-                              </h4>
-                              <p className="text-gray-400 text-sm leading-relaxed">
-                                {subProject.motivation}
+                              <p className="text-gray-300 mb-4 leading-relaxed">
+                                {secProject.description}
                               </p>
+
+                              <div className="mb-4">
+                                <h4 className="text-sm font-semibold text-green-300 mb-2">
+                                  Key Insights
+                                </h4>
+                                <ul className="text-gray-400 text-sm space-y-1">
+                                  {secProject.keyInsights.map(
+                                    (insight, insightIndex) => (
+                                      <li
+                                        key={insightIndex}
+                                        className="flex items-start gap-2"
+                                      >
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0 mt-2"></div>
+                                        {insight}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
                             </div>
 
-                            <div className="mb-4">
-                              <h4 className="text-sm font-semibold text-green-300 mb-2">
-                                Key UX Features
-                              </h4>
-                              <ul className="text-gray-400 text-sm space-y-1">
-                                {subProject.keyFeatures.map(
-                                  (feature, featureIndex) => (
-                                    <li
-                                      key={featureIndex}
-                                      className="flex items-start gap-2"
-                                    >
-                                      <div className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0 mt-2"></div>
-                                      {feature}
-                                    </li>
-                                  )
-                                )}
-                              </ul>
-                            </div>
-
-                            <div className="mb-4">
-                              <h4 className="text-sm font-semibold text-yellow-300 mb-2">
-                                Outcome
-                              </h4>
-                              <p className="text-gray-400 text-sm leading-relaxed">
-                                {subProject.outcome}
-                              </p>
+                            <div className="lg:w-64 flex-shrink-0 flex flex-col gap-3">
+                              <motion.a
+                                href={secProject.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-lg hover:from-teal-600 hover:to-green-600 transition-all duration-300"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Visit Website
+                              </motion.a>
+                              <motion.a
+                                href={secProject.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full flex items-center justify-center px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition-all duration-300"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Source Code
+                              </motion.a>
                             </div>
                           </div>
+                        </motion.div>
+                      ))}
+                    </div>
 
-                          <div className="lg:w-48 flex-shrink-0">
-                            <motion.a
-                              href={subProject.paperUrl}
-                              download
-                              className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <Download className="w-4 h-4 mr-2" />
-                              Download Paper
-                            </motion.a>
-                          </div>
-                        </div>
+                    {project.courseExercises && (
+                      <motion.div
+                        className="mt-6 text-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                      >
+                        <p className="text-gray-400 mb-4">
+                          Additional course exercises and implementations
+                          available:
+                        </p>
+                        <motion.a
+                          href={project.courseExercises}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-all duration-300"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          Course Exercises Repository
+                        </motion.a>
                       </motion.div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
+                    )}
+                  </motion.section>
+                )}
 
               {/* Technologies & Outcome */}
               <div className="grid md:grid-cols-2 gap-6">

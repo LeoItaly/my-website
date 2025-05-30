@@ -38,39 +38,39 @@ const SkillsSection: React.FC = () => {
     },
     {
       id: "ai-ml",
-      label: "AI/ML",
+      label: "AI/ML & Vision",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
     },
     {
       id: "programming",
-      label: "Programming",
+      label: "Development",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
     },
     {
       id: "data",
-      label: "Data Science",
+      label: "Data & UX",
       icon: Database,
       color: "from-green-500 to-teal-500",
     },
     {
       id: "tools",
-      label: "Tools & Frameworks",
+      label: "Research Tools",
       icon: Zap,
       color: "from-yellow-500 to-orange-500",
     },
   ];
 
   const skills = [
-    // Core AI/ML Skills
+    // Computer Vision & AI Skills
     {
       name: "Computer Vision & Deep Learning",
       level: 94,
       category: "ai-ml",
       color: "from-purple-400 to-blue-500",
       description:
-        "CNNs, object detection, segmentation, medical imaging, transfer learning, explainable AI, and adversarial attacks",
+        "CNNs, object detection, segmentation, medical imaging, FIQA, 3D geometry, and transfer learning",
     },
     {
       name: "Deep Learning & Generative AI",
@@ -78,69 +78,69 @@ const SkillsSection: React.FC = () => {
       category: "ai-ml",
       color: "from-red-400 to-pink-500",
       description:
-        "PyTorch, TensorFlow, DDPMs, GANs, Transformers, CNNs, and advanced neural architectures",
+        "PyTorch, TensorFlow, DDPMs, GANs, Transformers, advanced neural architectures",
     },
     {
-      name: "Image Processing & Analysis",
-      level: 85,
+      name: "Image Processing & Graphics",
+      level: 88,
       category: "ai-ml",
       color: "from-green-400 to-teal-500",
       description:
-        "OpenCV, filtering, morphology, BLOB analysis, registration, and camera calibration",
+        "OpenCV, WebGL, GLSL shaders, geometric processing, point clouds, and mesh analysis",
     },
 
-    // Programming & Development
+    // Programming & Development Skills
     {
-      name: "Multi-Language Scientific Computing",
+      name: "Multi-Platform Development",
       level: 95,
       category: "programming",
       color: "from-yellow-400 to-orange-500",
       description:
-        "Python, JavaScript, WebGL/GLSL, NumPy, scientific algorithms, and cross-platform development",
+        "Python, JavaScript, React Native, TypeScript, scientific computing, mobile apps",
     },
     {
-      name: "Web Development & Graphics Programming",
-      level: 92,
+      name: "Web Technologies & Frameworks",
+      level: 94,
       category: "programming",
       color: "from-cyan-400 to-blue-500",
       description:
-        "React, TypeScript, WebGL, GLSL shaders, real-time rendering, and interactive 3D applications",
+        "React, D3.js, Svelte Kit, WebGL, interactive visualizations, full-stack development",
     },
 
-    // Data Science & Analysis
+    // Data Science & Analytics Skills
     {
-      name: "Machine Learning & Statistical Methods",
+      name: "Machine Learning & Statistics",
       level: 90,
       category: "data",
       color: "from-blue-400 to-purple-500",
       description:
-        "Regression, classification, Bayesian inference, reinforcement learning, and statistical validation",
+        "Regression, classification, PCA, cross-validation, Bayesian inference, model evaluation",
     },
     {
-      name: "UX Design & Human-Computer Interaction",
-      level: 85,
-      category: "data",
-      color: "from-pink-400 to-purple-500",
-      description:
-        "User research, prototyping, usability testing, design thinking, lean UX methodology, and biometric interfaces",
-    },
-    {
-      name: "Data Processing & Visualization",
-      level: 92,
+      name: "Data Visualization & Analytics",
+      level: 94,
       category: "data",
       color: "from-indigo-400 to-blue-500",
       description:
-        "Pandas, matplotlib, 3D visualization, geometric data analysis, and computer graphics rendering",
+        "D3.js, interactive dashboards, social data analysis, narrative visualization, large datasets",
     },
 
-    // Tools & Research
+    // UX & Research Skills
     {
-      name: "Research & Academic Tools",
-      level: 78,
+      name: "UX Research & Design",
+      level: 88,
+      category: "data",
+      color: "from-pink-400 to-purple-500",
+      description:
+        "User research, mobile prototyping, personal informatics, HCI evaluation, usability testing",
+    },
+    {
+      name: "Research & Academic Methods",
+      level: 82,
       category: "tools",
       color: "from-purple-400 to-pink-500",
       description:
-        "Zotero, Elicit, Litmaps, Jenni AI for research acceleration and paper management",
+        "Scientific writing, literature review, experimental design, academic tools, peer review",
     },
   ];
 
