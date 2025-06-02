@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync">
                 {isDark ? (
                   <motion.div
                     key="sun"
@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync">
                 {isDark ? (
                   <Sun className="h-5 w-5 text-yellow-400" />
                 ) : (
@@ -189,7 +189,7 @@ const Navbar: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync">
                 {isOpen ? (
                   <motion.div
                     key="close"

@@ -26,43 +26,51 @@ const HeroSection: React.FC = () => {
   );
 
   // Updated roles with dynamic descriptions based on your projects
-  const roles = useMemo(() => [
-    {
-      title: "AI/ML Engineer",
-      icon: Brain,
-      color: "from-purple-400 to-blue-400",
-      description: "Building intelligent systems with computer vision, deep learning, and generative AI models",
-      techs: ["python", "pytorch", "tensorflow", "opencv"],
-    },
-    {
-      title: "Data Scientist",
-      icon: Database,
-      color: "from-blue-400 to-green-400",
-      description: "Transforming complex datasets into actionable insights and predictive models",
-      techs: ["python", "pytorch", "tensorflow", "javascript"],
-    },
-    {
-      title: "Full-Stack Developer",
-      icon: Code,
-      color: "from-green-400 to-cyan-400",
-      description: "Creating interactive web applications with modern frameworks and 3D graphics",
-      techs: ["react", "typescript", "javascript", "nodejs"],
-    },
-    {
-      title: "Research Enthusiast",
-      icon: Atom,
-      color: "from-yellow-400 to-pink-400",
-      description: "Exploring cutting-edge technologies from biometrics to human-computer interaction",
-      techs: ["python", "opencv", "pytorch", "react"],
-    },
-    {
-      title: "UX Researcher",
-      icon: Zap,
-      color: "from-pink-400 to-purple-400",
-      description: "Designing human-centered interfaces and mobile experiences for better user interaction",
-      techs: ["react", "typescript", "javascript", "nodejs"],
-    },
-  ], []);
+  const roles = useMemo(
+    () => [
+      {
+        title: "AI/ML Engineer",
+        icon: Brain,
+        color: "from-purple-400 to-blue-400",
+        description:
+          "Building intelligent systems with computer vision, deep learning, and generative AI models",
+        techs: ["python", "pytorch", "tensorflow", "opencv"],
+      },
+      {
+        title: "Data Scientist",
+        icon: Database,
+        color: "from-blue-400 to-green-400",
+        description:
+          "Transforming complex datasets into actionable insights and predictive models",
+        techs: ["python", "pytorch", "tensorflow", "javascript"],
+      },
+      {
+        title: "Full-Stack Developer",
+        icon: Code,
+        color: "from-green-400 to-cyan-400",
+        description:
+          "Creating interactive web applications with modern frameworks and 3D graphics",
+        techs: ["react", "typescript", "javascript", "nodejs"],
+      },
+      {
+        title: "Research Enthusiast",
+        icon: Atom,
+        color: "from-yellow-400 to-pink-400",
+        description:
+          "Exploring cutting-edge technologies from biometrics to human-computer interaction",
+        techs: ["python", "opencv", "pytorch", "react"],
+      },
+      {
+        title: "UX Researcher",
+        icon: Zap,
+        color: "from-pink-400 to-purple-400",
+        description:
+          "Designing human-centered interfaces and mobile experiences for better user interaction",
+        techs: ["react", "typescript", "javascript", "nodejs"],
+      },
+    ],
+    []
+  );
 
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -360,10 +368,10 @@ const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ 
+              transition={{
                 duration: 0.5,
                 ease: "easeOut",
-                delay: 0.2
+                delay: 0.2,
               }}
             >
               {roles[roleIndex].description}
