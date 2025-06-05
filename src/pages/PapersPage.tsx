@@ -76,7 +76,7 @@ const PapersPage: React.FC = () => {
       description:
         "Comprehensive analysis of FIQA techniques and bias mitigation in face recognition pipelines.",
       thumbnail: fiqaBiometricThumb,
-      pdfUrl: "./src/assets/papers/fiqa-biometric-systems.pdf",
+      pdfUrl: "/my-website/assets/papers/fiqa-biometric-systems.pdf",
       tags: ["Face Recognition", "FIQA", "Bias Mitigation", "Computer Vision"],
       featured: true,
       abstract:
@@ -101,7 +101,7 @@ const PapersPage: React.FC = () => {
       description:
         "Cleaned and modelled 2,860 health & economy observations to explain life-span disparities and classify developed vs developing states.",
       thumbnail: lifeExpectancyThumb,
-      pdfUrl: "./src/assets/papers/machine-learning.pdf",
+      pdfUrl: "/my-website/assets/papers/machine-learning.pdf",
       tags: [
         "Machine Learning",
         "Regression",
@@ -133,7 +133,7 @@ const PapersPage: React.FC = () => {
       description:
         "Comprehensive UX design course developing four innovative interface prototypes using lean methodology, biometric integration, and cognitive computing principles.",
       thumbnail: uxEngineeringThumb,
-      pdfUrl: "./src/assets/papers/ux-engineering.pdf",
+      pdfUrl: "/my-website/assets/papers/ux-engineering.pdf",
       tags: [
         "UX Design",
         "Prototyping",
@@ -165,7 +165,7 @@ const PapersPage: React.FC = () => {
       description:
         "Built a four-stage rasterisation pipeline that mirrors geometry, blends translucency, clips correctly and runs at 60 fps in the browser using WebGL and custom GLSL shaders.",
       thumbnail: webglReflectionsThumb,
-      pdfUrl: "./src/assets/papers/planar-reflections-webgl.pdf",
+      pdfUrl: "/my-website/assets/papers/planar-reflections-webgl.pdf",
       tags: [
         "WebGL",
         "GLSL",
@@ -198,7 +198,7 @@ const PapersPage: React.FC = () => {
       description:
         "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST through comprehensive DDPM implementation from scratch.",
       thumbnail: ddpmMnistThumb,
-      pdfUrl: "./src/assets/papers/ddpm-mnist-report.pdf",
+      pdfUrl: "/my-website/assets/papers/ddpm-mnist-report.pdf",
       tags: [
         "Deep Learning",
         "DDPMs",
@@ -232,7 +232,7 @@ const PapersPage: React.FC = () => {
       description:
         "Poster presenting three deep learning projects: binary CNN classification (HotDog/Not HotDog), medical image segmentation, and real-time pothole detection, with ablation studies and performance analysis.",
       thumbnail: deepLearningCVThumb,
-      pdfUrl: "./src/assets/papers/hotdog-classification-poster.pdf",
+      pdfUrl: "/my-website/assets/papers/hotdog-classification-poster.pdf",
       tags: [
         "Deep Learning",
         "Computer Vision",
@@ -264,7 +264,7 @@ const PapersPage: React.FC = () => {
       description:
         "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood through personal informatics.",
       thumbnail: moodwisePDIThumb,
-      pdfUrl: "./src/assets/papers/moodwise-personal-data.pdf",
+      pdfUrl: "/my-website/assets/papers/moodwise-personal-data.pdf",
       tags: [
         "React Native",
         "Personal Informatics",
@@ -297,7 +297,7 @@ const PapersPage: React.FC = () => {
       description:
         "Community platform where verified travellers share authentic micro-blogs and quick-tips, enabling others to build tailor-made trips from trusted local insights.",
       thumbnail: gothenticThumb,
-      pdfUrl: "./src/assets/papers/gothentic-ux.pdf",
+      pdfUrl: "/my-website/assets/papers/gothentic-ux.pdf",
       tags: [
         "UX Research",
         "Community Platform",
@@ -329,7 +329,7 @@ const PapersPage: React.FC = () => {
       description:
         "Mobile social-robot that follows beginners around the gym, uses computer-vision to correct form and keeps them motivated through real-time pose analysis and personalized feedback.",
       thumbnail: gymbuddyThumb,
-      pdfUrl: "./src/assets/papers/gymbuddy-ux.pdf",
+      pdfUrl: "/my-website/assets/papers/gymbuddy-ux.pdf",
       tags: [
         "UX Research",
         "Robotics",
@@ -361,7 +361,7 @@ const PapersPage: React.FC = () => {
       description:
         "In-cab AI system that detects truck-driver fatigue using IR camera analysis of head-pose, eyelid movement, and yawns, triggering adaptive alerts.",
       thumbnail: safedriveThumb,
-      pdfUrl: "./src/assets/papers/safedrive-ux.pdf",
+      pdfUrl: "/my-website/assets/papers/safedrive-ux.pdf",
       tags: [
         "UX Research",
         "AI",
@@ -393,7 +393,7 @@ const PapersPage: React.FC = () => {
       description:
         "Poster summarizing a comprehensive DDPM implementation, comparing noise schedules and classifier-free guidance on MNIST.",
       thumbnail: ddpmPosterThumb,
-      pdfUrl: "./src/assets/papers/ddpm-poster.pdf",
+      pdfUrl: "/my-website/assets/papers/ddpm-poster.pdf",
       tags: [
         "Deep Learning",
         "DDPMs",
@@ -425,7 +425,7 @@ const PapersPage: React.FC = () => {
       description:
         "Poster presenting a real-time pothole detection system using CNNs and region proposal methods, with performance evaluation and ablation studies.",
       thumbnail: objectDetectionThumb,
-      pdfUrl: "./src/assets/papers/pothole-detection-poster.pdf",
+      pdfUrl: "/my-website/assets/papers/pothole-detection-poster.pdf",
       tags: [
         "Computer Vision",
         "Object Detection",
@@ -458,7 +458,7 @@ const PapersPage: React.FC = () => {
       description:
         "Poster comparing segmentation approaches for medical images, including U-Net architectures, ablation studies, and weakly supervised methods.",
       thumbnail: segmentationPosterThumb,
-      pdfUrl: "./src/assets/papers/medical-segmentation-poster.pdf",
+      pdfUrl: "/my-website/assets/papers/medical-segmentation-poster.pdf",
       tags: [
         "Computer Vision",
         "Segmentation",

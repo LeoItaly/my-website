@@ -112,7 +112,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["computer-vision", "research"],
       description:
         "Surveyed modern FIQA techniques and proposed research directions to boost robustness, interpretability and bias mitigation in face-recognition pipelines.",
-      image: "./src/assets/images/fiqa.jpg",
+      image: "/my-website/assets/images/fiqa.jpg",
       tags: [
         "FIQA",
         "Face Recognition",
@@ -122,7 +122,7 @@ const ProjectsSection: React.FC = () => {
         "Research",
       ],
       github: "",
-      paper: "./src/assets/papers/fiqa-biometric-systems.pdf",
+      paper: "/my-website/assets/papers/fiqa-biometric-systems.pdf",
       featured: true,
       type: "research",
       course: "Biometric Systems (MSc)",
@@ -157,7 +157,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["computer-vision"],
       description:
         "Comprehensive exploration of digital image analysis including medical imaging, statistical methods, and performance evaluation across multiple practical exercises.",
-      image: "./src/assets/images/image-analysis.jpg",
+      image: "/my-website/assets/images/image-analysis.jpg",
       tags: [
         "Image Processing",
         "Medical Imaging",
@@ -205,7 +205,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["computer-vision"],
       description:
         "Comprehensive exploration of computer vision fundamentals including 3D geometry, camera calibration, feature matching, and RANSAC algorithm implementation.",
-      image: "./src/assets/images/computer.vision.jpg",
+      image: "/my-website/assets/images/computer-vision.jpg",
       tags: [
         "Computer Vision",
         "3D Geometry",
@@ -254,7 +254,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["data-science", "research"],
       description:
         "Cleaned and modelled 2,860 health & economy observations to explain life-span disparities and classify developed vs developing states using rigorous ML pipeline.",
-      image: "./src/assets/images/machine-learning.jpg",
+      image: "/my-website/assets/images/machine-learning.jpg",
       tags: [
         "Machine Learning",
         "Regression",
@@ -264,7 +264,7 @@ const ProjectsSection: React.FC = () => {
         "Python",
       ],
       github: "https://github.com/LeoItaly/machine-learning",
-      paper: "./src/assets/papers/machine-learning.pdf",
+      paper: "/my-website/assets/papers/machine-learning.pdf",
       featured: true,
       type: "research",
       course: "Introduction to Machine Learning and Data Mining (MSc)",
@@ -305,7 +305,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["computer-vision"],
       description:
         "Comprehensive exploration of geometric data processing including point clouds, triangle meshes, surface representations, and differential geometry algorithms.",
-      image: "./src/assets/images/geometric-data.jpg",
+      image: "/my-website/assets/images/geometric-data.jpg",
       tags: [
         "Geometric Processing",
         "Point Clouds",
@@ -365,7 +365,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Usability score increased after color, font and navigation fixes; validated concept for gym-beginner segment with clear roadmap for wristband integration.",
-          paperUrl: "./src/assets/papers/gymbuddy-ux.pdf",
+          paperUrl: "/my-website/assets/papers/gymbuddy-ux.pdf",
         },
         {
           id: "instanttranslate",
@@ -382,7 +382,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Peer-voted winning concept with validated two-way dialogue illustration, comprehensive wireframes addressing usability issues through color-coding and speaker labels.",
-          paperUrl: "./src/assets/papers/instanttranslate-ux.pdf",
+          paperUrl: "/my-website/assets/papers/instanttranslate-ux.pdf",
         },
         {
           id: "safedrive",
@@ -399,7 +399,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Validated facial-recognition flow through high-fidelity think-aloud testing with 5 users in simulated cab environment, with ethical dark-pattern audit ensuring driver agency.",
-          paperUrl: "./src/assets/papers/safedrive-ux.pdf",
+          paperUrl: "/my-website/assets/papers/safedrive-ux.pdf",
         },
         {
           id: "gothentic",
@@ -416,7 +416,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Iterative testing led to simplified interface removing confusing map view and AI cost-estimator, focusing on blog credibility and reading experience optimization.",
-          paperUrl: "./src/assets/papers/gothentic-ux.pdf",
+          paperUrl: "/my-website/assets/papers/gothentic-ux.pdf",
         },
       ],
     },
@@ -426,7 +426,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["research"],
       description:
         "Comprehensive UX design course developing four innovative interface prototypes using lean methodology, biometric integration, and cognitive computing principles.",
-      image: "./src/assets/images/ux.engineering.jpg",
+      image: "/my-website/assets/images/ux-engineering.jpg",
       tags: [
         "UX Design",
         "Prototyping",
@@ -483,7 +483,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Usability score increased after color, font and navigation fixes; validated concept for gym-beginner segment with clear roadmap for wristband integration.",
-          paperUrl: "./src/assets/papers/gymbuddy-ux.pdf",
+          paperUrl: "/my-website/assets/papers/gymbuddy-ux.pdf",
         },
         {
           id: "instanttranslate",
@@ -500,7 +500,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Peer-voted winning concept with validated two-way dialogue illustration, comprehensive wireframes addressing usability issues through color-coding and speaker labels.",
-          paperUrl: "./src/assets/papers/instanttranslate-ux.pdf",
+          paperUrl: "/my-website/assets/papers/instanttranslate-ux.pdf",
         },
         {
           id: "safedrive",
@@ -517,7 +517,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Validated facial-recognition flow through high-fidelity think-aloud testing with 5 users in simulated cab environment, with ethical dark-pattern audit ensuring driver agency.",
-          paperUrl: "./src/assets/papers/safedrive-ux.pdf",
+          paperUrl: "/my-website/assets/papers/safedrive-ux.pdf",
         },
         {
           id: "gothentic",
@@ -534,7 +534,7 @@ const ProjectsSection: React.FC = () => {
           ],
           outcome:
             "Iterative testing led to simplified interface removing confusing map view and AI cost-estimator, focusing on blog credibility and reading experience optimization.",
-          paperUrl: "./src/assets/papers/gothentic-ux.pdf",
+          paperUrl: "/my-website/assets/papers/gothentic-ux.pdf",
         },
       ],
     },
@@ -544,7 +544,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["research"],
       description:
         "Built a four-stage rasterisation pipeline that mirrors geometry, blends translucency, clips correctly and runs at 60 fps in the browser using WebGL and custom GLSL shaders.",
-      image: "./src/assets/images/computer.graphics.jpg",
+      image: "/my-website/assets/images/computer-graphics.jpg",
       tags: [
         "WebGL",
         "GLSL",
@@ -554,7 +554,7 @@ const ProjectsSection: React.FC = () => {
         "Shaders",
       ],
       github: "https://github.com/LeoItaly/computer-graphics",
-      paper: "./src/assets/papers/planar-reflections-webgl.pdf",
+      paper: "/my-website/assets/papers/planar-reflections-webgl.pdf",
       featured: true,
       type: "research",
       course: "Computer Graphics (MSc)",
@@ -594,7 +594,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["data-science", "research"],
       description:
         "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST through comprehensive DDPM implementation from scratch.",
-      image: "./src/assets/images/deep.learning.jpg",
+      image: "/my-website/assets/images/deep-learning.jpg",
       tags: [
         "Deep Learning",
         "DDPMs",
@@ -604,13 +604,13 @@ const ProjectsSection: React.FC = () => {
         "Diffusion Models",
       ],
       github: "https://github.com/LeoItaly/deep-learning",
-      paper: "./src/assets/papers/ddpm-mnist-report.pdf",
+      paper: "/my-website/assets/papers/ddpm-mnist-report.pdf",
       featured: true,
       type: "research",
       course: "Deep Learning (MSc)",
       role: "Lead Researcher & Developer",
       paperAvailable: true,
-      posterUrl: "./src/assets/papers/ddpm-poster.pdf",
+      posterUrl: "/my-website/assets/papers/ddpm-poster.pdf",
       projectGithub: "https://github.com/LeoItaly/DDPM-DL",
       snippet:
         "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST.",
@@ -647,7 +647,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["computer-vision", "research"],
       description:
         "Comprehensive exploration of CNN architectures across classification, segmentation, and object detection with three distinct projects showcasing modern deep learning techniques.",
-      image: "./src/assets/images/deep.learning.cv.jpg",
+      image: "/my-website/assets/images/deep-learning-cv.jpg",
       tags: [
         "Deep Learning",
         "Computer Vision",
@@ -662,9 +662,9 @@ const ProjectsSection: React.FC = () => {
       role: "Lead Developer & Researcher",
       paperAvailable: false,
       posterUrls: [
-        "./src/assets/papers/hotdog-classification-poster.pdf",
-        "./src/assets/papers/medical-segmentation-poster.pdf",
-        "./src/assets/papers/pothole-detection-poster.pdf",
+        "/my-website/assets/papers/hotdog-classification-poster.pdf",
+        "/my-website/assets/papers/medical-segmentation-poster.pdf",
+        "/my-website/assets/papers/pothole-detection-poster.pdf",
       ],
       projectGithub: "https://github.com/rjarvi/IDLCV_23_HotDog",
       additionalGithub: ["https://github.com/Ealbagp/Object-Detection"],
@@ -705,7 +705,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["data-science", "web-development"],
       description:
         "Interactive narrative visualization analyzing 1M+ NYC noise complaints during COVID-19, revealing dramatic urban acoustic changes through pandemic phases.",
-      image: "./src/assets/images/social.data.jpg",
+      image: "/my-website/assets/images/social-data.jpg",
       tags: [
         "Data Visualization",
         "D3.js",
@@ -775,7 +775,7 @@ const ProjectsSection: React.FC = () => {
       categories: ["web-development", "research"],
       description:
         "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood through personal informatics.",
-      image: "./src/assets/images/personal.data.jpg",
+      image: "/my-website/assets/images/personal-data.jpg",
       tags: [
         "React Native",
         "Personal Informatics",
@@ -786,8 +786,8 @@ const ProjectsSection: React.FC = () => {
       ],
       github: "https://github.com/LeoItaly/moodwise",
       projectGithub: "https://github.com/LeoItaly/moodwise",
-      paper: "./src/assets/papers/moodwise-personal-data.pdf",
-      paperUrl: "./src/assets/papers/moodwise-personal-data.pdf",
+      paper: "/my-website/assets/papers/moodwise-personal-data.pdf",
+      paperUrl: "/my-website/assets/papers/moodwise-personal-data.pdf",
       prototypeVideo: "https://youtube.com/shorts/tXqZixevwns?feature=share",
       featured: true,
       type: "research",

@@ -104,70 +104,70 @@ const HeroSection: React.FC = () => {
       {
         name: "python",
         level: 95,
-        logo: "src/assets/tech-logos/python.svg",
+        logo: "/my-website/assets/tech-logos/python.svg",
         fallbackIcon: Code,
         color: "text-yellow-400",
       },
       {
         name: "pytorch",
         level: 88,
-        logo: "src/assets/tech-logos/pytorch.svg",
+        logo: "/my-website/assets/tech-logos/pytorch.svg",
         fallbackIcon: Brain,
         color: "text-orange-400",
       },
       {
         name: "react",
         level: 90,
-        logo: "src/assets/tech-logos/react.svg",
+        logo: "/my-website/assets/tech-logos/react.svg",
         fallbackIcon: Atom,
         color: "text-cyan-400",
       },
       {
         name: "typescript",
         level: 88,
-        logo: "src/assets/tech-logos/typescript.svg",
+        logo: "/my-website/assets/tech-logos/typescript.svg",
         fallbackIcon: Code,
         color: "text-blue-400",
       },
       {
         name: "javascript",
         level: 92,
-        logo: "src/assets/tech-logos/javascript.svg",
+        logo: "/my-website/assets/tech-logos/javascript.svg",
         fallbackIcon: Code,
         color: "text-yellow-300",
       },
       {
         name: "opencv",
         level: 80,
-        logo: "src/assets/tech-logos/opencv.svg",
+        logo: "/my-website/assets/tech-logos/opencv.svg",
         fallbackIcon: Database,
         color: "text-green-400",
       },
       {
         name: "tensorflow",
         level: 85,
-        logo: "src/assets/tech-logos/tensorflow.svg",
+        logo: "/my-website/assets/tech-logos/tensorflow.svg",
         fallbackIcon: Brain,
         color: "text-orange-500",
       },
       {
         name: "nodejs",
         level: 85,
-        logo: "src/assets/tech-logos/nodejs.svg",
+        logo: "/my-website/assets/tech-logos/nodejs.svg",
         fallbackIcon: Layers,
         color: "text-green-500",
       },
       {
         name: "mongodb",
         level: 80,
-        logo: "src/assets/tech-logos/mongodb.svg",
+        logo: "/my-website/assets/tech-logos/mongodb.svg",
         fallbackIcon: Database,
         color: "text-green-600",
       },
       {
         name: "aws",
         level: 78,
-        logo: "src/assets/tech-logos/aws.svg",
+        logo: "/my-website/assets/tech-logos/aws.svg",
         fallbackIcon: Globe,
         color: "text-orange-400",
       },
@@ -392,7 +392,7 @@ const HeroSection: React.FC = () => {
                 <div className="relative group">
                   <div className="w-28 h-28 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/30 to-red-500/40 backdrop-blur-md border-2 border-red-500/50 flex items-center justify-center">
                     <img
-                      src="src/assets/tech-logos/dtu-logo.svg"
+                      src="/my-website/assets/tech-logos/dtu-logo.svg"
                       alt="DTU"
                       className="w-16 h-16 object-contain"
                       loading="lazy"
