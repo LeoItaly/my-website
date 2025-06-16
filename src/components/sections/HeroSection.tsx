@@ -31,10 +31,18 @@ const HeroSection: React.FC = () => {
       {
         title: "AI/ML Engineer",
         icon: Brain,
-        color: "from-purple-400 to-blue-400",
+        color: "from-purple-400 to-pink-400",
         description:
-          "Building intelligent systems with computer vision, deep learning, and generative AI models",
-        techs: ["python", "pytorch", "tensorflow", "opencv"],
+          "Building AI solutions from computer vision to deep learning and biometric systems",
+        techs: ["python", "pytorch", "opencv", "tensorflow"],
+      },
+      {
+        title: "Interactive Systems Developer",
+        icon: Code,
+        color: "from-green-400 to-cyan-400",
+        description:
+          "Creating human-centered interfaces and interactive web applications with modern technologies",
+        techs: ["react", "typescript", "javascript", "webgl", "d3"],
       },
       {
         title: "Data Scientist",
@@ -42,15 +50,29 @@ const HeroSection: React.FC = () => {
         color: "from-blue-400 to-green-400",
         description:
           "Transforming complex datasets into actionable insights and predictive models",
-        techs: ["python", "pytorch", "tensorflow", "javascript"],
+        techs: ["python", "pytorch", "javascript"],
       },
       {
-        title: "Full-Stack Developer",
+        title: "AI/ML Researcher",
+        icon: Brain,
+        color: "from-purple-400 to-pink-400",
+        description:
+          "Exploring cutting-edge AI techniques from computer vision to deep learning and biometric systems",
+        techs: ["python", "pytorch", "opencv", "tensorflow"],
+      },
+      {
+        title: "UX Researcher & Designer",
         icon: Code,
         color: "from-green-400 to-cyan-400",
         description:
-          "Creating interactive web applications with modern frameworks and 3D graphics",
-        techs: ["react", "typescript", "javascript", "nodejs"],
+          "Designing human-centered interfaces and conducting systematic user research for emerging technologies",
+        techs: [
+          "react",
+          "typescript",
+          "javascript",
+          "user-research",
+          "prototyping",
+        ],
       },
       {
         title: "Research Enthusiast",
@@ -66,7 +88,14 @@ const HeroSection: React.FC = () => {
         color: "from-pink-400 to-purple-400",
         description:
           "Designing human-centered interfaces and mobile experiences for better user interaction",
-        techs: ["react", "typescript", "javascript", "nodejs"],
+        techs: [
+          "react",
+          "typescript",
+          "javascript",
+          "nodejs",
+          "salesforce",
+          "zapier",
+        ],
       },
     ],
     []
@@ -144,13 +173,6 @@ const HeroSection: React.FC = () => {
         color: "text-green-400",
       },
       {
-        name: "tensorflow",
-        level: 85,
-        logo: "/my-website/assets/tech-logos/tensorflow.svg",
-        fallbackIcon: Brain,
-        color: "text-orange-500",
-      },
-      {
         name: "nodejs",
         level: 85,
         logo: "/my-website/assets/tech-logos/nodejs.svg",
@@ -158,18 +180,25 @@ const HeroSection: React.FC = () => {
         color: "text-green-500",
       },
       {
-        name: "mongodb",
-        level: 80,
-        logo: "/my-website/assets/tech-logos/mongodb.svg",
-        fallbackIcon: Database,
-        color: "text-green-600",
+        name: "nextdotjs",
+        level: 85,
+        logo: "/my-website/assets/tech-logos/nextdotjs.svg",
+        fallbackIcon: Code,
+        color: "text-gray-400",
       },
       {
-        name: "aws",
-        level: 78,
-        logo: "/my-website/assets/tech-logos/aws.svg",
+        name: "salesforce",
+        level: 82,
+        logo: "/my-website/assets/tech-logos/salesforce.svg",
         fallbackIcon: Globe,
-        color: "text-orange-400",
+        color: "text-blue-500",
+      },
+      {
+        name: "zapier",
+        level: 80,
+        logo: "/my-website/assets/tech-logos/zapier.svg",
+        fallbackIcon: Zap,
+        color: "text-orange-500",
       },
     ],
     []
@@ -340,7 +369,7 @@ const HeroSection: React.FC = () => {
               </motion.span>
             </motion.span>
 
-            <motion.span className="block text-2xl md:text-4xl lg:text-5xl text-gray-200">
+            <motion.span className="block text-lg sm:text-2xl md:text-4xl lg:text-5xl text-gray-200">
               I'm a{" "}
               <span className="relative inline-block">
                 <motion.span
@@ -363,7 +392,7 @@ const HeroSection: React.FC = () => {
 
             {/* Dynamic description that changes with role */}
             <motion.p
-              className="text-base md:text-lg text-gray-300 mt-6 max-w-3xl mx-auto leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-gray-300 mt-4 sm:mt-6 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
               key={roleIndex} // This ensures smooth transition when role changes
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -379,7 +408,7 @@ const HeroSection: React.FC = () => {
           </motion.h1>
 
           {/* Tech Constellation */}
-          <div className="relative h-[400px] mb-12">
+          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] mb-8 sm:mb-12">
             <div className="absolute inset-0 flex items-center justify-center">
               {/* DTU Logo Centerpiece */}
               <motion.div
@@ -390,11 +419,11 @@ const HeroSection: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="relative group">
-                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/30 to-red-500/40 backdrop-blur-md border-2 border-red-500/50 flex items-center justify-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/30 to-red-500/40 backdrop-blur-md border-2 border-red-500/50 flex items-center justify-center">
                     <img
                       src="/my-website/assets/tech-logos/dtu-logo.svg"
                       alt="DTU"
-                      className="w-16 h-16 object-contain"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -432,7 +461,7 @@ const HeroSection: React.FC = () => {
                     onMouseLeave={() => setHoveredTech(null)}
                   >
                     <div
-                      className={`w-16 h-16 rounded-lg backdrop-blur-sm border transition-all duration-200 ${
+                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg backdrop-blur-sm border transition-all duration-200 ${
                         isRelevant || isHighlighted
                           ? "bg-white/15 border-white/30"
                           : "bg-white/8 border-white/15"
@@ -442,7 +471,7 @@ const HeroSection: React.FC = () => {
                           : ""
                       }`}
                     >
-                      <div className="w-full h-full flex items-center justify-center p-3">
+                      <div className="w-full h-full flex items-center justify-center p-2 sm:p-3">
                         <img
                           src={tech.logo}
                           alt={tech.name}
@@ -460,7 +489,6 @@ const HeroSection: React.FC = () => {
                     <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                       <div className="text-center">
                         <div className="font-medium">{tech.name}</div>
-                        <div>Proficiency: {tech.level}%</div>
                       </div>
                     </div>
                   </motion.div>
@@ -472,10 +500,10 @@ const HeroSection: React.FC = () => {
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 px-4 sm:px-0"
           >
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg text-sm sm:text-base"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={scrollToProjects}
@@ -484,7 +512,7 @@ const HeroSection: React.FC = () => {
             </motion.button>
 
             <motion.button
-              className="px-8 py-4 border border-purple-400 text-purple-300 font-semibold rounded-lg bg-white/5"
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-purple-400 text-purple-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base"
               whileHover={{
                 scale: 1.02,
                 backgroundColor: "rgba(139, 92, 246, 0.1)",

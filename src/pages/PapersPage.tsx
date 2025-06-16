@@ -578,7 +578,7 @@ const PapersPage: React.FC = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight py-2">
                 Papers & Posters
               </h1>
 

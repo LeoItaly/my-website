@@ -99,12 +99,12 @@ const SkillsSection: React.FC = () => {
         "Python, JavaScript, React Native, TypeScript, scientific computing, mobile apps",
     },
     {
-      name: "Web Technologies & Frameworks",
+      name: "Web Technologies & Interactive Systems",
       level: 94,
       category: "programming",
       color: "from-cyan-400 to-blue-500",
       description:
-        "React, D3.js, Svelte Kit, WebGL, interactive visualizations, full-stack development",
+        "React, D3.js, interactive prototypes, user research tools, and modern web frameworks",
     },
 
     // Data Science & Analytics Skills
@@ -210,7 +210,7 @@ const SkillsSection: React.FC = () => {
 
           <motion.h2
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6"
+            className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight py-2"
             style={{
               textShadow: "0 0 80px rgba(139, 92, 246, 0.3)",
             }}
@@ -222,185 +222,110 @@ const SkillsSection: React.FC = () => {
             variants={itemVariants}
             className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/10"
           >
-            A comprehensive toolkit spanning AI/ML, full-stack development, and
-            data science. Constantly evolving with the latest technologies and
-            methodologies.
+            A comprehensive toolkit spanning AI/ML development, interactive
+            systems, and data science. Constantly evolving with the latest
+            technologies and methodologies.
           </motion.p>
         </motion.div>
 
-        {/* Enhanced Category Filter with 3D effects */}
+        {/* Skills Filter */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="flex flex-wrap justify-center gap-4 mb-16"
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-2 sm:px-0"
         >
           {skillCategories.map((category) => (
             <motion.button
               key={category.id}
               variants={itemVariants}
-              className={`relative flex items-center px-8 py-4 rounded-2xl font-medium transition-all duration-500 backdrop-blur-xl border overflow-hidden ${
+              className={`flex items-center px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
                 activeCategory === category.id
-                  ? "text-white border-white/30 shadow-2xl"
-                  : "text-gray-300 hover:text-white border-white/10 hover:border-white/30"
+                  ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
+                  : "bg-white/10 text-gray-300 hover:bg-white/20 backdrop-blur-sm border border-white/10"
               }`}
               onClick={() => setActiveCategory(category.id)}
-              whileHover={{
-                scale: 1.05,
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.3)",
-              }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              style={{
-                background:
-                  activeCategory === category.id
-                    ? `linear-gradient(135deg, ${
-                        category.color.split(" ")[1]
-                      }, ${category.color.split(" ")[3]})`
-                    : "rgba(255, 255, 255, 0.05)",
-              }}
             >
-              <motion.div
-                animate={activeCategory === category.id ? { rotate: 360 } : {}}
-                transition={{ duration: 0.5 }}
-              >
-                <category.icon className="w-5 h-5 mr-3" />
-              </motion.div>
-              {category.label}
-
-              {/* 3D depth effect */}
-              <motion.div
-                className="absolute inset-0 rounded-2xl"
-                style={{
-                  background: `linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)`,
-                  backgroundSize: "200% 200%",
-                }}
-                animate={
-                  activeCategory === category.id
-                    ? {
-                        backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                      }
-                    : {}
-                }
-                transition={{ duration: 2, repeat: Infinity }}
-              />
+              <category.icon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">{category.label}</span>
+              <span className="sm:hidden">{category.label.split(" ")[0]}</span>
             </motion.button>
           ))}
         </motion.div>
 
-        {/* Enhanced Skills Grid with 3D cards */}
+        {/* Skills Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
-          {filteredSkills.map((skill, index) => (
+          {filteredSkills.map((skill) => (
             <motion.div
-              key={`${skill.name}-${activeCategory}`}
+              key={skill.name}
               variants={itemVariants}
-              className="group relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
+              className="group relative bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-500 cursor-pointer overflow-hidden"
               whileHover={{
                 y: -10,
                 scale: 1.02,
-                rotateY: 5,
-                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.4)",
+                boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.3)",
               }}
-              layout
-              initial={{ opacity: 0, scale: 0.8, rotateX: -15 }}
-              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateX: -15 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              onHoverStart={() => setHoveredSkill(skill.name)}
-              onHoverEnd={() => setHoveredSkill(null)}
+              onMouseEnter={() => setHoveredSkill(skill.name)}
+              onMouseLeave={() => setHoveredSkill(null)}
+              style={{
+                background: `linear-gradient(135deg, ${skill.color
+                  .replace("from-", "rgba(")
+                  .replace("to-", ", 0.05) 0%, rgba(")
+                  .replace(" ", ", 0.02")} 100%)`,
+              }}
             >
               {/* Skill header */}
-              <div className="flex items-center justify-between mb-6 relative z-10">
-                <motion.h3
-                  className="text-xl font-bold text-white group-hover:text-purple-300 transition-all duration-300"
-                  animate={
-                    hoveredSkill === skill.name ? { scale: 1.05 } : { scale: 1 }
-                  }
-                >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg sm:text-xl font-bold text-white">
                   {skill.name}
-                </motion.h3>
-                <motion.span
-                  className="text-sm text-gray-400 font-mono bg-black/30 px-3 py-1 rounded-full"
-                  animate={
-                    hoveredSkill === skill.name
-                      ? {
-                          scale: 1.1,
-                          backgroundColor: "rgba(139, 92, 246, 0.3)",
-                        }
-                      : { scale: 1 }
-                  }
-                >
-                  {skill.level}%
-                </motion.span>
+                </h3>
               </div>
 
-              {/* 3D Progress visualization */}
-              <div className="relative mb-6">
-                {/* Background track */}
-                <div className="w-full bg-gray-700/50 rounded-full h-4 overflow-hidden relative">
+              {/* Progress bar */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-400">Proficiency</span>
+                  <span className="text-sm font-bold text-white">
+                    {skill.level}%
+                  </span>
+                </div>
+                <div className="relative h-3 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                   <motion.div
-                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative overflow-hidden`}
-                    initial={{ width: 0, scaleY: 1 }}
+                    className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
+                    initial={{ width: 0 }}
                     animate={
-                      inView
-                        ? {
-                            width: `${skill.level}%`,
-                            scaleY: hoveredSkill === skill.name ? 1.2 : 1,
-                          }
-                        : { width: 0 }
+                      inView ? { width: `${skill.level}%` } : { width: 0 }
                     }
                     transition={{
-                      width: {
-                        duration: 1.5,
-                        delay: index * 0.1,
-                        ease: "easeOut",
-                      },
-                      scaleY: { duration: 0.3 },
+                      duration: 1.5,
+                      delay: 0.2,
+                      ease: "easeOut",
                     }}
-                  >
-                    {/* Animated shine effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
-                      animate={{
-                        x: ["-100%", "100%"],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: index * 0.2,
-                        ease: "easeInOut",
-                      }}
-                    />
-
-                    {/* 3D depth lines */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </motion.div>
+                    whileHover={{
+                      scaleY: 1.2,
+                      transition: { duration: 0.2 },
+                    }}
+                  />
+                  {/* Shine effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{
+                      x: ["-100%", "100%"],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: 1.5,
+                    }}
+                  />
                 </div>
-
-                {/* Floating percentage indicator */}
-                <motion.div
-                  className="absolute -top-12 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-2xl"
-                  style={{ left: `${Math.min(skill.level, 85)}%` }}
-                  initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                  animate={
-                    inView
-                      ? {
-                          opacity: hoveredSkill === skill.name ? 1 : 0,
-                          y: hoveredSkill === skill.name ? -5 : 0,
-                          scale: hoveredSkill === skill.name ? 1 : 0.8,
-                        }
-                      : {}
-                  }
-                  transition={{ delay: index * 0.1 + 1.5, duration: 0.3 }}
-                >
-                  {skill.level}%
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-purple-600" />
-                </motion.div>
               </div>
 
               {/* Skill description */}
@@ -421,75 +346,6 @@ const SkillsSection: React.FC = () => {
               >
                 {skill.description}
               </motion.p>
-
-              {/* 3D Card effects */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(135deg, ${skill.color
-                    .replace("from-", "rgba(")
-                    .replace("to-", ", 0.1) 0%, rgba(")
-                    .replace(" ", ", 0.05")} 100%)`,
-                }}
-              />
-
-              {/* Holographic border effect */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl border-2 border-transparent opacity-0 group-hover:opacity-100"
-                style={{
-                  background: `linear-gradient(45deg, ${skill.color}) border-box`,
-                  WebkitMask:
-                    "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
-                  WebkitMaskComposite: "subtract",
-                }}
-                animate={
-                  hoveredSkill === skill.name
-                    ? {
-                        background: [
-                          `linear-gradient(45deg, ${skill.color
-                            .replace("from-", "")
-                            .replace("to-", ",")}) border-box`,
-                          `linear-gradient(90deg, ${skill.color
-                            .replace("from-", "")
-                            .replace("to-", ",")}) border-box`,
-                          `linear-gradient(135deg, ${skill.color
-                            .replace("from-", "")
-                            .replace("to-", ",")}) border-box`,
-                          `linear-gradient(45deg, ${skill.color
-                            .replace("from-", "")
-                            .replace("to-", ",")}) border-box`,
-                        ],
-                      }
-                    : {}
-                }
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-
-              {/* Simplified particle effects on hover */}
-              {hoveredSkill === skill.name && (
-                <div className="absolute inset-0 pointer-events-none">
-                  {Array.from({ length: 4 }, (_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-purple-400 rounded-full"
-                      style={{
-                        left: `${25 + i * 15}%`,
-                        top: `${40 + i * 5}%`,
-                      }}
-                      animate={{
-                        scale: [0, 1, 0],
-                        opacity: [0, 1, 0],
-                        y: [0, -15, 0],
-                      }}
-                      transition={{
-                        duration: 1.2,
-                        delay: i * 0.2,
-                        repeat: Infinity,
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
             </motion.div>
           ))}
         </motion.div>

@@ -1,33 +1,36 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Brain, Github, Linkedin, Twitter, Mail, Heart, ArrowUp } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Brain, Github, Linkedin, Mail, Heart, ArrowUp } from "lucide-react";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const socialLinks = [
-    { icon: Github, url: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: Linkedin, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: Twitter, url: 'https://twitter.com/yourusername', label: 'Twitter' },
-    { icon: Mail, url: 'mailto:your.email@example.com', label: 'Email' },
+    { icon: Github, url: "https://github.com/LeoItaly", label: "GitHub" },
+    {
+      icon: Linkedin,
+      url: "https://www.linkedin.com/in/leonardo-rodovero/",
+      label: "LinkedIn",
+    },
+    { icon: Mail, url: "mailto:s240095@dtu.dk", label: "Email" },
   ];
 
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -55,7 +58,7 @@ const Footer: React.FC = () => {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 />
               </div>
@@ -64,8 +67,9 @@ const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-              Passionate AI/ML engineer and researcher dedicated to building intelligent 
-              solutions that make a difference. Always exploring the frontiers of artificial intelligence.
+              Passionate AI/ML engineer and researcher dedicated to building
+              intelligent solutions that make a difference. Always exploring the
+              frontiers of artificial intelligence.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => (
@@ -95,7 +99,9 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <motion.li
@@ -123,11 +129,13 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Get In Touch</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Get In Touch
+            </h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-400">
                 <Mail className="w-4 h-4 text-purple-400" />
-                <span className="text-sm">your.email@example.com</span>
+                <span className="text-sm">s240095@dtu.dk</span>
               </div>
               <div className="text-gray-400 text-sm">
                 <p>Available for freelance projects</p>
@@ -141,11 +149,13 @@ const Footer: React.FC = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               >
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-green-400 text-sm font-medium">Available for work</span>
+                <span className="text-green-400 text-sm font-medium">
+                  Available for work
+                </span>
               </motion.div>
             </div>
           </motion.div>
@@ -168,14 +178,14 @@ const Footer: React.FC = () => {
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
             >
               <Heart className="w-4 h-4 text-red-400 fill-current" />
             </motion.div>
             <span>and lots of coffee</span>
           </div>
-          
+
           <motion.button
             onClick={scrollToTop}
             className="flex items-center justify-center w-10 h-10 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg text-purple-400 hover:text-purple-300 transition-all duration-300 backdrop-blur-sm border border-purple-500/30"
@@ -198,7 +208,7 @@ const Footer: React.FC = () => {
           transition={{
             duration: 8,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
         <motion.div
@@ -210,7 +220,7 @@ const Footer: React.FC = () => {
           transition={{
             duration: 10,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
       </div>

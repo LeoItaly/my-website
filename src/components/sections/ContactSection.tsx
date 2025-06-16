@@ -186,7 +186,7 @@ const ContactSection: React.FC = () => {
 
           <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6"
+            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight py-2"
             style={{
               textShadow: "0 0 80px rgba(139, 92, 246, 0.3)",
             }}
