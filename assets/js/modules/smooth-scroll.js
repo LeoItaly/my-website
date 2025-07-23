@@ -31,7 +31,7 @@ const smoothScroll = {
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1,
+      threshold: 0.3, // Reveal when 30% of the section is visible
     };
 
     const observer = new IntersectionObserver((entries) => {

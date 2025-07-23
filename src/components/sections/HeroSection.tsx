@@ -511,6 +511,16 @@ const HeroSection: React.FC = () => {
               View My Projects
             </motion.button>
 
+            <a
+              href="/my-website/assets/CV-Leonardo-Rodovero.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-pink-400 text-pink-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base flex items-center justify-center transition-colors hover:bg-pink-500/10 hover:text-pink-200"
+              style={{ textDecoration: 'none' }}
+            >
+              View Resume
+            </a>
+
             <motion.button
               className="px-6 sm:px-8 py-3 sm:py-4 border border-purple-400 text-purple-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base"
               whileHover={{

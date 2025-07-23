@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
       isRoute: !isHomePage,
     },
     { name: "Papers", href: "/papers", isRoute: true },
-    { name: "AI Tools", href: "/ai-tools", isRoute: true },
+    // ...AI Tools page removed
     {
       name: "Contact",
       href: isHomePage ? "#contact" : "/#contact",

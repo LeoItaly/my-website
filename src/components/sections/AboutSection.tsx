@@ -107,10 +107,18 @@ const AboutSection: React.FC = () => {
     {
       name: "Research Papers",
       icon: FileText,
-      url: "/papers", // This will be your papers page
+      url: "http://localhost:5173/my-website/papers", // Redirect to full papers URL
       description: "Read my published research papers and academic posters",
       color: "from-green-600 to-teal-600",
       hoverColor: "hover:from-teal-600 hover:to-green-600",
+    },
+    {
+      name: "Resume",
+      icon: FileText,
+      url: "/my-website/assets/CV-Leonardo-Rodovero.pdf",
+      description: "View or download my full resume (PDF)",
+      color: "from-pink-600 to-purple-600",
+      hoverColor: "hover:from-purple-600 hover:to-pink-600",
     },
     {
       name: "LinkedIn Profile",

@@ -134,6 +134,14 @@ const ContactSection: React.FC = () => {
       description: "Connect professionally",
     },
     {
+      name: "Resume",
+      icon: FileText,
+      url: "/my-website/assets/CV-Leonardo-Rodovero.pdf",
+      color: "hover:text-pink-400",
+      bg: "hover:bg-pink-800/20",
+      description: "View or download my full resume (PDF)",
+    },
+    {
       name: "Email",
       icon: Mail,
       url: "mailto:s240095@dtu.dk",

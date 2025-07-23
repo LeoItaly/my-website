@@ -9,7 +9,6 @@ import {
   Eye,
   Search,
   BookOpen,
-  Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
@@ -589,21 +588,7 @@ const PapersPage: React.FC = () => {
                 UX research, and data science.
               </p>
 
-              {/* AI Tools Link */}
-              <motion.div
-                variants={itemVariants}
-                className="mt-8"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to="/ai-tools"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-600 hover:to-purple-600 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
-                >
-                  <Zap className="w-5 h-5 mr-2" />
-                  Explore AI Tools Directory
-                </Link>
-              </motion.div>
+              {/* AI Tools Link removed */}
             </motion.div>
 
             {/* Search and Filter */}

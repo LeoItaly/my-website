@@ -24,9 +24,9 @@ const HomePage: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <HeroSection />
+            <ProjectsSection />
             <AboutSection />
             <SkillsSection />
-            <ProjectsSection />
             <ContactSection />
           </motion.div>
         </main>
