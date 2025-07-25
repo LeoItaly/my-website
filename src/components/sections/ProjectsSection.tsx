@@ -831,6 +831,62 @@ const ProjectsSection: React.FC = () => {
       ? projects
       : projects.filter((project) => project.categories.includes(activeFilter));
 
+  // Add ISDN 4000S – Applied Generative AI for Interdisciplinary Projects (GoodClass.ai redesign)
+  const isdnProject = {
+    id: "isdn-4000s-goodclass",
+    title: "GoodClass.ai Redesign & Prototype",
+    categories: ["web-development", "web-mobile-dev"],
+    description:
+      "Redesigned GoodClass.ai, an AI-powered platform helping teachers create engaging lessons for middle-class students using generative AI tools. Developed at HKUST, Hong Kong, with a focus on design thinking and agile project management.",
+    image: "/my-website/assets/images/applied-gen-ai.png",
+    tags: ["Generative AI", "EduTech", "Design Thinking", "Agile", "Prototype", "HKUST"],
+    github: "https://github.com/LeoItaly/teach-ai-teng-menu",
+    paper: "https://www.canva.com/design/DAGssEu7gQ8/KglmSJ3fNUzPEPy4KAIpiA/view?utm_content=DAGssEu7gQ8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h97f136d901",
+    featured: true,
+    type: "project",
+    course: "ISDN 4000S – Applied Generative AI for Interdisciplinary Projects (HKUST, Hong Kong)",
+    role: "Team Lead & UX Designer",
+    paperAvailable: true,
+    snippet:
+      "AI-powered platform for teachers to create engaging lessons for middle-class students using generative AI tools.",
+    motivation:
+      "Empower teachers with AI tools for lesson planning, student engagement, and personalized learning. Address the challenge of interdisciplinary collaboration and project management in EduTech.",
+    scope:
+      "Redesign and prototype of GoodClass.ai, focusing on AI-enhanced design thinking, agile project management, and collaborative learning. Developed personas, generated ideas, and built a working prototype for real-world EduTech challenges.",
+    keyContributions: [
+      "Led the redesign and prototyping of GoodClass.ai for middle-class education.",
+      "Applied generative AI for lesson planning, resource allocation, and risk assessment.",
+      "Developed AI-driven personas and prototyped new features for teacher workflows.",
+      "Pitched solutions to EduTech experts and iterated based on feedback.",
+      "Reflected on interdisciplinary teamwork and personal growth throughout the course.",
+    ],
+    technologies:
+      "React, TypeScript, Generative AI APIs (e.g., ChatGPT), Figma, Agile project management tools, GitHub, PDF documentation.",
+    outcome:
+      "Delivered a working prototype and final presentation. Validated the platform's potential to enhance teaching for middle-class students using AI. Demonstrated effective interdisciplinary collaboration and project management.",
+    futureWork:
+      "Integrate more advanced AI features for personalized learning, expand to other educational contexts, and conduct further user testing with teachers and students.",
+    whatILearned: [
+      "How generative AI can transform lesson planning and student engagement in education.",
+      "Best practices for interdisciplinary collaboration and agile project management.",
+      "Design thinking applied to real-world EduTech challenges.",
+      "Prototyping and pitching solutions in a professional setting.",
+      "Critical self-reflection on strengths and areas for growth in team projects.",
+    ],
+    paperUrl: "/my-website/assets/papers/ISDN 4000S Final Presentation.pdf",
+    projectGithub: "https://github.com/LeoItaly/teach-ai-teng-menu",
+    projectWebsite: "https://teach-ai-teng-menu-56.lovable.app/dashboard",
+    additionalGithub: [],
+    prototypeVideo: undefined,
+    subProjects: [],
+    secondaryProjects: [],
+    canvaPresentation: "https://www.canva.com/design/DAGssEu7gQ8/KglmSJ3fNUzPEPy4KAIpiA/view?utm_content=DAGssEu7gQ8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h97f136d901",
+  };
+
+  if (!projects.some((p) => p.id === isdnProject.id)) {
+    projects.push(isdnProject);
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -1005,6 +1061,23 @@ const ProjectsSection: React.FC = () => {
                         <FileText className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                         <span className="hidden sm:inline">Paper</span>
                         <span className="sm:hidden">PDF</span>
+                      </motion.a>
+                    )}
+
+                    {/* NYC Noise Story: Add Visit Website button if project is NYC Noise Story */}
+                    {project.id === "social-data-analysis-nyc" && project.projectWebsite && (
+                      <motion.a
+                        href={project.projectWebsite}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center px-2 sm:px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Visit Website</span>
+                        <span className="sm:hidden">Visit</span>
                       </motion.a>
                     )}
 
