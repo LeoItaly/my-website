@@ -1,114 +1,543 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, File } from 'lucide-react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import {
+  Sparkles,
+  Database,
+  Brain,
+  Zap,
+  Atom,
+  Code,
+  Globe,
+  Layers,
+} from "lucide-react";
 
 const HeroSection: React.FC = () => {
+  const [text, setText] = useState("");
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [animationTime, setAnimationTime] = useState(0);
+  const [highlightedTechs, setHighlightedTechs] = useState<Set<string>>(
+    new Set()
+  );
+
+  const roles = useMemo(
+    () => [
+      {
+        title: "Applied AI Engineer",
+        icon: Brain,
+        color: "from-purple-400 to-pink-400",
+        description:
+          "Building full-stack AI products from LLM pipelines and agentic workflows to production-ready systems",
+        techs: ["python", "pytorch", "react", "typescript"],
+      },
+      {
+        title: "Agentic Workflow Builder",
+        icon: Zap,
+        color: "from-violet-400 to-purple-400",
+        description:
+          "Designing multi-agent systems with memory, tool use, sub-agent delegation, and human-in-the-loop control",
+        techs: ["python", "pytorch", "javascript", "nodejs"],
+      },
+      {
+        title: "LLM Systems Developer",
+        icon: Atom,
+        color: "from-cyan-400 to-blue-400",
+        description:
+          "Integrating LLMs into real products via orchestration, prompt engineering, and API-driven automation",
+        techs: ["python", "react", "typescript", "nodejs"],
+      },
+      {
+        title: "Full-Stack Developer",
+        icon: Code,
+        color: "from-green-400 to-cyan-400",
+        description:
+          "Shipping React, React Native, and TypeScript products across web and mobile platforms",
+        techs: ["react", "typescript", "javascript", "nodejs"],
+      },
+      {
+        title: "Data Scientist",
+        icon: Database,
+        color: "from-blue-400 to-green-400",
+        description:
+          "Transforming complex datasets into graph models, data pipelines, and data-driven product insights",
+        techs: ["python", "pytorch", "javascript", "nextdotjs"],
+      },
+      {
+        title: "AI/ML Researcher",
+        icon: Sparkles,
+        color: "from-yellow-400 to-pink-400",
+        description:
+          "Computer vision, deep learning, generative models, and biometric systems from MSc research",
+        techs: ["python", "pytorch", "opencv", "react"],
+      },
+    ],
+    []
+  );
+
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number>();
+
+  // Use useSpring for smoother scroll effects
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const springConfig = { damping: 30, stiffness: 100 };
+  const y = useSpring(
+    useTransform(scrollYProgress, [0, 1], ["0%", "30%"]),
+    springConfig
+  );
+  const opacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.8], [1, 0]),
+    springConfig
+  );
+  const scale = useSpring(
+    useTransform(scrollYProgress, [0, 0.5], [1, 0.95]),
+    springConfig
+  );
+
+  const techLogos = useMemo(
+    () => [
+      {
+        name: "python",
+        level: 95,
+        logo: "/my-website/assets/tech-logos/python.svg",
+        fallbackIcon: Code,
+        color: "text-yellow-400",
+      },
+      {
+        name: "pytorch",
+        level: 88,
+        logo: "/my-website/assets/tech-logos/pytorch.svg",
+        fallbackIcon: Brain,
+        color: "text-orange-400",
+      },
+      {
+        name: "react",
+        level: 90,
+        logo: "/my-website/assets/tech-logos/react.svg",
+        fallbackIcon: Atom,
+        color: "text-cyan-400",
+      },
+      {
+        name: "typescript",
+        level: 88,
+        logo: "/my-website/assets/tech-logos/typescript.svg",
+        fallbackIcon: Code,
+        color: "text-blue-400",
+      },
+      {
+        name: "javascript",
+        level: 92,
+        logo: "/my-website/assets/tech-logos/javascript.svg",
+        fallbackIcon: Code,
+        color: "text-yellow-300",
+      },
+      {
+        name: "opencv",
+        level: 80,
+        logo: "/my-website/assets/tech-logos/opencv.svg",
+        fallbackIcon: Database,
+        color: "text-green-400",
+      },
+      {
+        name: "nodejs",
+        level: 85,
+        logo: "/my-website/assets/tech-logos/nodejs.svg",
+        fallbackIcon: Layers,
+        color: "text-green-500",
+      },
+      {
+        name: "nextdotjs",
+        level: 85,
+        logo: "/my-website/assets/tech-logos/nextdotjs.svg",
+        fallbackIcon: Code,
+        color: "text-gray-400",
+      },
+      {
+        name: "salesforce",
+        level: 82,
+        logo: "/my-website/assets/tech-logos/salesforce.svg",
+        fallbackIcon: Globe,
+        color: "text-blue-500",
+      },
+      {
+        name: "zapier",
+        level: 80,
+        logo: "/my-website/assets/tech-logos/zapier.svg",
+        fallbackIcon: Zap,
+        color: "text-orange-500",
+      },
+    ],
+    []
+  );
+
+  // Optimize animation loop with RAF
+  useEffect(() => {
+    const updateAnimation = () => {
+      setAnimationTime(Date.now() * 0.001);
+      animationFrameRef.current = requestAnimationFrame(updateAnimation);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(updateAnimation);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
+  // Memoize position calculations
+  const calculateTechPosition = useCallback(
+    (index: number, time: number) => {
+      const baseRadius = 200; // Reduced from 280 to bring logos closer to center
+      const angle = (index / techLogos.length) * Math.PI * 2 + time * 0.08; // Slower rotation
+      return {
+        x: Math.cos(angle) * baseRadius,
+        y: Math.sin(angle) * baseRadius,
+      };
+    },
+    [techLogos.length]
+  );
+
+  // Memoize tech positions to reduce calculations
+  const techPositions = useMemo(() => {
+    return techLogos.map((_, index) =>
+      calculateTechPosition(index, animationTime)
+    );
+  }, [techLogos, calculateTechPosition, animationTime]);
+
+  // Typewriter effect with smooth transitions
+  useEffect(() => {
+    const typeSpeed = isDeleting ? 50 : 150;
+    const currentRole = roles[roleIndex].title;
+
+    if (!isDeleting && charIndex < currentRole.length) {
+      const timeout = setTimeout(() => {
+        setText(currentRole.substring(0, charIndex + 1));
+        setCharIndex(charIndex + 1);
+      }, typeSpeed);
+      return () => clearTimeout(timeout);
+    } else if (isDeleting && charIndex > 0) {
+      const timeout = setTimeout(() => {
+        setText(currentRole.substring(0, charIndex - 1));
+        setCharIndex(charIndex - 1);
+      }, typeSpeed);
+      return () => clearTimeout(timeout);
+    } else if (!isDeleting && charIndex === currentRole.length) {
+      const timeout = setTimeout(() => setIsDeleting(true), 2500);
+      return () => clearTimeout(timeout);
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }
+  }, [charIndex, isDeleting, roleIndex, roles]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const currentRoleTechs = roles[roleIndex].techs;
+
+  // Simplified scroll handlers
+  const scrollToProjects = useCallback(() => {
+    document.getElementById("projects")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
+
+  const scrollToContact = useCallback(() => {
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
+
+  // Random highlighting effect
+  useEffect(() => {
+    const updateHighlights = () => {
+      const numToHighlight = Math.floor(Math.random() * 3) + 2;
+      const shuffled = [...techLogos].sort(() => Math.random() - 0.5);
+      const newHighlights = new Set(
+        shuffled.slice(0, numToHighlight).map((tech) => tech.name)
+      );
+      setHighlightedTechs(newHighlights);
+    };
+
+    updateHighlights();
+    const interval = setInterval(updateHighlights, 3000);
+
+    return () => clearInterval(interval);
+  }, [techLogos]);
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      <div className="container-custom">
-        <div className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="px-4 py-1 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-300">
-              AI/ML Specialist
-            </span>
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
+    >
+      <motion.div
+        ref={heroRef}
+        style={{ y, opacity, scale }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+      >
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="relative"
+        >
+          {/* Greeting */}
+          <motion.div variants={itemVariants} className="mb-8">
+            <motion.span
+              className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-md border border-purple-500/30 text-purple-200 font-medium"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Sparkles className="w-5 h-5 mr-3 text-purple-400" />
+              Welcome to the AI Revolution
+            </motion.span>
           </motion.div>
 
+          {/* Main heading with dynamic description */}
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-500 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={itemVariants}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
           >
-            John Doe
+            <motion.span className="block text-white mb-4">
+              Hi, I'm{" "}
+              <motion.span
+                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                style={{ backgroundSize: "200% auto" }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                Leo
+              </motion.span>
+            </motion.span>
+
+            <motion.span className="block text-lg sm:text-2xl md:text-4xl lg:text-5xl text-gray-200">
+              I'm a{" "}
+              <span className="relative inline-block">
+                <motion.span
+                  className={`bg-gradient-to-r ${roles[roleIndex].color} bg-clip-text text-transparent font-bold`}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  style={{ backgroundSize: "200% auto" }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                >
+                  {text}
+                </motion.span>
+                <motion.span
+                  className="absolute -right-1 top-0 w-1 h-full bg-gradient-to-b from-purple-400 to-blue-400 rounded-full"
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                />
+              </span>
+            </motion.span>
+
+            {/* Dynamic description that changes with role */}
+            <motion.p
+              className="text-sm sm:text-base md:text-lg text-gray-300 mt-4 sm:mt-6 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
+              key={roleIndex} // This ensures smooth transition when role changes
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+                delay: 0.2,
+              }}
+            >
+              {roles[roleIndex].description}
+            </motion.p>
           </motion.h1>
 
-          <motion.div
-            className="max-w-2xl mx-auto mb-8 overflow-hidden"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            <h2 className="text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap overflow-hidden border-r-4 border-primary-500 dark:border-primary-400 animate-typewriter pr-1 animate-blink">
-              Exploring the frontiers of artificial intelligence
-            </h2>
-          </motion.div>
+          {/* Tech Constellation */}
+          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] mb-8 sm:mb-12">
+            <div className="absolute inset-0 flex items-center justify-center">
+              {/* DTU Logo Centerpiece */}
+              <motion.div
+                className="absolute z-20"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="relative group">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/30 to-red-500/40 backdrop-blur-md border-2 border-red-500/50 flex items-center justify-center">
+                    <img
+                      src="/my-website/assets/tech-logos/dtu-logo.svg"
+                      alt="DTU"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                    DTU - Technical University of Denmark
+                  </div>
+                </div>
+              </motion.div>
 
-          <motion.p
-            className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mb-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            Master's student in AI/ML with a passion for developing intelligent systems that solve real-world problems. Full-stack developer with experience in building scalable applications.
-          </motion.p>
+              {/* Tech Logos Orbit */}
+              {techLogos.map((tech, index) => {
+                const position = techPositions[index];
+                const isRelevant = currentRoleTechs.includes(tech.name);
+                const isHighlighted = highlightedTechs.has(tech.name);
 
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
-          >
-            <a href="#projects" className="btn-primary">
-              View Projects
-            </a>
-            <a href="#contact" className="btn-outline">
-              Contact Me
-            </a>
-          </motion.div>
+                return (
+                  <motion.div
+                    key={tech.name}
+                    className="absolute cursor-pointer group"
+                    initial={{ scale: 0, x: 0, y: 0 }}
+                    animate={{
+                      x: position.x,
+                      y: position.y,
+                      scale: isRelevant || isHighlighted ? 1 : 0.75,
+                    }}
+                    transition={{
+                      scale: { duration: 0.5, delay: index * 0.05 },
+                      x: { type: "spring", stiffness: 50, damping: 20 },
+                      y: { type: "spring", stiffness: 50, damping: 20 },
+                    }}
+                    whileHover={{
+                      scale: isRelevant || isHighlighted ? 1.1 : 0.9,
+                    }}
+                    onMouseEnter={() => setHoveredTech(tech.name)}
+                    onMouseLeave={() => setHoveredTech(null)}
+                  >
+                    <div
+                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg backdrop-blur-sm border transition-all duration-200 ${
+                        isRelevant || isHighlighted
+                          ? "bg-white/15 border-white/30"
+                          : "bg-white/8 border-white/15"
+                      } ${
+                        hoveredTech === tech.name
+                          ? "bg-white/25 border-white/40"
+                          : ""
+                      }`}
+                    >
+                      <div className="w-full h-full flex items-center justify-center p-2 sm:p-3">
+                        <img
+                          src={tech.logo}
+                          alt={tech.name}
+                          className="w-full h-full object-contain"
+                          loading="lazy"
+                          style={{
+                            filter:
+                              isRelevant || isHighlighted
+                                ? "brightness(1.1) saturate(1.1)"
+                                : "brightness(0.8) saturate(0.8)",
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                      <div className="text-center">
+                        <div className="font-medium">{tech.name}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
 
+          {/* CTA Buttons */}
           <motion.div
-            className="flex space-x-6 mb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 px-4 sm:px-0"
           >
+            <motion.button
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg text-sm sm:text-base"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={scrollToProjects}
+            >
+              View My Projects
+            </motion.button>
+
             <a
-              href="https://github.com/"
+              href="/my-website/assets/Leonardo Rodovero - AI Engineer Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              aria-label="GitHub"
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-pink-400 text-pink-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base flex items-center justify-center transition-colors hover:bg-pink-500/10 hover:text-pink-200"
+              style={{ textDecoration: 'none' }}
             >
-              <Github className="w-6 h-6" />
+              View Resume
             </a>
-            <a
-              href="https://linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-6 h-6" />
-            </a>
-            <a
-              href="#"
-              className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              aria-label="Resume"
-            >
-              <File className="w-6 h-6" />
-            </a>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.5, repeat: Infinity, repeatType: "reverse" }}
-            className="absolute bottom-8"
-          >
-            <a href="#about" aria-label="Scroll down">
-              <ArrowDown className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-            </a>
+            <motion.button
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-purple-400 text-purple-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base"
+              whileHover={{
+                scale: 1.02,
+                backgroundColor: "rgba(139, 92, 246, 0.1)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              onClick={scrollToContact}
+            >
+              Get In Touch
+            </motion.button>
           </motion.div>
+        </motion.div>
+
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {Array.from({ length: 6 }, (_, i) => (
+            <motion.div
+              key={i}
+              className="absolute"
+              style={{
+                left: `${15 + i * 12}%`,
+                top: `${20 + ((i * 15) % 40)}%`,
+              }}
+              animate={{
+                scale: [0.8, 1, 0.8],
+                opacity: [0.1, 0.3, 0.1],
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full" />
+            </motion.div>
+          ))}
         </div>
-      </div>
-
-      {/* Decorative element */}
-      <div className="absolute -z-10 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-primary-300/30 to-secondary-300/30 dark:from-primary-900/30 dark:to-secondary-900/30 blur-3xl" />
+      </motion.div>
     </section>
   );
 };

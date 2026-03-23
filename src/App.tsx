@@ -1,28 +1,19 @@
-import { ThemeProvider } from './context/ThemeContext';
-import Navbar from './components/layout/Navbar';
-import BackgroundEffects from './components/animations/BackgroundEffects';
-import HeroSection from './components/sections/HeroSection';
-import AboutSection from './components/sections/AboutSection';
-import SkillsSection from './components/sections/SkillsSection';
-import ProjectsSection from './components/sections/ProjectsSection';
-import ContactSection from './components/sections/ContactSection';
-import Footer from './components/layout/Footer';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext";
+import HomePage from "./pages/HomePage";
+import PapersPage from "./pages/PapersPage";
+// import AIToolsPage from "./pages/AIToolsPage"; // AI Tools page removed
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen relative">
-        <BackgroundEffects />
-        <Navbar />
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <ContactSection />
-        </main>
-        <Footer />
-      </div>
+      <Router basename="/my-website">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/papers" element={<PapersPage />} />
+          {/* <Route path="/ai-tools" element={<AIToolsPage />} /> AI Tools page removed */}
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 }

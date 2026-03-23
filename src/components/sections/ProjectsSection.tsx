@@ -1,173 +1,1392 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {
+  Github,
+  ExternalLink,
+  FileText,
+  Rocket,
+  Brain,
+  Code,
+  Database,
+  Bot,
+} from "lucide-react";
+import ProjectDetail from "./ProjectDetail";
 
-const projects = [
-  {
-    id: 1,
-    title: 'Neural Network Image Classifier',
-    description: 'A deep learning model trained to classify images with state-of-the-art accuracy using convolutional neural networks.',
-    image: 'https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    tags: ['Python', 'TensorFlow', 'Computer Vision', 'Deep Learning'],
-    links: {
-      github: 'https://github.com/',
-      demo: 'https://demo.example.com',
-      paper: 'https://arxiv.org/'
-    }
-  },
-  {
-    id: 2,
-    title: 'Natural Language Processing Chatbot',
-    description: 'An intelligent conversational agent built using transformer-based models to provide context-aware responses.',
-    image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    tags: ['Python', 'PyTorch', 'NLP', 'Transformers'],
-    links: {
-      github: 'https://github.com/',
-      demo: 'https://demo.example.com'
-    }
-  },
-  {
-    id: 3,
-    title: 'Predictive Analytics Dashboard',
-    description: 'A full-stack application that visualizes data and provides predictive insights using machine learning algorithms.',
-    image: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    tags: ['React', 'Node.js', 'D3.js', 'Scikit-learn'],
-    links: {
-      github: 'https://github.com/',
-      demo: 'https://demo.example.com'
-    }
-  },
-  {
-    id: 4,
-    title: 'Reinforcement Learning Game Agent',
-    description: 'An AI agent trained using reinforcement learning to master complex game environments with superhuman performance.',
-    image: 'https://images.pexels.com/photos/2007647/pexels-photo-2007647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    tags: ['Python', 'PyTorch', 'Reinforcement Learning', 'OpenAI Gym'],
-    links: {
-      github: 'https://github.com/',
-      paper: 'https://arxiv.org/'
-    }
-  }
-];
+interface Project {
+  id: string;
+  title: string;
+  categories: string[];
+  description: string;
+  image: string;
+  tags: string[];
+  github?: string;
+  paper?: string;
+  featured: boolean;
+  type: string;
+  course: string;
+  role: string;
+  paperAvailable: boolean;
+  snippet: string;
+  motivation: string;
+  scope: string;
+  keyContributions: string[];
+  technologies: string;
+  outcome: string;
+  futureWork: string;
+  whatILearned: string[];
+  paperUrl?: string;
+  posterUrl?: string;
+  posterUrls?: string[];
+  projectGithub?: string;
+  projectWebsite?: string;
+  additionalGithub?: string[];
+  prototypeVideo?: string;
+  subProjects?: {
+    id: string;
+    title: string;
+    description: string;
+    motivation: string;
+    keyFeatures: string[];
+    outcome: string;
+    paperUrl: string;
+  }[];
+  secondaryProjects?: {
+    title: string;
+    description: string;
+    website: string;
+    github: string;
+    keyInsights: string[];
+  }[];
+  courseExercises?: string;
+}
 
 const ProjectsSection: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [ref, inView] = useInView({
+    triggerOnce: true,
     threshold: 0.1,
-    triggerOnce: false,
   });
 
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null);
+
+  const projectCategories = [
+    {
+      id: "all",
+      label: "All Projects",
+      icon: Rocket,
+      color: "from-purple-500 to-blue-500",
+    },
+    {
+      id: "computer-vision",
+      label: "Computer Vision",
+      icon: Brain,
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      id: "ai-systems",
+      label: "AI Systems & Agents",
+      icon: Bot,
+      color: "from-violet-500 to-purple-500",
+    },
+    {
+      id: "data-science",
+      label: "Data Science & ML",
+      icon: Database,
+      color: "from-green-500 to-teal-500",
+    },
+    {
+      id: "web-development",
+      label: "Web & Mobile Dev",
+      icon: Code,
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      id: "research",
+      label: "Research & Papers",
+      icon: FileText,
+      color: "from-yellow-500 to-orange-500",
+    },
+  ];
+
+  const projects: Project[] = [
+    {
+      id: "fiqa-biometric-systems",
+      title:
+        "Facial Image Quality Assessment for Improved Face Recognition Systems",
+      categories: ["computer-vision", "research"],
+      description:
+        "Surveyed modern FIQA techniques and proposed research directions to boost robustness, interpretability and bias mitigation in face-recognition pipelines.",
+      image: "/my-website/assets/images/fiqa.jpg",
+      tags: [
+        "FIQA",
+        "Face Recognition",
+        "PyTorch",
+        "OpenCV",
+        "SHAP",
+        "Research",
+      ],
+      github: "",
+      paper: "/my-website/assets/papers/fiqa-biometric-systems.pdf",
+      featured: true,
+      type: "research",
+      course: "Biometric Systems (MSc)",
+      role: "Lead researcher & sole author",
+      paperAvailable: true,
+      snippet:
+        "Surveyed modern FIQA techniques and proposed research directions to boost robustness, interpretability and bias mitigation in face-recognition pipelines.",
+      motivation:
+        "Low-quality face images sharply degrade recognition accuracy. Pre-screening with FIQA allows systems to discard or down-weight problematic samples.",
+      scope:
+        "Reviewed 40+ papers; categorised methods into analytical, regression-based and quality-aware (see taxonomy on page 3, Fig. 1) and contrasted FIQA with the newer Interpretable FQA paradigm (table on page 8). 02238-s240095-EFS",
+      keyContributions: [
+        "Comprehensive comparison of seven SOTA FIQA models (MagFace, FaceQNet, SER-FIQ, DifFIQA,...) on five public benchmarks (LFW, CPLFW, etc.).",
+        "Highlighted alignment and demographic-bias pitfalls; showcased AI-KD knowledge-distillation strategy that boosts pAUC by ≈ 5 % (table on page 9–10).",
+        "Summarised emerging pixel-level explainability techniques (SHAP-based heat-maps, deletion/insertion curves) for actionable feedback in capture pipelines.",
+      ],
+      technologies:
+        "Python 3, PyTorch, OpenCV, SHAP, StyleGAN2 latent-space analysis, Zotero (refs), Elicit & Litmaps (literature mapping), Jenni AI (draft optimisation).",
+      outcome:
+        "Accepted in Lecture Notes in Informatics (GI); serves as reading material for the Biometric Systems course lab.",
+      futureWork:
+        "Build a multimodal FIQA module (face + iris) and integrate bias-mitigation frameworks (EQBM, L2RT-FIQA) into a demo access-control system.",
+      whatILearned: [
+        "Crafting evaluation protocols (EDC & pAUC curves) that remain model-agnostic.",
+        "Translating dense research into actionable design guidelines for practitioners.",
+        "Leveraging knowledge-distillation to transfer robustness against mis-alignment.",
+      ],
+    },
+    {
+      id: "image-analysis-dtu",
+      title: "Image Analysis: From Medical Imaging to Computer Vision",
+      categories: ["computer-vision"],
+      description:
+        "Comprehensive exploration of digital image analysis including medical imaging, statistical methods, and performance evaluation across multiple practical exercises.",
+      image: "/my-website/assets/images/image-analysis.jpg",
+      tags: [
+        "Image Processing",
+        "Medical Imaging",
+        "PCA",
+        "Classification",
+        "Segmentation",
+        "Python",
+      ],
+      github: "https://github.com/LeoItaly/Image-analysis",
+      featured: false,
+      type: "project",
+      course: "Image Analysis (MSc)",
+      role: "Student & Implementer",
+      paperAvailable: false,
+      snippet:
+        "Gained solid understanding of digital images, implementation of image analysis algorithms, and evaluation of performance across medical and computer vision applications.",
+      motivation:
+        "With the explosion of image analysis in self-driving cars, medical diagnostics, and treatment planning, understanding fundamental image processing techniques became essential for modern AI applications.",
+      scope:
+        "Comprehensive coursework covering digital image fundamentals, medical imaging modalities (X-ray, CT, MRI), algorithm implementation, and performance evaluation through hands-on exercises and practical implementations.",
+      keyContributions: [
+        "Implemented core image analysis algorithms including point processing, filtering, morphology, and BLOB analysis from scratch.",
+        "Developed medical image processing pipelines for X-ray, CT, and MRI data with proper acquisition understanding.",
+        "Built classification systems using extracted image features with statistical methods like PCA for dimensionality reduction.",
+        "Created segmentation and registration algorithms with performance evaluation using confusion matrices and clinical endpoints.",
+        "Designed custom image analysis solutions for specific objectives using appropriate training data and feature selection.",
+      ],
+      technologies:
+        "Python, NumPy, OpenCV, scikit-learn, matplotlib, medical imaging libraries, statistical analysis tools, performance evaluation frameworks.",
+      outcome:
+        "Successfully completed all course exercises demonstrating proficiency in image analysis fundamentals, medical imaging principles, and algorithm performance optimization.",
+      futureWork:
+        "Apply learned techniques to develop advanced medical image analysis systems, integrate deep learning approaches with traditional methods, and explore real-time image processing for clinical applications.",
+      whatILearned: [
+        "Fundamental properties of digital images and medical imaging modalities.",
+        "Implementation and optimization of image analysis algorithms for various applications.",
+        "Statistical methods for feature extraction and classification in image-based systems.",
+        "Performance evaluation techniques using ground-truth datasets and clinical endpoints.",
+        "Design principles for selecting appropriate algorithms based on specific image analysis objectives.",
+      ],
+    },
+    {
+      id: "computer-vision-dtu",
+      title: "Computer Vision: 3D Geometry and Surface Reconstruction",
+      categories: ["computer-vision"],
+      description:
+        "Comprehensive exploration of computer vision fundamentals including 3D geometry, camera calibration, feature matching, and RANSAC algorithm implementation.",
+      image: "/my-website/assets/images/computer-vision.jpg",
+      tags: [
+        "Computer Vision",
+        "3D Geometry",
+        "Camera Calibration",
+        "RANSAC",
+        "Feature Matching",
+        "Python",
+      ],
+      github: "https://github.com/LeoItaly/computer-vision",
+      featured: false,
+      type: "project",
+      course: "Computer Vision (MSc)",
+      role: "Student & Implementer",
+      paperAvailable: false,
+      snippet:
+        "Developed theoretical and practical understanding of computer vision problems through implementation of core algorithms for 3D reconstruction and camera geometry.",
+      motivation:
+        "Computer vision methods are essential for digital entertainment, mapping, industrial sensors, and robot navigation. Understanding the mathematical foundations enables solving complex visual perception problems.",
+      scope:
+        "Comprehensive coursework covering perspective camera geometry, 3D surface reconstruction, camera calibration, feature detection, and correspondence matching with practical implementations in Python.",
+      keyContributions: [
+        "Implemented linear methods for camera estimation and calibration from multiple viewpoints.",
+        "Developed RANSAC algorithm for robust estimation in presence of outliers and noise.",
+        "Created correspondence matching systems between 2D image points to estimate 3D scene structure.",
+        "Built one and two view geometry algorithms for estimating camera positions and 3D points.",
+        "Implemented feature detection and matching pipelines using common computer vision libraries.",
+        "Performed systematic performance analysis and optimization of computer vision algorithms.",
+      ],
+      technologies:
+        "Python, OpenCV, NumPy, matplotlib, camera calibration tools, 3D geometry libraries, RANSAC implementations, feature detection frameworks.",
+      outcome:
+        "Successfully completed all exercises demonstrating proficiency in 3D computer vision, camera geometry, and robust algorithm implementation with performance evaluation.",
+      futureWork:
+        "Integrate deep learning approaches with classical computer vision methods, develop real-time 3D reconstruction systems, and apply techniques to robotics and autonomous navigation.",
+      whatILearned: [
+        "Mathematical foundations of perspective camera geometry and 3D reconstruction.",
+        "Implementation and optimization of robust algorithms like RANSAC for real-world applications.",
+        "Camera calibration techniques and their impact on 3D estimation accuracy.",
+        "Feature detection and matching strategies for establishing correspondences across views.",
+        "Systematic performance analysis methodologies for computer vision algorithms.",
+      ],
+    },
+    {
+      id: "machine-learning-life-expectancy",
+      title: "Life-Expectancy Prediction & Development Classification",
+      categories: ["data-science", "research"],
+      description:
+        "Cleaned and modelled 2,860 health & economy observations to explain life-span disparities and classify developed vs developing states using rigorous ML pipeline.",
+      image: "/my-website/assets/images/machine-learning.jpg",
+      tags: [
+        "Machine Learning",
+        "Regression",
+        "Classification",
+        "PCA",
+        "Cross-Validation",
+        "Python",
+      ],
+      github: "https://github.com/LeoItaly/machine-learning",
+      paper: "/my-website/assets/papers/machine-learning.pdf",
+      featured: true,
+      type: "research",
+      course: "Introduction to Machine Learning and Data Mining (MSc)",
+      role: "Data lead & primary author",
+      paperAvailable: true,
+      snippet:
+        "Cleaned and modelled 2,860 health & economy observations to explain life-span disparities and to separate developed vs developing states.",
+      motivation:
+        "Understanding factors that influence life expectancy and economic development status is crucial for public health policy and international aid allocation. Machine learning provides powerful tools to identify key predictive features and build robust models.",
+      scope:
+        "Comprehensive ML project using WHO dataset with 21 attributes × 2,864 rows covering 179 countries (2000-2015). Implemented dual objectives: regression for life expectancy prediction and classification for development status.",
+      keyContributions: [
+        "Rigorous data preprocessing pipeline including sanity checks, standardization, and outlier detection using z-scores (|z| > 3).",
+        "Comprehensive EDA with correlation analysis revealing strong negative links between mortality metrics and life span.",
+        "PCA implementation showing developed nations form tight clusters in first 2 principal components space.",
+        "Regularized Linear Regression achieving MAE ≈ 1.8 years with optimal λ≈0.01 through hyperparameter tuning.",
+        "Neural network implementation (1 hidden unit) providing comparable accuracy with non-linearity capabilities.",
+        "Statistical validation using nested 10-fold CV and paired t-tests confirming model significance (p < 0.05).",
+        "McNemar test analysis showing ANN outperforms logistic regression by ~4pp accuracy for classification.",
+      ],
+      technologies:
+        "Python 3.11, scikit-learn, pandas, matplotlib, NumPy, statistical testing frameworks, GitHub CI for automated testing and linting.",
+      outcome:
+        "Delivered 10-page comprehensive report with reproducible Jupyter notebook. Methodology adopted as template for course cohorts 2024-25, demonstrating real-world impact.",
+      futureWork:
+        "Integrate Gradient-Boosted Trees for improved performance, implement SHAP for feature attribution analysis, and publish cleaned dataset on Kaggle for community use.",
+      whatILearned: [
+        "Rigorous preprocessing can improve model accuracy more than sophisticated algorithms.",
+        "Nested cross-validation prevents optimistic bias during hyperparameter tuning.",
+        "Even simple neural networks can rival linear models with proper feature engineering.",
+        "Statistical validation is essential for confirming model performance beyond baseline.",
+        "Feature importance analysis reveals actionable insights for policy recommendations.",
+      ],
+    },
+    {
+      id: "geometric-data-analysis-dtu",
+      title: "Geometric Data Analysis and Processing",
+      categories: ["computer-vision"],
+      description:
+        "Comprehensive exploration of geometric data processing including point clouds, triangle meshes, surface representations, and differential geometry algorithms.",
+      image: "/my-website/assets/images/geometric-data.jpg",
+      tags: [
+        "Geometric Processing",
+        "Point Clouds",
+        "Triangle Meshes",
+        "Surface Analysis",
+        "3D Graphics",
+        "Python",
+      ],
+      github:
+        "https://github.com/LeoItaly/Geometric-Data-Analysis-and-Processing",
+      featured: false,
+      type: "project",
+      course: "Geometric Data Analysis and Processing (MSc)",
+      role: "Student & Algorithm Implementer",
+      paperAvailable: false,
+      snippet:
+        "Implemented algorithms for processing geometric data including point clouds, triangle meshes, and implicit surfaces with applications in 3D modeling and FEM simulation.",
+      motivation:
+        "Modern applications in 3D scanning, modeling, and simulation require sophisticated geometric processing techniques. Understanding surface representations and differential geometry is essential for computer graphics, CAD, and scientific computing.",
+      scope:
+        "Weekly programming assignments covering surface representations, spectral analysis, differential geometry, mesh operations, point cloud registration, and geometric visualization using Python implementations.",
+      keyContributions: [
+        "Implemented multiple surface representations including triangle meshes, distance fields, and point clouds with conversion algorithms.",
+        "Developed spectral analysis methods for triangle meshes using Laplace-Beltrami operator analogous to Fourier analysis.",
+        "Created mesh simplification and optimization algorithms for reducing geometric complexity while preserving features.",
+        "Built point cloud registration system using ICP (Iterative Closest Point) method for aligning 3D datasets.",
+        "Implemented Delaunay triangulation algorithms for 2D point sets and 3D surface parameterization.",
+        "Developed noise removal and smoothing techniques for polygonal meshes using differential geometry principles.",
+        "Created volume-based processing methods and implicit surface polygonization algorithms.",
+      ],
+      technologies:
+        "Python, NumPy, SciPy, matplotlib, OpenGL/computer graphics libraries, geometric processing frameworks, mesh manipulation tools, 3D visualization systems.",
+      outcome:
+        "Successfully completed all weekly assignments demonstrating proficiency in geometric algorithm implementation, surface analysis, and 3D data processing with effective visualization.",
+      futureWork:
+        "Apply geometric processing to real-world 3D scanning applications, integrate machine learning with geometric analysis, and develop real-time mesh processing for interactive applications.",
+      whatILearned: [
+        "Multiple surface representation paradigms and their trade-offs for different applications.",
+        "Differential geometry principles applied to discrete surface analysis and processing.",
+        "Spectral methods for geometric analysis providing frequency-domain insights into mesh properties.",
+        "Registration and alignment techniques essential for combining multiple 3D datasets.",
+        "Effective visualization strategies for making complex geometric data accessible and interpretable.",
+      ],
+      subProjects: [
+        {
+          id: "gymbuddy",
+          title: "GymBuddy",
+          description:
+            "Mobile social-robot that follows beginners around the gym, uses computer-vision to correct form and keeps them motivated through real-time pose analysis and personalized feedback.",
+          motivation:
+            "Beginners lack affordable coaching; wrong form leads to injuries and demotivation. GymBuddy robot bridges that gap with real-time pose analysis, personalised plans and upbeat feedback.",
+          keyFeatures: [
+            "Focus-group iterations uncovered key pain-points including placement and accessibility issues",
+            "Think-aloud testing led to rep-count progress bar and eye animations that follow users",
+            "Lean Canvas defined sharp value proposition: real-time feedback, personalised plan, empathetic support",
+            "Ethical design avoiding nagging behavior with user-tunable voice/volume and privacy-protected camera data",
+          ],
+          outcome:
+            "Usability score increased after color, font and navigation fixes; validated concept for gym-beginner segment with clear roadmap for wristband integration.",
+          paperUrl: "/my-website/assets/papers/gymbuddy-ux.pdf",
+        },
+        {
+          id: "instanttranslate",
+          title: "InstantTranslate",
+          description:
+            "AR glasses that live-translate written signs and dialogue in 50+ languages for travellers using eye-gaze interaction and hand-gesture controls.",
+          motivation:
+            "Travellers struggle with menus, signs and live conversations; phone apps demand hands and attention. AR solution provides hands-free, context-aware translation.",
+          keyFeatures: [
+            "Real-time text and speech translation overlaid directly in field of view",
+            "Eye-gaze acts as mouse pointer for intuitive selection without hand interaction",
+            "Left-hand radial menu designed specifically for non-verbal users",
+            "Stare-to-translate functionality reduces input burden and cognitive load",
+          ],
+          outcome:
+            "Peer-voted winning concept with validated two-way dialogue illustration, comprehensive wireframes addressing usability issues through color-coding and speaker labels.",
+          paperUrl: "/my-website/assets/papers/instanttranslate-ux.pdf",
+        },
+        {
+          id: "safedrive",
+          title: "SafeDrive",
+          description:
+            "In-cab AI system that detects truck-driver fatigue using IR camera analysis of head-pose, eyelid movement, and yawns, triggering adaptive alerts.",
+          motivation:
+            "US truckers may drive 8 hours before breaks; 91,000 fatigue-related crashes occur yearly. AI-powered early detection can prevent accidents through progressive intervention.",
+          keyFeatures: [
+            "Dashboard plug-in with IR camera for non-intrusive fatigue detection",
+            "Progressive alarm system: light alerts, audio warnings, rest area recommendations",
+            "Focus group validation reshaped tone, palette, and AI camera communication",
+            "Voice controls prioritized over touch interaction for safety during driving",
+          ],
+          outcome:
+            "Validated facial-recognition flow through high-fidelity think-aloud testing with 5 users in simulated cab environment, with ethical dark-pattern audit ensuring driver agency.",
+          paperUrl: "/my-website/assets/papers/safedrive-ux.pdf",
+        },
+        {
+          id: "gothentic",
+          title: "Gothentic",
+          description:
+            "Community platform where verified travellers share authentic micro-blogs and quick-tips, enabling others to build tailor-made trips from trusted local insights.",
+          motivation:
+            "Fully-packaged tours lack authenticity; DIY research is time-consuming and often biased by viral hotspots. Platform connects authentic local knowledge with personalized trip planning.",
+          keyFeatures: [
+            "Verified traveller system ensuring authentic, unbiased content quality",
+            "Micro-blog format optimized for quick consumption and trip planning",
+            "Filter system by country/city with seamless external booking integration",
+            "Community moderation system designed to deter sponsored posts and maintain authenticity",
+          ],
+          outcome:
+            "Iterative testing led to simplified interface removing confusing map view and AI cost-estimator, focusing on blog credibility and reading experience optimization.",
+          paperUrl: "/my-website/assets/papers/gothentic-ux.pdf",
+        },
+      ],
+    },
+    {
+      id: "user-experience-engineering-dtu",
+      title: "User Experience Engineering: Next-Generation Interface Design",
+      categories: ["research"],
+      description:
+        "Comprehensive UX design course developing four innovative interface prototypes using lean methodology, biometric integration, and cognitive computing principles.",
+      image: "/my-website/assets/images/ux-engineering.jpg",
+      tags: [
+        "UX Design",
+        "Prototyping",
+        "User Research",
+        "Biometric Interfaces",
+        "Design Thinking",
+        "MVP",
+      ],
+      featured: true,
+      type: "research",
+      course: "User Experience Engineering (MSc)",
+      role: "UX Designer & Researcher",
+      paperAvailable: true,
+      snippet:
+        "Developed four innovative UX prototypes for next-generation interfaces incorporating biometric data, cognitive computing, and systematic user validation through iterative design processes.",
+      motivation:
+        "Next-generation interfaces require new UX paradigms that incorporate biometric data, cognitive computing, and adaptive user experiences. Traditional design methods need evolution to handle emerging technologies and unfamiliar interaction challenges.",
+      scope:
+        "Project-driven application of lean UX methods to design cognitive computing interfaces, combining business canvas modeling with hierarchical user story mapping for agile development and MVP validation.",
+      keyContributions: [
+        "Developed systematic iterative design process using focus groups, think-aloud protocols, and usability testing across four distinct projects.",
+        "Applied lean methodology and business canvas modeling to validate user needs and market segments for emerging interface paradigms.",
+        "Integrated biometric measurements (heart rate, eye tracking, facial recognition) into UX prototypes for adaptive user experiences.",
+        "Conducted comprehensive user research including focus groups, workshops, and external user testing to validate design decisions.",
+        "Created data-driven design processes using verifiable hypotheses and rapid measurement techniques for UX decision making.",
+        "Addressed ethical design considerations including privacy, dark patterns, and accessibility across all prototype developments.",
+      ],
+      technologies:
+        "Design Thinking methodology, Lean UX, Agile development, biometric sensors, AR/VR prototyping tools, user testing frameworks, business canvas modeling, story mapping techniques.",
+      outcome:
+        "Successfully delivered four comprehensive UX prototypes with validated user research, demonstrating proficiency in next-generation interface design and systematic UX engineering processes.",
+      futureWork:
+        "Scale validated prototypes to production environments, integrate advanced AI and machine learning for enhanced cognitive computing interfaces, and develop comprehensive design systems for biometric UX.",
+      whatILearned: [
+        "Systematic application of lean methodology to UX design for emerging technology interfaces.",
+        "Integration of biometric data into user experience design while maintaining ethical and privacy standards.",
+        "Data-driven UX decision making through hypothesis formulation and rapid validation techniques.",
+        "Stakeholder communication through UX prototyping across diverse technical and business audiences.",
+        "Scalability considerations when transitioning digital products from development to production phases.",
+      ],
+      subProjects: [
+        {
+          id: "gymbuddy",
+          title: "GymBuddy",
+          description:
+            "Mobile social-robot that follows beginners around the gym, uses computer-vision to correct form and keeps them motivated through real-time pose analysis and personalized feedback.",
+          motivation:
+            "Beginners lack affordable coaching; wrong form leads to injuries and demotivation. GymBuddy robot bridges that gap with real-time pose analysis, personalised plans and upbeat feedback.",
+          keyFeatures: [
+            "Focus-group iterations uncovered key pain-points including placement and accessibility issues",
+            "Think-aloud testing led to rep-count progress bar and eye animations that follow users",
+            "Lean Canvas defined sharp value proposition: real-time feedback, personalised plan, empathetic support",
+            "Ethical design avoiding nagging behavior with user-tunable voice/volume and privacy-protected camera data",
+          ],
+          outcome:
+            "Usability score increased after color, font and navigation fixes; validated concept for gym-beginner segment with clear roadmap for wristband integration.",
+          paperUrl: "/my-website/assets/papers/gymbuddy-ux.pdf",
+        },
+        {
+          id: "instanttranslate",
+          title: "InstantTranslate",
+          description:
+            "AR glasses that live-translate written signs and dialogue in 50+ languages for travellers using eye-gaze interaction and hand-gesture controls.",
+          motivation:
+            "Travellers struggle with menus, signs and live conversations; phone apps demand hands and attention. AR solution provides hands-free, context-aware translation.",
+          keyFeatures: [
+            "Real-time text and speech translation overlaid directly in field of view",
+            "Eye-gaze acts as mouse pointer for intuitive selection without hand interaction",
+            "Left-hand radial menu designed specifically for non-verbal users",
+            "Stare-to-translate functionality reduces input burden and cognitive load",
+          ],
+          outcome:
+            "Peer-voted winning concept with validated two-way dialogue illustration, comprehensive wireframes addressing usability issues through color-coding and speaker labels.",
+          paperUrl: "/my-website/assets/papers/instanttranslate-ux.pdf",
+        },
+        {
+          id: "safedrive",
+          title: "SafeDrive",
+          description:
+            "In-cab AI system that detects truck-driver fatigue using IR camera analysis of head-pose, eyelid movement, and yawns, triggering adaptive alerts.",
+          motivation:
+            "US truckers may drive 8 hours before breaks; 91,000 fatigue-related crashes occur yearly. AI-powered early detection can prevent accidents through progressive intervention.",
+          keyFeatures: [
+            "Dashboard plug-in with IR camera for non-intrusive fatigue detection",
+            "Progressive alarm system: light alerts, audio warnings, rest area recommendations",
+            "Focus group validation reshaped tone, palette, and AI camera communication",
+            "Voice controls prioritized over touch interaction for safety during driving",
+          ],
+          outcome:
+            "Validated facial-recognition flow through high-fidelity think-aloud testing with 5 users in simulated cab environment, with ethical dark-pattern audit ensuring driver agency.",
+          paperUrl: "/my-website/assets/papers/safedrive-ux.pdf",
+        },
+        {
+          id: "gothentic",
+          title: "Gothentic",
+          description:
+            "Community platform where verified travellers share authentic micro-blogs and quick-tips, enabling others to build tailor-made trips from trusted local insights.",
+          motivation:
+            "Fully-packaged tours lack authenticity; DIY research is time-consuming and often biased by viral hotspots. Platform connects authentic local knowledge with personalized trip planning.",
+          keyFeatures: [
+            "Verified traveller system ensuring authentic, unbiased content quality",
+            "Micro-blog format optimized for quick consumption and trip planning",
+            "Filter system by country/city with seamless external booking integration",
+            "Community moderation system designed to deter sponsored posts and maintain authenticity",
+          ],
+          outcome:
+            "Iterative testing led to simplified interface removing confusing map view and AI cost-estimator, focusing on blog credibility and reading experience optimization.",
+          paperUrl: "/my-website/assets/papers/gothentic-ux.pdf",
+        },
+      ],
+    },
+    {
+      id: "computer-graphics-webgl",
+      title: "Real-Time Planar Reflections in WebGL",
+      categories: ["research"],
+      description:
+        "Built a four-stage rasterisation pipeline that mirrors geometry, blends translucency, clips correctly and runs at 60 fps in the browser using WebGL and custom GLSL shaders.",
+      image: "/my-website/assets/images/computer-graphics.jpg",
+      tags: [
+        "WebGL",
+        "GLSL",
+        "Computer Graphics",
+        "Real-Time Rendering",
+        "JavaScript",
+        "Shaders",
+      ],
+      github: "https://github.com/LeoItaly/computer-graphics",
+      paper: "/my-website/assets/papers/planar-reflections-webgl.pdf",
+      featured: true,
+      type: "research",
+      course: "Computer Graphics (MSc)",
+      role: "Lead Developer & Co-Researcher",
+      paperAvailable: true,
+      snippet:
+        "Built a four-stage rasterisation pipeline that mirrors geometry, blends translucency, clips correctly and runs at 60 fps in the browser.",
+      motivation:
+        "Mirrors, calm water and polished floors all need convincing reflections, yet classic WebGL lacks built-in support. The goal was to craft a lightweight technique that looks physically plausible but still fits a real-time budget.",
+      scope:
+        "Comprehensive implementation of planar reflection system in WebGL 1.0 with custom GLSL shaders, focusing on real-time performance while maintaining visual quality through advanced graphics programming techniques.",
+      keyContributions: [
+        "Geometry mirroring using 4×4 reflection matrix R about chosen plane with mathematical derivation and implementation.",
+        "Translucent reflector rendering with α < 1 and SRC_ALPHA/ONE_MINUS_SRC_ALPHA blending for realistic surface appearance.",
+        "Stencil buffer gating system preventing reflection leakage beyond reflector surface boundaries.",
+        "Oblique near-plane clipping through projection matrix modification for efficient GPU-based geometry culling.",
+        "Single-pass Phong shading implementation for both original objects and mirrored twins.",
+        "Performance optimization achieving ≤2ms per frame rendering on mid-range hardware.",
+      ],
+      technologies:
+        "WebGL 1.0, GLSL shaders, JavaScript, gl-matrix.js for matrix operations, Chrome DevTools for performance profiling, custom rasterization pipeline, stencil buffer techniques.",
+      outcome:
+        "Successfully implemented real-time planar reflection system running at 60fps with clean architecture supporting easy WebGPU migration. Demonstrated with teapot example showing crisp reflections with proper transparency and clipping.",
+      futureWork:
+        "Implement curved or multi-bounce reflections via screen-space ray marching, WebGPU rewrite with WGSL and depth-prepass for larger scenes, and integration with educational demos for reflection vs refraction teaching.",
+      whatILearned: [
+        "Advanced WebGL programming techniques including stencil buffer manipulation and custom projection matrices.",
+        "Real-time graphics optimization strategies balancing visual quality with performance constraints.",
+        "Mathematical foundations of 3D reflection transformations and their efficient GPU implementation.",
+        "Graphics pipeline architecture design for modular and maintainable rendering systems.",
+        "Performance profiling and optimization techniques for browser-based graphics applications.",
+      ],
+    },
+    {
+      id: "deep-learning-ddpm",
+      title: "Denoising Diffusion Probabilistic Models on MNIST",
+      categories: ["data-science", "research"],
+      description:
+        "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST through comprehensive DDPM implementation from scratch.",
+      image: "/my-website/assets/images/deep-learning.jpg",
+      tags: [
+        "Deep Learning",
+        "DDPMs",
+        "PyTorch",
+        "Generative AI",
+        "U-Net",
+        "Diffusion Models",
+      ],
+      github: "https://github.com/LeoItaly/deep-learning",
+      paper: "/my-website/assets/papers/ddpm-mnist-report.pdf",
+      featured: true,
+      type: "research",
+      course: "Deep Learning (MSc)",
+      role: "Lead Researcher & Developer",
+      paperAvailable: true,
+      posterUrl: "/my-website/assets/papers/ddpm-poster.pdf",
+      projectGithub: "https://github.com/LeoItaly/DDPM-DL",
+      snippet:
+        "Compared linear, cosine & sigmoid noise schedules plus Classifier-Free Guidance, pushing FID down to 0.46 on MNIST.",
+      motivation:
+        "Diffusion models have overtaken GANs for crisp image synthesis. Re-implemented DDPMs from scratch to understand forward (noise) and reverse (denoise) Markov chains and test how noise schedules, timestep count and class guidance affect quality.",
+      scope:
+        "Comprehensive implementation and evaluation of Denoising Diffusion Probabilistic Models with systematic comparison of noise scheduling strategies, timestep optimization, and Classifier-Free Guidance integration on MNIST dataset.",
+      keyContributions: [
+        "Complete DDPM implementation from scratch with U-Net architecture featuring residual blocks, self-attention, and sinusoidal timestep embeddings.",
+        "Systematic comparison of three noise schedulers: Linear (FID: 7.82), Cosine (FID: 5.74), and Sigmoid (FID: 5.04) showing 35% improvement.",
+        "Classifier-Free Guidance implementation achieving FID of 0.464 with guidance weight w=1, demonstrating quality-diversity trade-off control.",
+        "Comprehensive experimental validation with 60k/10k MNIST split, 20 epochs training, and MSE loss optimization.",
+        "Mathematical derivation and implementation of forward and reverse diffusion processes with detailed scheduler formulations.",
+        "Performance analysis across different timestep counts (1000 steps optimal) and guidance weights with diversity collapse detection.",
+      ],
+      technologies:
+        "PyTorch, Python, U-Net architecture, MNIST dataset, Adam optimizer, MSE loss, sinusoidal embeddings, attention mechanisms, mathematical modeling of stochastic processes.",
+      outcome:
+        "Successfully achieved state-of-the-art FID score of 0.464 on MNIST with comprehensive analysis presented in academic poster format. Methodology demonstrates deep understanding of generative modeling principles.",
+      futureWork:
+        "Scale to larger 64×64 datasets (Fashion-MNIST, CIFAR-10), migrate to PyTorch 2.2 Diffusion API, implement advanced scheduling techniques, and explore multi-modal conditioning approaches.",
+      whatILearned: [
+        "Mathematical foundations of stochastic diffusion processes and their discrete approximations.",
+        "Advanced PyTorch implementation techniques for complex generative architectures.",
+        "Systematic experimental design for comparing generative model variants.",
+        "Classifier-Free Guidance principles for controllable generation without sacrificing diversity.",
+        "Academic presentation and visualization techniques for complex technical concepts.",
+        "Performance optimization strategies for training large generative models.",
+      ],
+    },
+    {
+      id: "deep-learning-computer-vision",
+      title: "Deep Learning in Computer Vision: Multi-Domain Applications",
+      categories: ["computer-vision", "research"],
+      description:
+        "Comprehensive exploration of CNN architectures across classification, segmentation, and object detection with three distinct projects showcasing modern deep learning techniques.",
+      image: "/my-website/assets/images/deep-learning-cv.jpg",
+      tags: [
+        "Deep Learning",
+        "Computer Vision",
+        "CNNs",
+        "Object Detection",
+        "Segmentation",
+        "PyTorch",
+      ],
+      featured: false,
+      type: "research",
+      course: "Deep Learning in Computer Vision (MSc)",
+      role: "Lead Developer & Researcher",
+      paperAvailable: false,
+      posterUrls: [
+        "/my-website/assets/papers/hotdog-classification-poster.pdf",
+        "/my-website/assets/papers/medical-segmentation-poster.pdf",
+        "/my-website/assets/papers/pothole-detection-poster.pdf",
+      ],
+      projectGithub: "https://github.com/rjarvi/IDLCV_23_HotDog",
+      additionalGithub: ["https://github.com/Ealbagp/Object-Detection"],
+      snippet:
+        "Developed three comprehensive computer vision projects: binary CNN classification, medical image segmentation, and real-time object detection with state-of-the-art architectures.",
+      motivation:
+        "Computer vision tasks traditionally solved with hand-crafted features now leverage deep learning for superior performance. Understanding how to apply CNNs across different domains - from binary classification to complex segmentation and detection - is essential for modern AI applications.",
+      scope:
+        "Three distinct projects covering the spectrum of computer vision tasks: HotDog/Not HotDog binary classification with custom CNN architecture, medical image segmentation using U-Net variants, and real-time pothole detection with region-based object detection.",
+      keyContributions: [
+        "Custom CNN architecture development from 3-conv baseline to 6-conv/3-FC with systematic dropout optimization (p=0.25 conv, p=0.55 FC).",
+        "Medical image segmentation across two domains: retinal vessel (565×584px) and dermoscopic lesion (576×767px) using patch-based training.",
+        "Comprehensive loss function comparison: BCE, weighted BCE, Focal Loss (α=0.4, γ=2.5), and Dice Loss with U-Net achieving best performance.",
+        "Real-time pothole detection system with Selective Search region proposals (k=5, σ=0.6, minSize=200) achieving 86.9% validation accuracy.",
+        "Transfer learning benchmarking: custom model (81.1%) vs ResNet-18 (90.4%) with detailed performance analysis.",
+        "Weakly-supervised learning experiments using point-level labels via K-means clustering vs random sampling.",
+        "Explainable AI implementation with saliency maps revealing dataset diversity issues and model decision patterns.",
+      ],
+      technologies:
+        "PyTorch, CNNs, U-Net, R-CNN, ResNet, DenseNet, Selective Search, data augmentation, transfer learning, medical imaging, computer vision pipelines, explainable AI techniques.",
+      outcome:
+        "Successfully delivered three comprehensive projects with academic poster presentations. Achieved competitive performance across all domains with detailed ablation studies and performance analysis. Demonstrated mastery of modern deep learning techniques for computer vision.",
+      futureWork:
+        "Implement Faster R-CNN for improved object detection, explore attention mechanisms for better segmentation performance, develop multi-modal fusion approaches, and integrate real-time deployment optimizations.",
+      whatILearned: [
+        "Architecture design principles for different computer vision tasks and their specific requirements.",
+        "Advanced data augmentation strategies and their impact on model generalization and overfitting.",
+        "Loss function selection and optimization for class-imbalanced datasets across different domains.",
+        "Transfer learning trade-offs between custom architectures and pre-trained models.",
+        "Medical imaging preprocessing techniques including patch-based training for memory efficiency.",
+        "Region proposal methods and their impact on object detection performance.",
+        "Explainable AI techniques for understanding model behavior and identifying dataset biases.",
+      ],
+    },
+    {
+      id: "social-data-analysis-nyc",
+      title: "NYC Noise Story: The Sounds of the City That Never Sleeps",
+      categories: ["data-science", "web-development"],
+      description:
+        "Interactive narrative visualization analyzing 1M+ NYC noise complaints during COVID-19, revealing dramatic urban acoustic changes through pandemic phases.",
+      image: "/my-website/assets/images/social-data.jpg",
+      tags: [
+        "Data Visualization",
+        "D3.js",
+        "Interactive Dashboards",
+        "Social Data",
+        "Svelte Kit",
+        "NYC Open Data",
+      ],
+      projectWebsite: "https://leoitaly.github.io/nycity-noise-story/",
+      projectGithub: "https://github.com/LeoItaly/nycity-noise-story",
+      featured: true,
+      type: "project",
+      course: "Social Data Analysis and Visualization (MSc)",
+      role: "Data Analyst & Visualization Developer",
+      paperAvailable: false,
+      snippet:
+        "Mining 1,037,904 NYC 311 noise complaints (2019-2020) to reveal a dramatic three-act pandemic story through interactive visualization.",
+      motivation:
+        "COVID-19 fundamentally changed urban soundscapes worldwide. New York City's comprehensive 311 complaint data provides a unique window into how pandemic policies and social changes affected urban acoustics and community noise experiences.",
+      scope:
+        "Comprehensive analysis and visualization of over 1 million NYC noise complaints, creating an interactive narrative website that reveals pandemic-era urban acoustic changes through advanced data storytelling techniques.",
+      keyContributions: [
+        "Processed and analyzed 1,037,904 NYC 311 noise complaints spanning 2019-2020 with automated data pipeline using NYC Open Data API.",
+        "Identified three distinct pandemic phases: Pre-Pandemic Normal (~663 daily), Great Quieting (~540, -18.6%), and Noise Awakening (~1,135, +71.2%).",
+        "Created interactive animated timeline map with month-by-month playback of complaint hotspots using D3.js and TopoJSON.",
+        "Developed phase slider interface for instant navigation between pandemic periods with hover tooltips showing exact counts and category shares.",
+        "Implemented borough-level filtering revealing inequities: Manhattan -35% lockdown dip vs Bronx -5%, and Bronx +187% reopening surge vs Staten Island +54%.",
+        "Discovered significant noise mix changes: residential complaints grew from 35% to 62% during lockdown peak.",
+        "Built automated CI/CD pipeline with GitHub Actions for continuous data updates and deployment.",
+      ],
+      technologies:
+        "D3.js v7, TopoJSON, Svelte Kit, JavaScript, NYC Open Data API, GitHub Actions, automated data processing, responsive web design, interactive visualization frameworks.",
+      outcome:
+        "Successfully deployed interactive website revealing unprecedented insights into pandemic urban acoustics. June 20, 2020 set all-time record with 2,434 complaints (152% above 2019). Demonstrated mastery of narrative data visualization and large-scale data processing.",
+      futureWork:
+        "Extend analysis to post-pandemic recovery patterns, integrate additional cities for comparative analysis, develop predictive models for noise complaint patterns, and create real-time monitoring dashboard.",
+      whatILearned: [
+        "Advanced D3.js techniques for creating animated, interactive geographic visualizations.",
+        "Large-scale data processing and API integration for continuous data updates.",
+        "Narrative visualization principles for effective data storytelling to diverse audiences.",
+        "Geographic data processing with TopoJSON and efficient rendering techniques.",
+        "CI/CD pipeline development for automated data visualization updates.",
+        "Statistical analysis techniques for identifying temporal patterns and inequities in urban data.",
+      ],
+      secondaryProjects: [
+        {
+          title: "SF Drug-Crime Dashboard: A Decade of Narcotics Incidents",
+          description:
+            "Interactive dashboard analyzing SFPD Incident Reports (2003-2024) tracing how policy shifts and fentanyl wave reshaped drug-related crime patterns in San Francisco.",
+          website: "https://leoitaly.github.io/social-data-website/",
+          github: "https://github.com/LeoItaly/social-data-website",
+          keyInsights: [
+            "Prop 47 (2014) felony→misdemeanor downgrade led to declining proportion of narcotic incidents",
+            "Fentanyl arrival (2017) caused sharp spike in incidents and overdose deaths outpacing enforcement",
+            "Tenderloin accounts for >50% of all drug calls by 2020, highlighting spatial inequity",
+            "Drug enforcement drop ≠ addiction drop, revealed through overdose data overlays",
+            "Post-2022 enforcement raises local incident counts but doesn't shift city-wide totals",
+          ],
+        },
+      ],
+      courseExercises:
+        "https://github.com/LeoItaly/social-data-visualization-2025",
+    },
+    {
+      id: "personal-data-moodwise",
+      title: "MoodWise: Tracking Mood, Weather & Activity",
+      categories: ["web-development", "research"],
+      description:
+        "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood through personal informatics.",
+      image: "/my-website/assets/images/personal-data.jpg",
+      tags: [
+        "React Native",
+        "Personal Informatics",
+        "Mobile App",
+        "Data Visualization",
+        "UX Research",
+        "HCI",
+      ],
+      github: "https://github.com/LeoItaly/moodwise",
+      projectGithub: "https://github.com/LeoItaly/moodwise",
+      paper: "/my-website/assets/papers/moodwise-personal-data.pdf",
+      paperUrl: "/my-website/assets/papers/moodwise-personal-data.pdf",
+      prototypeVideo: "https://youtube.com/shorts/tXqZixevwns?feature=share",
+      featured: true,
+      type: "research",
+      course: "Personal Data Interaction for Mobile and Wearables (MSc)",
+      role: "UX Researcher & Mobile Developer",
+      paperAvailable: true,
+      snippet:
+        "Logs morning/evening mood, activities and daily weather, then turns them into calendar heat-maps & insight cards to fight seasonal low mood.",
+      motivation:
+        "People living in northern climates often feel their mood dip when daylight hours shrink. MoodWise gives them a simple way to record how weather and physical activity interact with mood, then surfaces patterns they can act on.",
+      scope:
+        "Complete personal informatics system development including React Native mobile prototype, comprehensive UX evaluation with multiple user studies, and HCI experiment comparing visualization approaches for personal data interaction.",
+      keyContributions: [
+        "Designed and developed React Native mobile app with one-tap emoji mood logging, activity tracking, and weather integration.",
+        "Created comprehensive data visualization suite: 14-day mini-calendar with color-coded mood history, monthly calendar view with filtering, and statistical dashboard.",
+        "Implemented personal informatics lifecycle following Li et al. model: Collect → Reflect → Act with recognition-over-recall design principles.",
+        "Conducted systematic UX evaluation: internal heuristics, two usability studies (8 users total), and controlled HCI experiment (8 users) comparing 4 visualization types.",
+        "Discovered stacked-bar charts fastest (38s) and easiest to read for personal data insights, leading to final Stats page design.",
+        "Built privacy-aware architecture with local data storage and planned CSV export functionality.",
+        "Achieved <10s mood retrieval time after calendar filter revamp, with insight cards helping users articulate patterns twice as effectively.",
+      ],
+      technologies:
+        "React Native, JavaScript, mobile prototyping, data visualization, SQLite local storage, emoji interface design, calendar heat-maps, statistical charting, user testing frameworks.",
+      outcome:
+        "Successfully delivered high-fidelity mobile prototype with comprehensive paper documentation and video demonstration. Validated design through multiple user studies showing effective personal data interaction and pattern recognition.",
+      futureWork:
+        "Auto-fetch weather & step-count integration, reminder scheduler with user-customizable times, side-by-side comparison views, and lapse-friendly motivation features with optional streak hiding.",
+      whatILearned: [
+        "Personal informatics system design principles and lifecycle implementation from data collection to actionable insights.",
+        "Mobile UX design for sensitive personal data with privacy-first architecture and low-friction interaction patterns.",
+        "Systematic user testing methodologies including think-aloud protocols, scenario tasks, and controlled HCI experiments.",
+        "Data visualization effectiveness evaluation through comparative user studies and task completion metrics.",
+        "React Native development for cross-platform mobile applications with local data persistence.",
+        "Recognition-over-recall design principles for creating intuitive personal data interfaces that reduce cognitive load.",
+      ],
+    },
+  ];
+
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.categories.includes(activeFilter));
+
+  // Add ISDN 4000S – Applied Generative AI for Interdisciplinary Projects (GoodClass.ai redesign)
+  const isdnProject = {
+    id: "isdn-4000s-goodclass",
+    title: "GoodClass.ai Redesign & Prototype",
+    categories: ["web-development", "web-mobile-dev"],
+    description:
+      "Redesigned GoodClass.ai, an AI-powered platform helping teachers create engaging lessons for middle-class students using generative AI tools. Developed at HKUST, Hong Kong, with a focus on design thinking and agile project management.",
+    image: "/my-website/assets/images/applied-gen-ai.png",
+    tags: ["Generative AI", "EduTech", "Design Thinking", "Agile", "Prototype", "HKUST"],
+    github: "https://github.com/LeoItaly/teach-ai-teng-menu",
+    paper: "https://www.canva.com/design/DAGssEu7gQ8/KglmSJ3fNUzPEPy4KAIpiA/view?utm_content=DAGssEu7gQ8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h97f136d901",
+    featured: true,
+    type: "project",
+    course: "ISDN 4000S – Applied Generative AI for Interdisciplinary Projects (HKUST, Hong Kong)",
+    role: "Team Lead & UX Designer",
+    paperAvailable: true,
+    snippet:
+      "AI-powered platform for teachers to create engaging lessons for middle-class students using generative AI tools.",
+    motivation:
+      "Empower teachers with AI tools for lesson planning, student engagement, and personalized learning. Address the challenge of interdisciplinary collaboration and project management in EduTech.",
+    scope:
+      "Redesign and prototype of GoodClass.ai, focusing on AI-enhanced design thinking, agile project management, and collaborative learning. Developed personas, generated ideas, and built a working prototype for real-world EduTech challenges.",
+    keyContributions: [
+      "Led the redesign and prototyping of GoodClass.ai for middle-class education.",
+      "Applied generative AI for lesson planning, resource allocation, and risk assessment.",
+      "Developed AI-driven personas and prototyped new features for teacher workflows.",
+      "Pitched solutions to EduTech experts and iterated based on feedback.",
+      "Reflected on interdisciplinary teamwork and personal growth throughout the course.",
+    ],
+    technologies:
+      "React, TypeScript, Generative AI APIs (e.g., ChatGPT), Figma, Agile project management tools, GitHub, PDF documentation.",
+    outcome:
+      "Delivered a working prototype and final presentation. Validated the platform's potential to enhance teaching for middle-class students using AI. Demonstrated effective interdisciplinary collaboration and project management.",
+    futureWork:
+      "Integrate more advanced AI features for personalized learning, expand to other educational contexts, and conduct further user testing with teachers and students.",
+    whatILearned: [
+      "How generative AI can transform lesson planning and student engagement in education.",
+      "Best practices for interdisciplinary collaboration and agile project management.",
+      "Design thinking applied to real-world EduTech challenges.",
+      "Prototyping and pitching solutions in a professional setting.",
+      "Critical self-reflection on strengths and areas for growth in team projects.",
+    ],
+    paperUrl: "/my-website/assets/papers/ISDN 4000S Final Presentation.pdf",
+    projectGithub: "https://github.com/LeoItaly/teach-ai-teng-menu",
+    projectWebsite: "https://teach-ai-teng-menu-56.lovable.app/dashboard",
+    additionalGithub: [],
+    prototypeVideo: undefined,
+    subProjects: [],
+    secondaryProjects: [],
+    canvaPresentation: "https://www.canva.com/design/DAGssEu7gQ8/KglmSJ3fNUzPEPy4KAIpiA/view?utm_content=DAGssEu7gQ8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h97f136d901",
+  };
+
+  if (!projects.some((p) => p.id === isdnProject.id)) {
+    projects.push(isdnProject);
+  }
+
+  const nettoPaninoMaker = {
+    id: "netto-panino-maker",
+    title: "Netto Panino Maker",
+    categories: ["ai-systems", "web-development"],
+    description:
+      "Food-waste reduction mobile app that orchestrates a multi-agent LLM pipeline over live Netto grocery inventory data — filtering ingredients, generating recipes, validating outputs, and delivering step-by-step cooking flows.",
+    image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&auto=format&fit=crop",
+    tags: ["React Native", "Multi-Agent", "LLM", "Python", "Food Waste", "Expo"],
+    github: "https://github.com/LeoItaly/panini-app",
+    projectGithub: "https://github.com/LeoItaly/panini-app",
+    featured: true,
+    type: "project",
+    course: "Personal Project",
+    role: "Solo Developer & AI Systems Designer",
+    paperAvailable: false,
+    snippet:
+      "Multi-agent LLM pipeline over live retail inventory data for ingredient filtering, recipe generation, validation, and step-by-step cooking instruction delivery.",
+    motivation:
+      "Supermarkets waste enormous amounts of food because shoppers don't know how to use near-expiry items. Netto Panino Maker connects live store inventory to a multi-agent AI pipeline so users can turn available ingredients into real, validated recipes.",
+    scope:
+      "Full React Native product built end-to-end: live Netto inventory API integration, a multi-agent pipeline for ingredient filtering and translation, LLM recipe generation, output validation, and structured cooking flow delivery in a mobile UI.",
+    keyContributions: [
+      "Designed a multi-agent LLM architecture decomposing the task into filtering, translation, generation, and validation sub-agents.",
+      "Integrated live Netto grocery API to source real inventory data as pipeline input.",
+      "Built full React Native + Expo mobile application with step-by-step cooking flow UI.",
+      "Implemented output validation agent to reject low-quality or unsafe recipe outputs before delivery.",
+      "Structured prompt engineering for reliable, consistent recipe generation across product categories.",
+    ],
+    technologies:
+      "React Native, Expo, Python, LangChain, LLM APIs, Netto inventory API, multi-agent orchestration, prompt engineering.",
+    outcome:
+      "Shipped a working mobile product that demonstrates end-to-end multi-agent AI pipeline design from live data ingestion to validated user-facing output.",
+    futureWork:
+      "Expand to other Nordic grocery chains, add nutritional scoring, and integrate user preference memory across sessions.",
+    whatILearned: [
+      "Multi-agent task decomposition for reliable LLM pipeline design.",
+      "Connecting live external APIs as real-time data sources for AI workflows.",
+      "Output validation strategies for preventing unreliable LLM results from reaching users.",
+      "Full-stack product thinking from AI backend to polished mobile UI.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === nettoPaninoMaker.id)) {
+    projects.push(nettoPaninoMaker);
+  }
+
+  const deepAgentsLangGraph = {
+    id: "deep-agents-langgraph",
+    title: "Deep Agents with LangGraph",
+    categories: ["ai-systems", "research"],
+    description:
+      "Built a multi-step LLM agent with persistent memory, tool use, sub-agent delegation, and human-in-the-loop control using LangGraph — demonstrating reliable, stateful agentic task execution.",
+    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop",
+    tags: ["LangGraph", "LangChain", "Python", "Multi-Agent", "LLM", "Tool Use"],
+    github: "https://github.com/LeoItaly",
+    featured: true,
+    type: "project",
+    course: "LangChain Academy (Certified Project)",
+    role: "Developer & Researcher",
+    paperAvailable: false,
+    snippet:
+      "Multi-step LLM agent with memory, tool use, sub-agent delegation, and human-in-the-loop control for reliable task execution.",
+    motivation:
+      "Single-call LLMs fail on complex, multi-step tasks. LangGraph enables stateful agent workflows with checkpoints and branching — the foundation for reliable production-grade AI agents.",
+    scope:
+      "End-to-end implementation of a deep agent system: state graph design, tool binding, persistent memory across turns, sub-agent delegation, and human-in-the-loop interrupts for controlled execution.",
+    keyContributions: [
+      "Designed a LangGraph state machine with branching logic and checkpoint-based execution recovery.",
+      "Implemented persistent agent memory enabling context retention across multi-turn interactions.",
+      "Built tool-use capabilities allowing the agent to call external functions and APIs mid-workflow.",
+      "Integrated human-in-the-loop control points for safe, supervised task execution.",
+      "Demonstrated sub-agent delegation patterns for decomposing complex tasks into specialized agents.",
+    ],
+    technologies:
+      "Python, LangGraph, LangChain, OpenAI API, state machines, tool binding, memory persistence, human-in-the-loop patterns.",
+    outcome:
+      "Completed LangChain Academy deep agents course and received certification. Built a production-ready agent architecture template for multi-step agentic workflows.",
+    futureWork:
+      "Extend to a production RAG agent with document retrieval, integrate with external APIs, and build a supervisor-agent orchestration layer.",
+    whatILearned: [
+      "State graph design for reliable multi-step agent execution.",
+      "Memory architecture patterns for stateful LLM applications.",
+      "Human-in-the-loop design principles for safe agentic systems.",
+      "Sub-agent delegation and task decomposition strategies.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === deepAgentsLangGraph.id)) {
+    projects.push(deepAgentsLangGraph);
+  }
+
+  const androidDeploymentPipeline = {
+    id: "android-deployment-pipeline",
+    title: "Local Android App Deployment Pipeline",
+    categories: ["ai-systems"],
+    description:
+      "LLM-orchestrated workflow for building, signing, installing, and updating local Android apps — using structured skill files, checkpoint-based validation, and failure-recovery paths for reliable automated execution.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop",
+    tags: ["LLM", "Android", "Agent Workflow", "Python", "Automation", "Claude Code"],
+    github: "https://github.com/LeoItaly/local-android-app",
+    projectGithub: "https://github.com/LeoItaly/local-android-app",
+    featured: true,
+    type: "project",
+    course: "Personal Project",
+    role: "Sole Designer & Engineer",
+    paperAvailable: false,
+    snippet:
+      "LLM-orchestrated workflow for building, signing, installing, and updating local Android apps with checkpoint-based validation and failure-recovery paths.",
+    motivation:
+      "Android app deployment involves many brittle, sequential steps prone to failure. An LLM-orchestrated pipeline with structured skill files and checkpoint validation makes the process reliable and repeatable without manual intervention.",
+    scope:
+      "Designed a complete agent workflow covering the full Android deployment lifecycle: build, sign, install, verify, and update. Structured as reusable skill files with state checkpoints and recovery paths for each failure mode.",
+    keyContributions: [
+      "Designed the end-to-end LLM-orchestrated agent workflow architecture for Android deployment.",
+      "Structured skill files encoding each deployment step as a reusable, composable agent capability.",
+      "Implemented checkpoint-based state validation to detect and recover from failures at each pipeline stage.",
+      "Defined failure-recovery paths enabling the agent to retry, escalate, or fall back gracefully.",
+      "Engineered prompts for reliable structured output at each pipeline decision point.",
+    ],
+    technologies:
+      "Python, Claude Code, LLM orchestration, Android SDK, Gradle, APK signing tools, structured prompting, checkpoint validation patterns.",
+    outcome:
+      "Reliable, repeatable Android deployment workflow that executes autonomously with structured recovery — demonstrating LLM-orchestrated systems thinking beyond simple chatbot interactions.",
+    futureWork:
+      "Generalize the skill-file pattern to other CLI-based deployment targets (iOS, web) and integrate with CI/CD pipelines.",
+    whatILearned: [
+      "Designing LLM agent workflows for deterministic, multi-step CLI operations.",
+      "Skill-file architecture for composable, reusable agent capabilities.",
+      "Checkpoint and recovery pattern design for robust automated pipelines.",
+      "Structured prompt engineering for consistent, parseable agent outputs.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === androidDeploymentPipeline.id)) {
+    projects.push(androidDeploymentPipeline);
+  }
+
+  const masterThesisFoodWaste = {
+    id: "master-thesis-food-waste",
+    title: "Master Thesis: Danish Shopping Habits & Food Waste",
+    categories: ["data-science", "research"],
+    description:
+      "Built bipartite basket–product graphs and BCM-validated co-purchase networks to learn product similarity and compare behavioral patterns across Netto stores in Denmark. In progress — expected May 2026.",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&auto=format&fit=crop",
+    tags: ["Python", "Graph Networks", "Network Science", "Food Waste", "Data Analysis", "BCM"],
+    github: "https://github.com/LeoItaly/MScThesis",
+    projectGithub: "https://github.com/LeoItaly/MScThesis",
+    featured: true,
+    type: "research",
+    course: "MSc Master Thesis — DTU (Human-Centered AI)",
+    role: "Lead Researcher & Developer",
+    paperAvailable: false,
+    snippet:
+      "Graph-based modeling of Danish grocery co-purchase behavior to learn product similarity and surface food waste patterns across Netto stores.",
+    motivation:
+      "Food waste in Danish supermarkets is partly driven by purchasing patterns that lead to ingredient mismatches. By modeling shopping baskets as bipartite graphs, we can learn product similarity and identify behavioral patterns that inform waste-reduction strategies.",
+    scope:
+      "Analysis of Netto transaction data using bipartite basket–product graph construction, BCM (Bipartite Configuration Model) null model validation, co-purchase network learning, and cross-store behavioral comparison.",
+    keyContributions: [
+      "Constructed bipartite basket–product graphs from raw Netto transaction data.",
+      "Applied BCM null model validation to identify statistically significant co-purchase links.",
+      "Built co-purchase similarity networks for learning product relatedness beyond simple co-occurrence.",
+      "Compared behavioral patterns across multiple Netto store locations in Denmark.",
+      "Connected graph-based product similarity to food waste reduction use cases.",
+    ],
+    technologies:
+      "Python, NetworkX, NumPy, pandas, graph theory, BCM null models, network science, statistical validation, data visualization.",
+    outcome:
+      "Ongoing MSc thesis (expected May 2026) producing graph-based product similarity models and behavioral insights applicable to food waste reduction and retail recommendation systems.",
+    futureWork:
+      "Complete thesis write-up and defense (May 2026), publish findings, and explore integration with recommender systems for in-store food waste reduction.",
+    whatILearned: [
+      "Bipartite graph construction and projection techniques for transactional data.",
+      "BCM null model design for distinguishing signal from noise in co-purchase networks.",
+      "Network science methods applied to consumer behavior and retail data.",
+      "Cross-location behavioral comparison using graph-theoretic similarity measures.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === masterThesisFoodWaste.id)) {
+    projects.push(masterThesisFoodWaste);
+  }
+
+  const centroRevisioniColecchia = {
+    id: "centro-revisioni-colecchia",
+    title: "Centro Revisioni Colecchia",
+    categories: ["web-development"],
+    description:
+      "Built and shipped a production booking system for an Italian auto workshop, designing the full-stack architecture for workflow automation and future integration of LLM-powered customer operations.",
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&auto=format&fit=crop",
+    tags: ["React", "TypeScript", "Supabase", "Full-Stack", "Booking System", "Production"],
+    projectWebsite: "https://officinacolecchia.com/",
+    featured: true,
+    type: "project",
+    course: "Client Work / Personal Project",
+    role: "Full-Stack Developer",
+    paperAvailable: false,
+    snippet:
+      "Production-grade full-stack booking system for an auto workshop with workflow automation and architecture designed for LLM-powered customer operations.",
+    motivation:
+      "The workshop relied on phone calls and paper for bookings — an error-prone, time-consuming process. A web-based booking system would automate scheduling, reduce admin overhead, and lay the foundation for AI-powered customer service.",
+    scope:
+      "End-to-end full-stack product: React + TypeScript frontend, Supabase backend with real-time database and auth, booking workflow logic, and an architecture designed to support future LLM integration for customer operations like automated replies and scheduling assistance.",
+    keyContributions: [
+      "Designed and shipped the full-stack booking system from scratch in production.",
+      "Built React + TypeScript frontend with intuitive booking flow and admin dashboard.",
+      "Configured Supabase backend with real-time database, authentication, and row-level security.",
+      "Designed data model and workflow logic to support future LLM-powered customer operations.",
+      "Delivered a production-ready, live system used by the workshop for daily operations.",
+    ],
+    technologies:
+      "React, TypeScript, Supabase, PostgreSQL, real-time subscriptions, authentication, full-stack deployment, workflow automation design.",
+    outcome:
+      "Live production system actively used by the auto workshop. Replaced manual phone-and-paper booking with a reliable digital workflow, with architecture ready for AI-powered extensions.",
+    futureWork:
+      "Integrate an LLM-powered customer messaging layer for automated booking confirmations, reminders, and FAQ handling.",
+    whatILearned: [
+      "End-to-end full-stack product delivery under real client constraints.",
+      "Supabase architecture patterns for real-time, auth-secured applications.",
+      "Designing data models that anticipate future AI integration requirements.",
+      "Balancing speed of delivery with production-quality code and UX.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === centroRevisioniColecchia.id)) {
+    projects.push(centroRevisioniColecchia);
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <section id="projects" className="section-padding bg-slate-50 dark:bg-slate-900/50">
-      <div className="container-custom">
+    <section id="projects" className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
           className="text-center mb-16"
         >
-          <h2 className="section-title">My Projects</h2>
-          <p className="section-subtitle mx-auto">
-            Explore my portfolio of AI/ML projects and technical innovations
-          </p>
+          <motion.div variants={itemVariants} className="mb-6">
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-500/30 text-purple-300">
+              <Rocket className="w-4 h-4 mr-2" />
+              Featured Work
+            </span>
+          </motion.div>
+
+          <motion.h2
+            variants={itemVariants}
+            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6 leading-tight py-2"
+          >
+            My Projects
+          </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+          >
+            From AI development to interactive web applications, explore my
+            journey of building innovative solutions that bridge theory and
+            practice.
+          </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card overflow-hidden"
-              onMouseEnter={() => setHoveredId(project.id)}
-              onMouseLeave={() => setHoveredId(null)}
+        {/* Project Filter */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-2 sm:px-0"
+        >
+          {projectCategories.map((category) => (
+            <motion.button
+              key={category.id}
+              variants={itemVariants}
+              className={`flex items-center px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
+                activeFilter === category.id
+                  ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
+                  : "bg-white/10 text-gray-300 hover:bg-white/20 backdrop-blur-sm border border-white/10"
+              }`}
+              onClick={() => setActiveFilter(category.id)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="relative overflow-hidden aspect-video">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: hoveredId === project.id ? 'scale(1.05)' : 'scale(1)',
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-70" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{project.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {project.tags.map((tag) => (
+              <category.icon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">{category.label}</span>
+              <span className="sm:hidden">{category.label.split(" ")[0]}</span>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 relative"
+        >
+          <AnimatePresence mode="sync">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                variants={itemVariants}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition-all duration-300 cursor-pointer flex flex-col ${
+                  project.featured ? "sm:col-span-2 lg:col-span-1" : ""
+                }`}
+                whileHover={{ y: -10, scale: 1.02 }}
+                onClick={() => setSelectedProject(project)}
+              >
+                {/* Project Image */}
+                <div className="relative h-40 sm:h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
+                </div>
+
+                {/* Project Content */}
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-300 mb-4">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
+                    {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-1 bg-primary-600/70 text-white text-xs rounded-full"
+                        className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/10 text-white rounded-full"
                       >
                         {tag}
                       </span>
                     ))}
+                    {project.tags.length > 3 && (
+                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-white/10 text-white rounded-full">
+                        +{project.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Project Links */}
+                  <div className="flex justify-between gap-2 sm:gap-4 mt-auto">
+                    {project.github && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center px-2 sm:px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Code</span>
+                        <span className="sm:hidden">Repo</span>
+                      </motion.a>
+                    )}
+
+                    {project.paper && (
+                      <motion.a
+                        href={project.paper}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center px-2 sm:px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <FileText className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Paper</span>
+                        <span className="sm:hidden">PDF</span>
+                      </motion.a>
+                    )}
+
+                    {/* NYC Noise Story: Add Visit Website button if project is NYC Noise Story */}
+                    {project.id === "social-data-analysis-nyc" && project.projectWebsite && (
+                      <motion.a
+                        href={project.projectWebsite}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center px-2 sm:px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Visit Website</span>
+                        <span className="sm:hidden">Visit</span>
+                      </motion.a>
+                    )}
+
+                    <motion.button
+                      className="flex-1 flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-600 hover:to-purple-600 text-white rounded-lg transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      More Insights
+                    </motion.button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-              <div className="p-6">
-                <p className="text-slate-700 dark:text-slate-300 mb-6">{project.description}</p>
-                <div className="flex gap-4">
-                  {project.links.github && (
-                    <a
-                      href={project.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
-                    >
-                      <Github className="w-4 h-4 mr-1" />
-                      Code
-                    </a>
-                  )}
-                  {project.links.demo && (
-                    <a
-                      href={project.links.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1" />
-                      Live Demo
-                    </a>
-                  )}
-                  {project.links.paper && (
-                    <a
-                      href={project.links.paper}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1" />
-                      Research Paper
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
+        {/* GitHub CTA */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="text-center mt-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="text-center mt-16"
         >
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline"
+          <motion.div
+            variants={itemVariants}
+            className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-sm rounded-2xl p-8 border border-purple-500/20"
           >
-            View More on GitHub
-          </a>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Explore More on GitHub
+            </h3>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+              Check out my complete portfolio of projects, contributions to
+              open-source, and ongoing experiments in AI/ML and interactive
+              systems
+            </p>
+            <motion.a
+              href="https://github.com/LeoItaly"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github className="w-5 h-5 mr-2" />
+              View GitHub Profile
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
+
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-l from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, -180, -360],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </div>
+
+      {/* Project Detail Modal */}
+      <ProjectDetail
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        project={selectedProject!}
+      />
     </section>
   );
 };
