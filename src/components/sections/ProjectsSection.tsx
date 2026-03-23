@@ -9,6 +9,7 @@ import {
   Brain,
   Code,
   Database,
+  Bot,
 } from "lucide-react";
 import ProjectDetail from "./ProjectDetail";
 
@@ -83,6 +84,12 @@ const ProjectsSection: React.FC = () => {
       label: "Computer Vision",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
+    },
+    {
+      id: "ai-systems",
+      label: "AI Systems & Agents",
+      icon: Bot,
+      color: "from-violet-500 to-purple-500",
     },
     {
       id: "data-science",
@@ -885,6 +892,234 @@ const ProjectsSection: React.FC = () => {
 
   if (!projects.some((p) => p.id === isdnProject.id)) {
     projects.push(isdnProject);
+  }
+
+  const nettoPaninoMaker = {
+    id: "netto-panino-maker",
+    title: "Netto Panino Maker",
+    categories: ["ai-systems", "web-development"],
+    description:
+      "Food-waste reduction mobile app that orchestrates a multi-agent LLM pipeline over live Netto grocery inventory data — filtering ingredients, generating recipes, validating outputs, and delivering step-by-step cooking flows.",
+    image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&auto=format&fit=crop",
+    tags: ["React Native", "Multi-Agent", "LLM", "Python", "Food Waste", "Expo"],
+    github: "https://github.com/LeoItaly/panini-app",
+    projectGithub: "https://github.com/LeoItaly/panini-app",
+    featured: true,
+    type: "project",
+    course: "Personal Project",
+    role: "Solo Developer & AI Systems Designer",
+    paperAvailable: false,
+    snippet:
+      "Multi-agent LLM pipeline over live retail inventory data for ingredient filtering, recipe generation, validation, and step-by-step cooking instruction delivery.",
+    motivation:
+      "Supermarkets waste enormous amounts of food because shoppers don't know how to use near-expiry items. Netto Panino Maker connects live store inventory to a multi-agent AI pipeline so users can turn available ingredients into real, validated recipes.",
+    scope:
+      "Full React Native product built end-to-end: live Netto inventory API integration, a multi-agent pipeline for ingredient filtering and translation, LLM recipe generation, output validation, and structured cooking flow delivery in a mobile UI.",
+    keyContributions: [
+      "Designed a multi-agent LLM architecture decomposing the task into filtering, translation, generation, and validation sub-agents.",
+      "Integrated live Netto grocery API to source real inventory data as pipeline input.",
+      "Built full React Native + Expo mobile application with step-by-step cooking flow UI.",
+      "Implemented output validation agent to reject low-quality or unsafe recipe outputs before delivery.",
+      "Structured prompt engineering for reliable, consistent recipe generation across product categories.",
+    ],
+    technologies:
+      "React Native, Expo, Python, LangChain, LLM APIs, Netto inventory API, multi-agent orchestration, prompt engineering.",
+    outcome:
+      "Shipped a working mobile product that demonstrates end-to-end multi-agent AI pipeline design from live data ingestion to validated user-facing output.",
+    futureWork:
+      "Expand to other Nordic grocery chains, add nutritional scoring, and integrate user preference memory across sessions.",
+    whatILearned: [
+      "Multi-agent task decomposition for reliable LLM pipeline design.",
+      "Connecting live external APIs as real-time data sources for AI workflows.",
+      "Output validation strategies for preventing unreliable LLM results from reaching users.",
+      "Full-stack product thinking from AI backend to polished mobile UI.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === nettoPaninoMaker.id)) {
+    projects.push(nettoPaninoMaker);
+  }
+
+  const deepAgentsLangGraph = {
+    id: "deep-agents-langgraph",
+    title: "Deep Agents with LangGraph",
+    categories: ["ai-systems", "research"],
+    description:
+      "Built a multi-step LLM agent with persistent memory, tool use, sub-agent delegation, and human-in-the-loop control using LangGraph — demonstrating reliable, stateful agentic task execution.",
+    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop",
+    tags: ["LangGraph", "LangChain", "Python", "Multi-Agent", "LLM", "Tool Use"],
+    github: "https://github.com/LeoItaly",
+    featured: true,
+    type: "project",
+    course: "LangChain Academy (Certified Project)",
+    role: "Developer & Researcher",
+    paperAvailable: false,
+    snippet:
+      "Multi-step LLM agent with memory, tool use, sub-agent delegation, and human-in-the-loop control for reliable task execution.",
+    motivation:
+      "Single-call LLMs fail on complex, multi-step tasks. LangGraph enables stateful agent workflows with checkpoints and branching — the foundation for reliable production-grade AI agents.",
+    scope:
+      "End-to-end implementation of a deep agent system: state graph design, tool binding, persistent memory across turns, sub-agent delegation, and human-in-the-loop interrupts for controlled execution.",
+    keyContributions: [
+      "Designed a LangGraph state machine with branching logic and checkpoint-based execution recovery.",
+      "Implemented persistent agent memory enabling context retention across multi-turn interactions.",
+      "Built tool-use capabilities allowing the agent to call external functions and APIs mid-workflow.",
+      "Integrated human-in-the-loop control points for safe, supervised task execution.",
+      "Demonstrated sub-agent delegation patterns for decomposing complex tasks into specialized agents.",
+    ],
+    technologies:
+      "Python, LangGraph, LangChain, OpenAI API, state machines, tool binding, memory persistence, human-in-the-loop patterns.",
+    outcome:
+      "Completed LangChain Academy deep agents course and received certification. Built a production-ready agent architecture template for multi-step agentic workflows.",
+    futureWork:
+      "Extend to a production RAG agent with document retrieval, integrate with external APIs, and build a supervisor-agent orchestration layer.",
+    whatILearned: [
+      "State graph design for reliable multi-step agent execution.",
+      "Memory architecture patterns for stateful LLM applications.",
+      "Human-in-the-loop design principles for safe agentic systems.",
+      "Sub-agent delegation and task decomposition strategies.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === deepAgentsLangGraph.id)) {
+    projects.push(deepAgentsLangGraph);
+  }
+
+  const androidDeploymentPipeline = {
+    id: "android-deployment-pipeline",
+    title: "Local Android App Deployment Pipeline",
+    categories: ["ai-systems"],
+    description:
+      "LLM-orchestrated workflow for building, signing, installing, and updating local Android apps — using structured skill files, checkpoint-based validation, and failure-recovery paths for reliable automated execution.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop",
+    tags: ["LLM", "Android", "Agent Workflow", "Python", "Automation", "Claude Code"],
+    github: "https://github.com/LeoItaly/local-android-app",
+    projectGithub: "https://github.com/LeoItaly/local-android-app",
+    featured: true,
+    type: "project",
+    course: "Personal Project",
+    role: "Sole Designer & Engineer",
+    paperAvailable: false,
+    snippet:
+      "LLM-orchestrated workflow for building, signing, installing, and updating local Android apps with checkpoint-based validation and failure-recovery paths.",
+    motivation:
+      "Android app deployment involves many brittle, sequential steps prone to failure. An LLM-orchestrated pipeline with structured skill files and checkpoint validation makes the process reliable and repeatable without manual intervention.",
+    scope:
+      "Designed a complete agent workflow covering the full Android deployment lifecycle: build, sign, install, verify, and update. Structured as reusable skill files with state checkpoints and recovery paths for each failure mode.",
+    keyContributions: [
+      "Designed the end-to-end LLM-orchestrated agent workflow architecture for Android deployment.",
+      "Structured skill files encoding each deployment step as a reusable, composable agent capability.",
+      "Implemented checkpoint-based state validation to detect and recover from failures at each pipeline stage.",
+      "Defined failure-recovery paths enabling the agent to retry, escalate, or fall back gracefully.",
+      "Engineered prompts for reliable structured output at each pipeline decision point.",
+    ],
+    technologies:
+      "Python, Claude Code, LLM orchestration, Android SDK, Gradle, APK signing tools, structured prompting, checkpoint validation patterns.",
+    outcome:
+      "Reliable, repeatable Android deployment workflow that executes autonomously with structured recovery — demonstrating LLM-orchestrated systems thinking beyond simple chatbot interactions.",
+    futureWork:
+      "Generalize the skill-file pattern to other CLI-based deployment targets (iOS, web) and integrate with CI/CD pipelines.",
+    whatILearned: [
+      "Designing LLM agent workflows for deterministic, multi-step CLI operations.",
+      "Skill-file architecture for composable, reusable agent capabilities.",
+      "Checkpoint and recovery pattern design for robust automated pipelines.",
+      "Structured prompt engineering for consistent, parseable agent outputs.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === androidDeploymentPipeline.id)) {
+    projects.push(androidDeploymentPipeline);
+  }
+
+  const masterThesisFoodWaste = {
+    id: "master-thesis-food-waste",
+    title: "Master Thesis: Danish Shopping Habits & Food Waste",
+    categories: ["data-science", "research"],
+    description:
+      "Built bipartite basket–product graphs and BCM-validated co-purchase networks to learn product similarity and compare behavioral patterns across Netto stores in Denmark. In progress — expected May 2026.",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&auto=format&fit=crop",
+    tags: ["Python", "Graph Networks", "Network Science", "Food Waste", "Data Analysis", "BCM"],
+    github: "https://github.com/LeoItaly/MScThesis",
+    projectGithub: "https://github.com/LeoItaly/MScThesis",
+    featured: true,
+    type: "research",
+    course: "MSc Master Thesis — DTU (Human-Centered AI)",
+    role: "Lead Researcher & Developer",
+    paperAvailable: false,
+    snippet:
+      "Graph-based modeling of Danish grocery co-purchase behavior to learn product similarity and surface food waste patterns across Netto stores.",
+    motivation:
+      "Food waste in Danish supermarkets is partly driven by purchasing patterns that lead to ingredient mismatches. By modeling shopping baskets as bipartite graphs, we can learn product similarity and identify behavioral patterns that inform waste-reduction strategies.",
+    scope:
+      "Analysis of Netto transaction data using bipartite basket–product graph construction, BCM (Bipartite Configuration Model) null model validation, co-purchase network learning, and cross-store behavioral comparison.",
+    keyContributions: [
+      "Constructed bipartite basket–product graphs from raw Netto transaction data.",
+      "Applied BCM null model validation to identify statistically significant co-purchase links.",
+      "Built co-purchase similarity networks for learning product relatedness beyond simple co-occurrence.",
+      "Compared behavioral patterns across multiple Netto store locations in Denmark.",
+      "Connected graph-based product similarity to food waste reduction use cases.",
+    ],
+    technologies:
+      "Python, NetworkX, NumPy, pandas, graph theory, BCM null models, network science, statistical validation, data visualization.",
+    outcome:
+      "Ongoing MSc thesis (expected May 2026) producing graph-based product similarity models and behavioral insights applicable to food waste reduction and retail recommendation systems.",
+    futureWork:
+      "Complete thesis write-up and defense (May 2026), publish findings, and explore integration with recommender systems for in-store food waste reduction.",
+    whatILearned: [
+      "Bipartite graph construction and projection techniques for transactional data.",
+      "BCM null model design for distinguishing signal from noise in co-purchase networks.",
+      "Network science methods applied to consumer behavior and retail data.",
+      "Cross-location behavioral comparison using graph-theoretic similarity measures.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === masterThesisFoodWaste.id)) {
+    projects.push(masterThesisFoodWaste);
+  }
+
+  const centroRevisioniColecchia = {
+    id: "centro-revisioni-colecchia",
+    title: "Centro Revisioni Colecchia",
+    categories: ["web-development"],
+    description:
+      "Built and shipped a production booking system for an Italian auto workshop, designing the full-stack architecture for workflow automation and future integration of LLM-powered customer operations.",
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&auto=format&fit=crop",
+    tags: ["React", "TypeScript", "Supabase", "Full-Stack", "Booking System", "Production"],
+    projectWebsite: "https://officinacolecchia.com/",
+    featured: true,
+    type: "project",
+    course: "Client Work / Personal Project",
+    role: "Full-Stack Developer",
+    paperAvailable: false,
+    snippet:
+      "Production-grade full-stack booking system for an auto workshop with workflow automation and architecture designed for LLM-powered customer operations.",
+    motivation:
+      "The workshop relied on phone calls and paper for bookings — an error-prone, time-consuming process. A web-based booking system would automate scheduling, reduce admin overhead, and lay the foundation for AI-powered customer service.",
+    scope:
+      "End-to-end full-stack product: React + TypeScript frontend, Supabase backend with real-time database and auth, booking workflow logic, and an architecture designed to support future LLM integration for customer operations like automated replies and scheduling assistance.",
+    keyContributions: [
+      "Designed and shipped the full-stack booking system from scratch in production.",
+      "Built React + TypeScript frontend with intuitive booking flow and admin dashboard.",
+      "Configured Supabase backend with real-time database, authentication, and row-level security.",
+      "Designed data model and workflow logic to support future LLM-powered customer operations.",
+      "Delivered a production-ready, live system used by the workshop for daily operations.",
+    ],
+    technologies:
+      "React, TypeScript, Supabase, PostgreSQL, real-time subscriptions, authentication, full-stack deployment, workflow automation design.",
+    outcome:
+      "Live production system actively used by the auto workshop. Replaced manual phone-and-paper booking with a reliable digital workflow, with architecture ready for AI-powered extensions.",
+    futureWork:
+      "Integrate an LLM-powered customer messaging layer for automated booking confirmations, reminders, and FAQ handling.",
+    whatILearned: [
+      "End-to-end full-stack product delivery under real client constraints.",
+      "Supabase architecture patterns for real-time, auth-secured applications.",
+      "Designing data models that anticipate future AI integration requirements.",
+      "Balancing speed of delivery with production-quality code and UX.",
+    ],
+  };
+
+  if (!projects.some((p) => p.id === centroRevisioniColecchia.id)) {
+    projects.push(centroRevisioniColecchia);
   }
 
   const containerVariants = {

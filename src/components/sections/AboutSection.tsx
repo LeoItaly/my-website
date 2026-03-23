@@ -53,8 +53,8 @@ const AboutSection: React.FC = () => {
     },
     {
       icon: Code,
-      label: "University Projects",
-      value: "11+",
+      label: "AI & Product Projects",
+      value: "15+",
       color: "text-blue-400",
     },
     {
@@ -66,7 +66,7 @@ const AboutSection: React.FC = () => {
     {
       icon: Github,
       label: "Active Repos",
-      value: "15+",
+      value: "20+",
       color: "text-pink-400",
     },
   ];
@@ -74,24 +74,24 @@ const AboutSection: React.FC = () => {
   const researchAreas = [
     {
       icon: Brain,
-      title: "Computer Vision & Deep Learning",
+      title: "AI Systems & Agentic Workflows",
       description:
-        "Face recognition, medical imaging, object detection, and generative models",
-      color: "from-purple-500 to-blue-500",
+        "LLM applications, multi-agent pipelines, prompt engineering, and AI product prototyping",
+      color: "from-violet-500 to-purple-500",
     },
     {
       icon: Globe,
-      title: "Interactive Systems & Web Development",
+      title: "Full-Stack & Mobile Development",
       description:
-        "Building interactive web applications, user interfaces, and modern web experiences",
+        "React, React Native, TypeScript, and Supabase — shipping products across web and mobile",
       color: "from-blue-500 to-green-500",
     },
     {
       icon: Palette,
-      title: "Human-Computer Interaction",
+      title: "ML / CV Research Foundation",
       description:
-        "UX design, personal informatics, and mobile application development",
-      color: "from-green-500 to-purple-500",
+        "Computer vision, deep learning, generative models, and graph-based data analysis",
+      color: "from-purple-500 to-blue-500",
     },
   ];
 
@@ -115,7 +115,7 @@ const AboutSection: React.FC = () => {
     {
       name: "Resume",
       icon: FileText,
-      url: "/my-website/assets/CV-Leonardo-Rodovero.pdf",
+      url: "/my-website/assets/Leonardo Rodovero - AI Engineer Resume.pdf",
       description: "View or download my full resume (PDF)",
       color: "from-pink-600 to-purple-600",
       hoverColor: "hover:from-purple-600 hover:to-pink-600",
@@ -151,21 +151,22 @@ const AboutSection: React.FC = () => {
             variants={itemVariants}
             className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6 leading-tight py-2"
           >
-            Building Human-Centered AI
+            Building Intelligent Products
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
           >
-            I'm a <strong className="text-white">DTU Master's student</strong>{" "}
-            in{" "}
+            I'm an{" "}
             <strong className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Human-Centered Artificial Intelligence
-            </strong>
-            , exploring the intersection of advanced AI techniques and
-            human-centric design. My journey spans from computer vision and deep
-            learning to web development and UX research.
+              Applied AI Engineer
+            </strong>{" "}
+            focused on building full-stack AI products and production-ready
+            systems — from LLM pipelines and agentic workflows to data-driven
+            products that help businesses adopt AI in practice. Finishing my{" "}
+            <strong className="text-white">MSc in Human-Centered AI at DTU</strong>{" "}
+            in May 2026, with a foundation in ML, computer vision, and deep learning.
           </motion.p>
         </motion.div>
 
@@ -196,24 +197,23 @@ const AboutSection: React.FC = () => {
               </div>
 
               <p className="text-gray-300 leading-relaxed mb-6">
-                During my Master's program in{" "}
-                <strong className="text-white">Human-Centered AI</strong>, I've
-                explored diverse domains from computer vision and medical
-                imaging to interactive web applications and user experience
-                design. Each project represents university-level research and
-                development, combining theoretical knowledge with practical
-                implementation.
+                I design and ship{" "}
+                <strong className="text-white">full-stack AI products</strong> —
+                from multi-agent LLM pipelines and agentic workflows to React Native
+                apps and production booking systems. My work spans both applied AI
+                engineering and research, backed by an MSc in{" "}
+                <strong className="text-white">Human-Centered AI</strong> at DTU
+                (graduating May 2026).
               </p>
 
               <p className="text-gray-300 leading-relaxed">
-                My work spans{" "}
+                With{" "}
                 <strong className="text-blue-300">
-                  11+ comprehensive projects
+                  15+ AI and product projects
                 </strong>{" "}
-                covering facial recognition systems, deep learning models, data
-                visualization, mobile applications, and 3D graphics programming.
-                You can explore the full range of my technical capabilities in
-                the projects section below.
+                — including multi-agent systems, LangGraph agents, graph-based
+                data models, and production web systems — I bridge the gap between
+                LLM capabilities and real-world business applications.
               </p>
             </motion.div>
 

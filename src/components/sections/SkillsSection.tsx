@@ -38,109 +38,109 @@ const SkillsSection: React.FC = () => {
     },
     {
       id: "ai-ml",
-      label: "AI/ML & Vision",
+      label: "AI Systems",
       icon: Brain,
-      color: "from-purple-500 to-pink-500",
+      color: "from-violet-500 to-purple-500",
     },
     {
       id: "programming",
-      label: "Development",
+      label: "Full-Stack Dev",
       icon: Code,
       color: "from-blue-500 to-cyan-500",
     },
     {
       id: "data",
-      label: "Data & UX",
+      label: "Data & Analytics",
       icon: Database,
       color: "from-green-500 to-teal-500",
     },
     {
       id: "tools",
-      label: "Research Tools",
+      label: "ML/CV Foundation",
       icon: Zap,
       color: "from-yellow-500 to-orange-500",
     },
   ];
 
   const skills = [
-    // Computer Vision & AI Skills
+    // AI Systems
     {
-      name: "Computer Vision & Deep Learning",
-      level: 94,
-      category: "ai-ml",
-      color: "from-purple-400 to-blue-500",
-      description:
-        "CNNs, object detection, segmentation, medical imaging, FIQA, 3D geometry, and transfer learning",
-    },
-    {
-      name: "Deep Learning & Generative AI",
+      name: "LLM Applications & Agentic Workflows",
       level: 92,
       category: "ai-ml",
-      color: "from-red-400 to-pink-500",
+      color: "from-violet-400 to-purple-500",
       description:
-        "PyTorch, TensorFlow, DDPMs, GANs, Transformers, advanced neural architectures",
+        "Multi-agent systems, LangGraph, LangChain, prompt engineering, AI product prototyping, human-in-the-loop design",
     },
     {
-      name: "Image Processing & Graphics",
+      name: "AI Product Design & Orchestration",
+      level: 90,
+      category: "ai-ml",
+      color: "from-purple-400 to-pink-500",
+      description:
+        "End-to-end AI product thinking — from pipeline architecture and tool use to deployment and business integration",
+    },
+    {
+      name: "Automation & Data Pipelines",
       level: 88,
       category: "ai-ml",
-      color: "from-green-400 to-teal-500",
+      color: "from-pink-400 to-rose-500",
       description:
-        "OpenCV, WebGL, GLSL shaders, geometric processing, point clouds, and mesh analysis",
+        "Web scraping, API integration, structured data extraction, analytics automation, Zapier, n8n workflows",
     },
 
-    // Programming & Development Skills
+    // Full-Stack Development
     {
-      name: "Multi-Platform Development",
+      name: "React & React Native",
       level: 95,
-      category: "programming",
-      color: "from-yellow-400 to-orange-500",
-      description:
-        "Python, JavaScript, React Native, TypeScript, scientific computing, mobile apps",
-    },
-    {
-      name: "Web Technologies & Interactive Systems",
-      level: 94,
       category: "programming",
       color: "from-cyan-400 to-blue-500",
       description:
-        "React, D3.js, interactive prototypes, user research tools, and modern web frameworks",
+        "Web and mobile product development with React, React Native, Expo, TypeScript, and Supabase",
+    },
+    {
+      name: "Full-Stack Architecture",
+      level: 90,
+      category: "programming",
+      color: "from-blue-400 to-indigo-500",
+      description:
+        "Python, TypeScript, JavaScript, Supabase, real-time databases, auth, and production deployment",
     },
 
-    // Data Science & Analytics Skills
+    // Data & Analytics
     {
-      name: "Machine Learning & Statistics",
-      level: 90,
+      name: "Graph-Based Data Modeling",
+      level: 88,
       category: "data",
-      color: "from-blue-400 to-purple-500",
+      color: "from-green-400 to-teal-500",
       description:
-        "Regression, classification, PCA, cross-validation, Bayesian inference, model evaluation",
+        "Bipartite graphs, co-purchase networks, BCM null models, NetworkX, and network science methods",
     },
     {
       name: "Data Visualization & Analytics",
       level: 94,
       category: "data",
-      color: "from-indigo-400 to-blue-500",
+      color: "from-teal-400 to-green-500",
       description:
-        "D3.js, interactive dashboards, social data analysis, narrative visualization, large datasets",
+        "D3.js, interactive dashboards, narrative visualization, large-scale data analysis, GA4",
     },
 
-    // UX & Research Skills
+    // ML/CV Foundation
     {
-      name: "UX Research & Design",
-      level: 88,
-      category: "data",
-      color: "from-pink-400 to-purple-500",
+      name: "Computer Vision & Deep Learning",
+      level: 94,
+      category: "tools",
+      color: "from-purple-400 to-blue-500",
       description:
-        "User research, mobile prototyping, personal informatics, HCI evaluation, usability testing",
+        "CNNs, object detection, segmentation, medical imaging, FIQA, 3D geometry, and transfer learning",
     },
     {
-      name: "Research & Academic Methods",
-      level: 82,
+      name: "Generative AI & Diffusion Models",
+      level: 90,
       category: "tools",
-      color: "from-purple-400 to-pink-500",
+      color: "from-red-400 to-pink-500",
       description:
-        "Scientific writing, literature review, experimental design, academic tools, peer review",
+        "PyTorch, DDPMs, GANs, Transformers, noise scheduling, classifier-free guidance",
     },
   ];
 
@@ -222,9 +222,9 @@ const SkillsSection: React.FC = () => {
             variants={itemVariants}
             className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/10"
           >
-            A comprehensive toolkit spanning AI/ML development, interactive
-            systems, and data science. Constantly evolving with the latest
-            technologies and methodologies.
+            Applied AI engineering across the full stack — from LLM pipelines
+            and agentic workflows to React products, data systems, and ML research.
+            Constantly building and shipping.
           </motion.p>
         </motion.div>
 

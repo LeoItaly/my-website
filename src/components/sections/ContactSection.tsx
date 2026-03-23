@@ -136,7 +136,7 @@ const ContactSection: React.FC = () => {
     {
       name: "Resume",
       icon: FileText,
-      url: "/my-website/assets/CV-Leonardo-Rodovero.pdf",
+      url: "/my-website/assets/Leonardo Rodovero - AI Engineer Resume.pdf",
       color: "hover:text-pink-400",
       bg: "hover:bg-pink-800/20",
       description: "View or download my full resume (PDF)",

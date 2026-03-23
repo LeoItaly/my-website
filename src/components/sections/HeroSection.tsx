@@ -25,77 +25,55 @@ const HeroSection: React.FC = () => {
     new Set()
   );
 
-  // Updated roles with dynamic descriptions based on your projects
   const roles = useMemo(
     () => [
       {
-        title: "AI/ML Engineer",
+        title: "Applied AI Engineer",
         icon: Brain,
         color: "from-purple-400 to-pink-400",
         description:
-          "Building AI solutions from computer vision to deep learning and biometric systems",
-        techs: ["python", "pytorch", "opencv", "tensorflow"],
+          "Building full-stack AI products from LLM pipelines and agentic workflows to production-ready systems",
+        techs: ["python", "pytorch", "react", "typescript"],
       },
       {
-        title: "Interactive Systems Developer",
+        title: "Agentic Workflow Builder",
+        icon: Zap,
+        color: "from-violet-400 to-purple-400",
+        description:
+          "Designing multi-agent systems with memory, tool use, sub-agent delegation, and human-in-the-loop control",
+        techs: ["python", "pytorch", "javascript", "nodejs"],
+      },
+      {
+        title: "LLM Systems Developer",
+        icon: Atom,
+        color: "from-cyan-400 to-blue-400",
+        description:
+          "Integrating LLMs into real products via orchestration, prompt engineering, and API-driven automation",
+        techs: ["python", "react", "typescript", "nodejs"],
+      },
+      {
+        title: "Full-Stack Developer",
         icon: Code,
         color: "from-green-400 to-cyan-400",
         description:
-          "Creating human-centered interfaces and interactive web applications with modern technologies",
-        techs: ["react", "typescript", "javascript", "webgl", "d3"],
+          "Shipping React, React Native, and TypeScript products across web and mobile platforms",
+        techs: ["react", "typescript", "javascript", "nodejs"],
       },
       {
         title: "Data Scientist",
         icon: Database,
         color: "from-blue-400 to-green-400",
         description:
-          "Transforming complex datasets into actionable insights and predictive models",
-        techs: ["python", "pytorch", "javascript"],
+          "Transforming complex datasets into graph models, data pipelines, and data-driven product insights",
+        techs: ["python", "pytorch", "javascript", "nextdotjs"],
       },
       {
         title: "AI/ML Researcher",
-        icon: Brain,
-        color: "from-purple-400 to-pink-400",
-        description:
-          "Exploring cutting-edge AI techniques from computer vision to deep learning and biometric systems",
-        techs: ["python", "pytorch", "opencv", "tensorflow"],
-      },
-      {
-        title: "UX Researcher & Designer",
-        icon: Code,
-        color: "from-green-400 to-cyan-400",
-        description:
-          "Designing human-centered interfaces and conducting systematic user research for emerging technologies",
-        techs: [
-          "react",
-          "typescript",
-          "javascript",
-          "user-research",
-          "prototyping",
-        ],
-      },
-      {
-        title: "Research Enthusiast",
-        icon: Atom,
+        icon: Sparkles,
         color: "from-yellow-400 to-pink-400",
         description:
-          "Exploring cutting-edge technologies from biometrics to human-computer interaction",
-        techs: ["python", "opencv", "pytorch", "react"],
-      },
-      {
-        title: "UX Researcher",
-        icon: Zap,
-        color: "from-pink-400 to-purple-400",
-        description:
-          "Designing human-centered interfaces and mobile experiences for better user interaction",
-        techs: [
-          "react",
-          "typescript",
-          "javascript",
-          "nodejs",
-          "salesforce",
-          "zapier",
-        ],
+          "Computer vision, deep learning, generative models, and biometric systems from MSc research",
+        techs: ["python", "pytorch", "opencv", "react"],
       },
     ],
     []
@@ -512,7 +490,7 @@ const HeroSection: React.FC = () => {
             </motion.button>
 
             <a
-              href="/my-website/assets/CV-Leonardo-Rodovero.pdf"
+              href="/my-website/assets/Leonardo Rodovero - AI Engineer Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 sm:px-8 py-3 sm:py-4 border border-pink-400 text-pink-300 font-semibold rounded-lg bg-white/5 text-sm sm:text-base flex items-center justify-center transition-colors hover:bg-pink-500/10 hover:text-pink-200"
