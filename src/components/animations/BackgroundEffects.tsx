@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const BackgroundEffects: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const lastMouseUpdate = useRef(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ 
+      const now = Date.now();
+      if (now - lastMouseUpdate.current < 50) return; // throttle to ~20fps
+      lastMouseUpdate.current = now;
+      setMousePosition({
         x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1 
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
       });
     };
 
@@ -16,56 +20,53 @@ const BackgroundEffects: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Reduced number of stars for better performance
-  const stars = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2 + 1,
-    duration: Math.random() * 4 + 3,
-    delay: Math.random() * 2,
-  }));
+  // Stable arrays — created once, never regenerated on re-render
+  const stars = useRef(
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+      duration: Math.random() * 4 + 3,
+      delay: Math.random() * 2,
+    }))
+  ).current;
 
-  // Reduced floating orbs
-  const orbs = Array.from({ length: 6 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 120 + 60,
-    duration: Math.random() * 15 + 20,
-    color: ['purple', 'blue', 'green'][Math.floor(Math.random() * 3)],
-  }));
+  const orbs = useRef(
+    Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 120 + 60,
+      duration: Math.random() * 15 + 20,
+      color: (['purple', 'blue', 'green'] as const)[Math.floor(Math.random() * 3)],
+    }))
+  ).current;
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {/* Optimized gradient background */}
+      {/* Gradient background — follows mouse, opacity animates slowly */}
       <motion.div
         className="absolute inset-0 opacity-30"
         style={{
           background: `
-            radial-gradient(circle at ${(mousePosition.x + 1) * 50}% ${100 - (mousePosition.y + 1) * 50}%, 
-              rgba(139, 92, 246, 0.3) 0%, 
-              rgba(59, 130, 246, 0.2) 40%, 
+            radial-gradient(circle at ${(mousePosition.x + 1) * 50}% ${100 - (mousePosition.y + 1) * 50}%,
+              rgba(139, 92, 246, 0.3) 0%,
+              rgba(59, 130, 246, 0.2) 40%,
               transparent 70%),
-            linear-gradient(45deg, 
-              rgba(139, 92, 246, 0.05) 0%, 
-              rgba(59, 130, 246, 0.05) 50%, 
+            linear-gradient(45deg,
+              rgba(139, 92, 246, 0.05) 0%,
+              rgba(59, 130, 246, 0.05) 50%,
               transparent 100%)
           `,
         }}
-        animate={{
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Optimized stars */}
+      {/* Stars — plain divs with CSS animation (zero Framer Motion overhead) */}
       {stars.map((star) => (
-        <motion.div
+        <div
           key={star.id}
           className="absolute rounded-full bg-white"
           style={{
@@ -73,21 +74,13 @@ const BackgroundEffects: React.FC = () => {
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-          }}
-          animate={{
-            opacity: [0, 0.8, 0],
-            scale: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: star.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: star.delay,
+            animation: `starPulse ${star.duration}s ease-in-out ${star.delay}s infinite`,
+            willChange: 'opacity, transform',
           }}
         />
       ))}
 
-      {/* Optimized floating orbs */}
+      {/* Floating orbs */}
       {orbs.map((orb) => (
         <motion.div
           key={orb.id}
@@ -97,11 +90,12 @@ const BackgroundEffects: React.FC = () => {
             top: `${orb.y}%`,
             width: `${orb.size}px`,
             height: `${orb.size}px`,
-            background: `radial-gradient(circle, 
-              ${orb.color === 'purple' ? 'rgba(139, 92, 246, 0.4)' : 
+            background: `radial-gradient(circle,
+              ${orb.color === 'purple' ? 'rgba(139, 92, 246, 0.4)' :
                 orb.color === 'blue' ? 'rgba(59, 130, 246, 0.4)' :
-                'rgba(16, 185, 129, 0.4)'} 0%, 
+                'rgba(16, 185, 129, 0.4)'} 0%,
               transparent 70%)`,
+            willChange: 'transform',
           }}
           animate={{
             y: [-20, -60, -20],
@@ -116,8 +110,8 @@ const BackgroundEffects: React.FC = () => {
         />
       ))}
 
-      {/* Simplified meteor effect */}
-      <motion.div className="absolute inset-0">
+      {/* Meteor effects */}
+      <div className="absolute inset-0">
         {Array.from({ length: 3 }, (_, i) => (
           <motion.div
             key={i}
@@ -139,9 +133,9 @@ const BackgroundEffects: React.FC = () => {
             }}
           />
         ))}
-      </motion.div>
+      </div>
 
-      {/* Simplified neural network - static SVG */}
+      {/* Static neural network SVG */}
       <svg className="absolute inset-0 w-full h-full opacity-5" style={{ zIndex: 1 }}>
         <defs>
           <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -150,8 +144,7 @@ const BackgroundEffects: React.FC = () => {
             <stop offset="100%" stopColor="#10b981" stopOpacity="0.2" />
           </linearGradient>
         </defs>
-        
-        {/* Static grid pattern */}
+
         {Array.from({ length: 6 }, (_, i) => (
           <g key={i}>
             <line
@@ -173,7 +166,6 @@ const BackgroundEffects: React.FC = () => {
           </g>
         ))}
 
-        {/* Static connection nodes */}
         {Array.from({ length: 8 }, (_, i) => (
           <circle
             key={i}

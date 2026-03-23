@@ -20,8 +20,8 @@ import {
 
 const ContactSection: React.FC = () => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: false,
+    threshold: 0.05,
   });
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -359,18 +359,8 @@ const ContactSection: React.FC = () => {
                     </>
                   )}
 
-                  {/* Button shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    animate={{
-                      x: ["-100%", "100%"],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                  {/* Button shine effect — CSS hover only */}
+                  <div className="btn-shine absolute inset-0" />
                 </motion.button>
 
                 {/* Submit Status */}
@@ -504,18 +494,7 @@ const ContactSection: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <motion.div
-                      className="w-2 h-2 bg-current rounded-full"
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 1, 0.5],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: index * 0.3,
-                      }}
-                    />
+                    <div className="w-2 h-2 bg-current rounded-full opacity-60" />
                   </motion.a>
                 ))}
               </div>
@@ -529,17 +508,9 @@ const ContactSection: React.FC = () => {
             >
               <div className="relative z-10">
                 <div className="flex items-center space-x-4 mb-4">
-                  <motion.div
+                  <div
                     className="w-4 h-4 bg-green-400 rounded-full"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      opacity: [1, 0.7, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    style={{ animation: "availabilityPulse 2s ease-in-out infinite" }}
                   />
                   <span className="text-green-300 font-bold text-lg">
                     Available for Projects

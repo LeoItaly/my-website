@@ -20,7 +20,6 @@ import {
 const HeroSection: React.FC = () => {
   const [text, setText] = useState("");
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
-  const [animationTime, setAnimationTime] = useState(0);
   const [highlightedTechs, setHighlightedTechs] = useState<Set<string>>(
     new Set()
   );
@@ -84,7 +83,6 @@ const HeroSection: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
 
   // Use useSpring for smoother scroll effects
   const { scrollYProgress } = useScroll({
@@ -182,41 +180,17 @@ const HeroSection: React.FC = () => {
     []
   );
 
-  // Optimize animation loop with RAF
-  useEffect(() => {
-    const updateAnimation = () => {
-      setAnimationTime(Date.now() * 0.001);
-      animationFrameRef.current = requestAnimationFrame(updateAnimation);
-    };
-
-    animationFrameRef.current = requestAnimationFrame(updateAnimation);
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, []);
-
-  // Memoize position calculations
-  const calculateTechPosition = useCallback(
-    (index: number, time: number) => {
-      const baseRadius = 200; // Reduced from 280 to bring logos closer to center
-      const angle = (index / techLogos.length) * Math.PI * 2 + time * 0.08; // Slower rotation
+  // Static positions computed once — orbit driven by CSS keyframes (orbitRotate / counterRotate)
+  const techPositions = useMemo(() => {
+    const baseRadius = 200;
+    return techLogos.map((_, index) => {
+      const angle = (index / techLogos.length) * Math.PI * 2;
       return {
         x: Math.cos(angle) * baseRadius,
         y: Math.sin(angle) * baseRadius,
       };
-    },
-    [techLogos.length]
-  );
-
-  // Memoize tech positions to reduce calculations
-  const techPositions = useMemo(() => {
-    return techLogos.map((_, index) =>
-      calculateTechPosition(index, animationTime)
-    );
-  }, [techLogos, calculateTechPosition, animationTime]);
+    });
+  }, [techLogos]);
 
   // Typewriter effect with smooth transitions
   useEffect(() => {
@@ -308,7 +282,7 @@ const HeroSection: React.FC = () => {
     >
       <motion.div
         ref={heroRef}
-        style={{ y, opacity, scale }}
+        style={{ y, opacity, scale, willChange: "transform, opacity" }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
       >
         <motion.div
@@ -335,31 +309,23 @@ const HeroSection: React.FC = () => {
           >
             <motion.span className="block text-white mb-4">
               Hi, I'm{" "}
-              <motion.span
+              <span
                 className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                style={{ backgroundSize: "200% auto" }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                style={{ backgroundSize: "200% auto", animation: "gradientShift 4s linear infinite" }}
               >
                 Leo
-              </motion.span>
+              </span>
             </motion.span>
 
             <motion.span className="block text-lg sm:text-2xl md:text-4xl lg:text-5xl text-gray-200">
               I'm a{" "}
               <span className="relative inline-block">
-                <motion.span
+                <span
                   className={`bg-gradient-to-r ${roles[roleIndex].color} bg-clip-text text-transparent font-bold`}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  style={{ backgroundSize: "200% auto" }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                  style={{ backgroundSize: "200% auto", animation: "gradientShift 5s linear infinite" }}
                 >
                   {text}
-                </motion.span>
+                </span>
                 <motion.span
                   className="absolute -right-1 top-0 w-1 h-full bg-gradient-to-b from-purple-400 to-blue-400 rounded-full"
                   animate={{ opacity: [0, 1, 0] }}
@@ -411,67 +377,74 @@ const HeroSection: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Tech Logos Orbit */}
-              {techLogos.map((tech, index) => {
-                const position = techPositions[index];
-                const isRelevant = currentRoleTechs.includes(tech.name);
-                const isHighlighted = highlightedTechs.has(tech.name);
+              {/* Tech Logos Orbit — CSS rotation, no JS per-frame updates */}
+              <div
+                className="absolute inset-0"
+                style={{ animation: "orbitRotate 30s linear infinite", willChange: "transform", transformOrigin: "50% 50%" }}
+              >
+                {techLogos.map((tech, index) => {
+                  const position = techPositions[index];
+                  const isRelevant = currentRoleTechs.includes(tech.name);
+                  const isHighlighted = highlightedTechs.has(tech.name);
 
-                return (
-                  <motion.div
-                    key={tech.name}
-                    className="absolute cursor-pointer group"
-                    initial={{ scale: 0, x: 0, y: 0 }}
-                    animate={{
-                      x: position.x,
-                      y: position.y,
-                      scale: isRelevant || isHighlighted ? 1 : 0.75,
-                    }}
-                    transition={{
-                      scale: { duration: 0.5, delay: index * 0.05 },
-                      x: { type: "spring", stiffness: 50, damping: 20 },
-                      y: { type: "spring", stiffness: 50, damping: 20 },
-                    }}
-                    whileHover={{
-                      scale: isRelevant || isHighlighted ? 1.1 : 0.9,
-                    }}
-                    onMouseEnter={() => setHoveredTech(tech.name)}
-                    onMouseLeave={() => setHoveredTech(null)}
-                  >
+                  return (
+                    // Outer: static translate to orbit position
                     <div
-                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg backdrop-blur-sm border transition-all duration-200 ${
-                        isRelevant || isHighlighted
-                          ? "bg-white/15 border-white/30"
-                          : "bg-white/8 border-white/15"
-                      } ${
-                        hoveredTech === tech.name
-                          ? "bg-white/25 border-white/40"
-                          : ""
-                      }`}
+                      key={tech.name}
+                      className="absolute"
+                      style={{
+                        left: "50%",
+                        top: "50%",
+                        transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`,
+                      }}
                     >
-                      <div className="w-full h-full flex items-center justify-center p-2 sm:p-3">
-                        <img
-                          src={tech.logo}
-                          alt={tech.name}
-                          className="w-full h-full object-contain"
-                          loading="lazy"
-                          style={{
-                            filter:
-                              isRelevant || isHighlighted
-                                ? "brightness(1.1) saturate(1.1)"
-                                : "brightness(0.8) saturate(0.8)",
-                          }}
-                        />
+                      {/* Inner: counter-rotates so logo stays upright */}
+                      <div style={{ animation: "counterRotate 30s linear infinite", willChange: "transform" }}>
+                      <motion.div
+                        className="cursor-pointer group"
+                        animate={{ scale: isRelevant || isHighlighted ? 1 : 0.75 }}
+                        transition={{ scale: { duration: 0.5, delay: index * 0.05 } }}
+                        whileHover={{ scale: isRelevant || isHighlighted ? 1.1 : 0.9 }}
+                        onMouseEnter={() => setHoveredTech(tech.name)}
+                        onMouseLeave={() => setHoveredTech(null)}
+                      >
+                        <div
+                          className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg backdrop-blur-sm border transition-all duration-200 ${
+                            isRelevant || isHighlighted
+                              ? "bg-white/15 border-white/30"
+                              : "bg-white/8 border-white/15"
+                          } ${
+                            hoveredTech === tech.name
+                              ? "bg-white/25 border-white/40"
+                              : ""
+                          }`}
+                        >
+                          <div className="w-full h-full flex items-center justify-center p-2 sm:p-3">
+                            <img
+                              src={tech.logo}
+                              alt={tech.name}
+                              className="w-full h-full object-contain"
+                              loading="lazy"
+                              style={{
+                                filter:
+                                  isRelevant || isHighlighted
+                                    ? "brightness(1.1) saturate(1.1)"
+                                    : "brightness(0.8) saturate(0.8)",
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                          <div className="text-center">
+                            <div className="font-medium">{tech.name}</div>
+                          </div>
+                        </div>
+                      </motion.div>
                       </div>
                     </div>
-                    <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                      <div className="text-center">
-                        <div className="font-medium">{tech.name}</div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -513,28 +486,20 @@ const HeroSection: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Decorative elements */}
+        {/* Decorative elements — CSS animation, no Framer Motion */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {Array.from({ length: 6 }, (_, i) => (
-            <motion.div
+          {Array.from({ length: 3 }, (_, i) => (
+            <div
               key={i}
               className="absolute"
               style={{
-                left: `${15 + i * 12}%`,
+                left: `${15 + i * 25}%`,
                 top: `${20 + ((i * 15) % 40)}%`,
-              }}
-              animate={{
-                scale: [0.8, 1, 0.8],
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 8 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
+                animation: `decorPulse ${8 + i * 2}s ease-in-out infinite`,
               }}
             >
               <div className="w-8 h-8 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full" />
-            </motion.div>
+            </div>
           ))}
         </div>
       </motion.div>

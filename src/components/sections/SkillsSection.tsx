@@ -13,8 +13,8 @@ import {
 
 const SkillsSection: React.FC = () => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: false,
+    threshold: 0.05,
   });
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -195,13 +195,7 @@ const SkillsSection: React.FC = () => {
                 boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.5)",
               }}
             >
-              <motion.div
-                animate={{
-                  rotate: [0, 180, 360],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
+              <motion.div whileHover={{ rotate: 180 }} transition={{ duration: 0.4 }}>
                 <TrendingUp className="w-5 h-5 mr-3" />
               </motion.div>
               Technical Expertise
@@ -313,18 +307,8 @@ const SkillsSection: React.FC = () => {
                       transition: { duration: 0.2 },
                     }}
                   />
-                  {/* Shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    animate={{
-                      x: ["-100%", "100%"],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: 1.5,
-                    }}
-                  />
+                  {/* Shine effect — CSS hover only */}
+                  <div className="skill-bar-shine absolute inset-0" />
                 </div>
               </div>
 
@@ -389,11 +373,8 @@ const SkillsSection: React.FC = () => {
               </svg>
             </div>
 
-            <motion.h3
+            <h3
               className="text-3xl font-bold text-white mb-6 relative z-10"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
               style={{
                 background:
                   "linear-gradient(90deg, #ffffff, #a855f7, #3b82f6, #ffffff)",
@@ -401,11 +382,11 @@ const SkillsSection: React.FC = () => {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                animation: "gradientShift 3s linear infinite",
               }}
-              transition={{ duration: 3, repeat: Infinity }}
             >
               Continuous Learning Journey
-            </motion.h3>
+            </h3>
 
             <motion.p
               className="text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed text-lg relative z-10"
@@ -431,8 +412,8 @@ const SkillsSection: React.FC = () => {
               }
             >
               <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
               >
                 <Filter className="w-5 h-5 mr-3" />
               </motion.div>
@@ -453,23 +434,23 @@ const SkillsSection: React.FC = () => {
 
             {/* Floating tech icons around the summary */}
             <div className="absolute inset-0 pointer-events-none">
-              {[Brain, Code, Database, Zap].map((Icon, i) => (
+              {[Brain, Code].map((Icon, i) => (
                 <motion.div
                   key={i}
                   className="absolute"
                   style={{
-                    left: `${20 + i * 20}%`,
-                    top: `${20 + (i % 2) * 60}%`,
+                    left: `${20 + i * 60}%`,
+                    top: `${20 + i * 60}%`,
                   }}
                   animate={{
                     rotate: [0, 360],
-                    scale: [0.8, 1.2, 0.8],
-                    opacity: [0.1, 0.3, 0.1],
+                    scale: [0.8, 1.0, 0.8],
+                    opacity: [0.05, 0.15, 0.05],
                   }}
                   transition={{
-                    duration: 8 + i * 2,
+                    duration: 20 + i * 4,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: "linear",
                   }}
                 >
                   <Icon className="w-8 h-8 text-purple-400" />
