@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   Brain,
@@ -13,21 +13,12 @@ import {
 
 const SkillsSection: React.FC = () => {
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.05,
-  });
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
+    triggerOnce: true,
+    threshold: 0.1,
   });
 
   const [activeCategory, setActiveCategory] = useState("all");
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   const skillCategories = [
     {
@@ -175,11 +166,7 @@ const SkillsSection: React.FC = () => {
 
   return (
     <section id="skills" className="py-20 relative overflow-hidden">
-      <motion.div
-        ref={sectionRef}
-        style={{ y, opacity }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -459,7 +446,7 @@ const SkillsSection: React.FC = () => {
             </div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Enhanced background decoration with 3D effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
