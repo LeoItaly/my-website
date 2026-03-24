@@ -16,7 +16,9 @@ const BackgroundEffects: React.FC = () => {
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    }
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 

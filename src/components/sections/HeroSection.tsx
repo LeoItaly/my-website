@@ -23,6 +23,9 @@ const HeroSection: React.FC = () => {
   const [highlightedTechs, setHighlightedTechs] = useState<Set<string>>(
     new Set()
   );
+  const [orbitRadius, setOrbitRadius] = useState(() =>
+    window.innerWidth < 640 ? 110 : window.innerWidth < 1024 ? 160 : 200
+  );
 
   const roles = useMemo(
     () => [
@@ -182,15 +185,14 @@ const HeroSection: React.FC = () => {
 
   // Static positions computed once — orbit driven by CSS keyframes (orbitRotate / counterRotate)
   const techPositions = useMemo(() => {
-    const baseRadius = 200;
     return techLogos.map((_, index) => {
-      const angle = (index / techLogos.length) * Math.PI * 2;
+      const angle = (index / techLogos.length) * Math.PI * 2 - Math.PI / 2;
       return {
-        x: Math.cos(angle) * baseRadius,
-        y: Math.sin(angle) * baseRadius,
+        x: Math.cos(angle) * orbitRadius,
+        y: Math.sin(angle) * orbitRadius,
       };
     });
-  }, [techLogos]);
+  }, [techLogos, orbitRadius]);
 
   // Typewriter effect with smooth transitions
   useEffect(() => {
@@ -275,10 +277,17 @@ const HeroSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [techLogos]);
 
+  useEffect(() => {
+    const onResize = () =>
+      setOrbitRadius(window.innerWidth < 640 ? 110 : window.innerWidth < 1024 ? 160 : 200);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
+      className="relative min-h-[100dvh] flex items-center justify-center pt-16 overflow-hidden"
     >
       <motion.div
         ref={heroRef}

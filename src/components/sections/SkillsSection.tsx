@@ -204,7 +204,7 @@ const SkillsSection: React.FC = () => {
 
           <motion.h2
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight py-2"
+            className="text-3xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight py-2"
             style={{
               textShadow: "0 0 80px rgba(139, 92, 246, 0.3)",
             }}

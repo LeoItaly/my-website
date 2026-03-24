@@ -220,7 +220,7 @@ const AboutSection: React.FC = () => {
             {/* Stats Grid */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
               {stats.map((stat, index) => (
                 <motion.div
@@ -303,7 +303,7 @@ const AboutSection: React.FC = () => {
             Connect & Explore
           </motion.h3>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {profileLinks.map((link) => (
               <motion.a
                 key={link.name}

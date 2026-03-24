@@ -320,7 +320,7 @@ const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
+                    rows={4}
                     className="w-full px-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none border-white/20 focus:border-purple-500 focus:ring-purple-500/20"
                     placeholder="Tell me about your project, idea, or how we can collaborate. I'd love to hear from you!"
                     whileFocus={{ scale: 1.02 }}
