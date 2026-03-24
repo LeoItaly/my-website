@@ -20,8 +20,8 @@ import {
 
 const ContactSection: React.FC = () => {
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.05,
+    triggerOnce: true,
+    threshold: 0.1,
   });
 
   const formRef = useRef<HTMLFormElement>(null);
