@@ -833,11 +833,6 @@ const ProjectsSection: React.FC = () => {
     },
   ];
 
-  const filteredProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((project) => project.categories.includes(activeFilter));
-
   // Add ISDN 4000S – Applied Generative AI for Interdisciplinary Projects (GoodClass.ai redesign)
   const isdnProject = {
     id: "isdn-4000s-goodclass",
@@ -1121,6 +1116,11 @@ const ProjectsSection: React.FC = () => {
   if (!projects.some((p) => p.id === centroRevisioniColecchia.id)) {
     projects.push(centroRevisioniColecchia);
   }
+
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.categories.includes(activeFilter));
 
   const containerVariants = {
     hidden: { opacity: 0 },
